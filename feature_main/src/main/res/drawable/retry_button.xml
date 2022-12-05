@@ -1,0 +1,17 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="40dp"
+                android:height="40dp" />
+            <solid android:color="@color/colorPrimary_alpha_12" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="12dp"
+        android:drawable="@drawable/ic_retry_thin"
+        android:left="12dp"
+        android:right="12dp"
+        android:top="12dp" />
+</layer-list>

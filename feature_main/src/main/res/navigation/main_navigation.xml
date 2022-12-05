@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.inensus.feature_dashboard.main.view.DashboardMainFragment"
+        android:label="@string/navigation_title_dashboard" />
+
+    <fragment
+        android:id="@+id/customersFragment"
+        android:name="com.inensus.feature_customers.customer_list.view.CustomerListFragment"
+        android:label="@string/navigation_title_customers">
+
+        <action
+            android:id="@+id/openCustomerDetail"
+            app:destination="@+id/customerDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerDetailFragment"
+        android:name="com.inensus.feature_customers.customer_detail.view.CustomerDetailFragment"
+        android:label="@string/navigation_title_customer_detail">
+
+        <action
+            android:id="@+id/openPayment"
+            app:destination="@+id/paymentFormFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openPaymentDetail"
+            app:destination="@+id/paymentDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openApplianceForm"
+            app:destination="@+id/applianceFormFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openApplianceDetail"
+            app:destination="@+id/applianceDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openTicketForm"
+            app:destination="@+id/ticketFormFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openTicketDetail"
+            app:destination="@+id/ticketDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentsFragment"
+        android:name="com.inensus.feature_payment.payment_main.PaymentMainFragment"
+        android:label="@string/navigation_title_payments">
+
+        <action
+            android:id="@+id/openPayment"
+            app:destination="@+id/paymentFormFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openPaymentDetail"
+            app:destination="@+id/paymentDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFormFragment"
+        android:name="com.inensus.feature_payment.payment_form.view.PaymentFormFragment"
+        android:label="New Payment">
+
+        <action
+            android:id="@+id/openPaymentSummary"
+            app:destination="@+id/paymentSummaryFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentDetailFragment"
+        android:name="com.inensus.feature_payment.payment_detail.view.PaymentDetailFragment"
+        android:label="Payment Detail" />
+
+    <fragment
+        android:id="@+id/paymentSummaryFragment"
+        android:name="com.inensus.feature_payment.payment_form.view.PaymentSummaryFragment"
+        android:label="Summary" />
+
+    <fragment
+        android:id="@+id/appliancesFragment"
+        android:name="com.inensus.feature_appliance.appliance_list.view.ApplianceListFragment"
+        android:label="@string/navigation_title_appliances">
+
+        <action
+            android:id="@+id/openApplianceForm"
+            app:destination="@+id/applianceFormFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openApplianceDetail"
+            app:destination="@+id/applianceDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/applianceDetailFragment"
+        android:name="com.inensus.feature_appliance.appliance_detail.view.ApplianceDetailFragment"
+        android:label="Appliance Detail" />
+
+    <fragment
+        android:id="@+id/applianceFormFragment"
+        android:name="com.inensus.feature_appliance.appliance_form.view.ApplianceFormFragment"
+        android:label="New Appliance">
+
+        <action
+            android:id="@+id/openApplianceSummary"
+            app:destination="@+id/applianceSummaryFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/applianceSummaryFragment"
+        android:name="com.inensus.feature_appliance.appliance_form.view.ApplianceSummaryFragment"
+        android:label="Summary" />
+
+    <fragment
+        android:id="@+id/ticketsFragment"
+        android:name="com.inensus.feature_ticket.ticket_list.view.TicketListFragment"
+        android:label="@string/navigation_title_tickets">
+
+        <action
+            android:id="@+id/openTicketForm"
+            app:destination="@+id/ticketFormFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+        <action
+            android:id="@+id/openTicketDetail"
+            app:destination="@+id/ticketDetailFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ticketFormFragment"
+        android:name="com.inensus.feature_ticket.ticket_form.view.TicketFormFragment"
+        android:label="New Ticket">
+
+        <action
+            android:id="@+id/openTicketSummary"
+            app:destination="@+id/ticketSummaryFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/enter_anim"
+            app:popExitAnim="@anim/exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ticketDetailFragment"
+        android:name="com.inensus.feature_ticket.ticket_detail.view.TicketDetailFragment"
+        android:label="Ticket Detail" />
+
+    <fragment
+        android:id="@+id/ticketSummaryFragment"
+        android:name="com.inensus.feature_ticket.ticket_form.view.TicketSummaryFragment"
+        android:label="Summary" />
+
+</navigation>

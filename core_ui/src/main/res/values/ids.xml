@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="customersFragment" type="id" />
+    <item name="openCustomerDetail" type="id" />
+    <item name="openApplianceForm" type="id" />
+    <item name="openApplianceSummary" type="id" />
+    <item name="openApplianceDetail" type="id" />
+    <item name="openPayment" type="id" />
+    <item name="openPaymentSummary" type="id" />
+    <item name="openPaymentDetail" type="id" />
+    <item name="openTicketForm" type="id" />
+    <item name="openTicketSummary" type="id" />
+    <item name="openTicketDetail" type="id" />
+</resources>

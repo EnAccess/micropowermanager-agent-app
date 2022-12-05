@@ -1,0 +1,9 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/payment"
+    app:startDestination="@id/mainPaymentFragment">
+    <fragment
+        android:id="@+id/mainPaymentFragment"
+        android:name="com.inensus.feature_payment.payment_main.PaymentMainFragment" />
+
+</navigation>

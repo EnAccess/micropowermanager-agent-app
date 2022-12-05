@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_EDEEF5">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/inputForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.inensus.core_ui.dropdown_input.DropdownInputView
+                        android:id="@+id/applianceDropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_margin="8dp"
+                        app:dropdown_input_title="@string/appliance"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.inensus.core_ui.date_input.DateInputView
+                        android:id="@+id/paymentDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_margin="8dp"
+                        app:date_input_title="@string/appliance_payment_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/applianceDropdown" />
+
+                    <com.inensus.core_ui.default_input.DefaultInputView
+                        android:id="@+id/downPayment"
+                        style="@style/DefaultInputView"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:hint="@string/payment_amount_hint"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/paymentDate"
+                        app:title="@string/appliance_down_payment" />
+
+                    <com.inensus.core_ui.default_input.DefaultInputView
+                        android:id="@+id/tenure"
+                        style="@style/DefaultInputView"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:hint="@string/appliance_tenure_hint"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/downPayment"
+                        app:title="@string/appliance_tenure" />
+
+                    <ImageView
+                        android:id="@+id/ivAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/ic_amount"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tenure" />
+
+                    <TextView
+                        android:id="@+id/amountLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/appliance_monthly_payment"
+                        android:textColor="@color/blue_1A237E"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivAmount"
+                        app:layout_constraintStart_toEndOf="@+id/ivAmount"
+                        app:layout_constraintTop_toTopOf="@+id/ivAmount" />
+
+                    <TextView
+                        android:id="@+id/amountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/bold"
+                        android:text="@string/zero_default_currency"
+                        android:textColor="@color/blue_1A237E"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivAmount"
+                        app:layout_constraintStart_toEndOf="@+id/amountLabel"
+                        app:layout_constraintTop_toTopOf="@+id/ivAmount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonContinue"
+                style="@style/MaterialButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/button_continue"
+                app:cornerRadius="2dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/loadingLayout"
+        layout="@layout/appliance_form_loading_view"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/errorLayout"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

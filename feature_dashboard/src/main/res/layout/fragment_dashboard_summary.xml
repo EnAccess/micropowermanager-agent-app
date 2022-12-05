@@ -1,0 +1,42 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_EDEEF5"
+        android:orientation="vertical">
+
+        <com.inensus.feature_dashboard.summary.view.DashboardSummaryItemView
+            android:id="@+id/dashboardSummaryBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:summary_icon="@drawable/ic_dashboard_summary_balance"
+            app:summary_title="@string/dashboard_summary_balance" />
+
+        <com.inensus.feature_dashboard.summary.view.DashboardSummaryItemView
+            android:id="@+id/dashboardSummaryProfit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:summary_icon="@drawable/ic_dashboard_summary_profit"
+            app:summary_title="@string/dashboard_summary_profit" />
+
+        <com.inensus.feature_dashboard.summary.view.DashboardSummaryItemView
+            android:id="@+id/dashboardSummaryDebt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:summary_icon="@drawable/ic_dashboard_summary_debt"
+            app:summary_title="@string/dashboard_summary_debt" />
+
+        <com.inensus.feature_dashboard.summary.view.DashboardSummaryItemView
+            android:id="@+id/dashboardSummaryAverage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:summary_icon="@drawable/ic_dashboard_summary_average"
+            app:summary_title="@string/dashboard_summary_average" />
+
+    </LinearLayout>
+</ScrollView>

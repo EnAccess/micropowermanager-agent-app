@@ -1,0 +1,11 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ticket"
+    app:startDestination="@id/ticketListFragment">
+    <fragment
+        android:id="@+id/ticketListFragment"
+        android:name="com.inensus.feature_ticket.ticket_list.view.TicketListFragment"
+        android:label="Tickets"
+        tools:layout="@layout/fragment_ticket_list" />
+</navigation>

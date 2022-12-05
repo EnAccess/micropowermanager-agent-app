@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.inensus.core_ui.shimmer_layout.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@drawable/round_corners_4dp_skeleton"
+    android:backgroundTint="@color/gray_DFE0E6"
+    app:shimmer_auto_start="true"
+    app:shimmer_color="@color/white_alpha_64">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="64dp"
+            android:layout_height="16dp"
+            android:background="@drawable/round_corners_2dp_skeleton"
+            android:backgroundTint="@color/gray_D2D3D8" />
+
+        <View
+            android:layout_width="72dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/round_corners_2dp_skeleton"
+            android:backgroundTint="@color/gray_D2D3D8" />
+
+    </LinearLayout>
+
+</com.inensus.core_ui.shimmer_layout.ShimmerLayout>

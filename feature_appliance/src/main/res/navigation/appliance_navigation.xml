@@ -1,0 +1,10 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appliance"
+    app:startDestination="@id/applianceListFragment">
+    <fragment
+        android:id="@+id/applianceListFragment"
+        android:name="com.inensus.feature_appliance.appliance_list.view.ApplianceListFragment"
+        tools:layout="@layout/fragment_appliance_list" />
+</navigation>

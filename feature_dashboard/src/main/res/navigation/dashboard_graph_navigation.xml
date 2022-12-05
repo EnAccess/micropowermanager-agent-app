@@ -1,0 +1,9 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dashboardGraph"
+    app:startDestination="@id/dashboardGraphFragment">
+    <fragment
+        android:id="@+id/dashboardGraphFragment"
+        android:name="com.inensus.feature_dashboard.graph.view.DashboardGraphMainFragment" />
+
+</navigation>

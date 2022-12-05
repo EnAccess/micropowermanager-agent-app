@@ -1,0 +1,152 @@
+<resources>
+    <string name="app_name">Merchant App</string>
+    <string name="app_code">M</string>
+
+    <string name="warning">Warning</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="loading_message">In Progress…</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="action_cancel">"Cancel"</string>
+    <string name="action_save">"Save"</string>
+
+    <string name="login_title_regular">"Easiest way to \ngrow your business \nwith"</string>
+    <string name="login_title_bold">"Merchant"</string>
+    <string name="login_subtitle">"Welcome Back, \nplease login to your account"</string>
+    <string name="login_email_hint">"business@mail.com"</string>
+    <string name="login_email_title">"Email"</string>
+    <string name="login_password_hint">"● ● ● ● ● ●"</string>
+    <string name="login_password_title">"Password"</string>
+    <string name="login_forgot_password">"Forgot Your Password?"</string>
+    <string name="login_forgot_password_action">Please contact your Minigrid Provider for assistance.</string>
+    <string name="login_button">"Login"</string>
+    <string name="login_rights_reserved">"© 2020 - INENSUS GmbH · All rights reserved."</string>
+
+    <string name="navigation_error_title">Unable to load Agent Data</string>
+    <string name="navigation_error_subtitle">Please retry</string>
+    <string name="navigation_title_dashboard">Dashboard</string>
+    <string name="navigation_dashboard_summary">Summary</string>
+    <string name="navigation_dashboard_graph">Graph</string>
+    <string name="navigation_title_customers">Customers</string>
+    <string name="navigation_title_payments">Payments</string>
+    <string name="navigation_title_appliances">Sold Appliances</string>
+    <string name="navigation_title_tickets">Tickets</string>
+    <string name="navigation_title_customer_detail">Customer Detail</string>
+    <string name="navigation_title_payment">Payment</string>
+
+    <string name="error_content">Something went wrong, \n please try again later</string>
+    <string name="error_retry">Retry</string>
+    <string name="error_session_expired">Your session has expired. Please sign in.</string>
+    <string name="warning_sign_out">Are you sure you want to sign out?</string>
+    <string name="empty_content">Seems like this list is empty, \n please try again later</string>
+    <string name="default_currency">NGN</string>
+    <string name="zero_default_currency">0 NGN</string>
+    <string name="dropdown_placeholder">Select</string>
+    <string name="date_placeholder">DD.MM.YYYY</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="success_home">Home</string>
+    <string name="success_header">Success</string>
+    <string name="pending_header">Pending</string>
+    <string name="success_body">Congratulations, your request has been successful.</string>
+    <string name="pending_body">Your transaction request will be processed shortly.</string>
+    <string name="success_print_file_name">Merchant - Print</string>
+    <string name="balance">Balance: %1s %2s</string>
+
+    <string name="dashboard_summary_balance">Current Balance</string>
+    <string name="dashboard_summary_profit">Total Profit</string>
+    <string name="dashboard_summary_debt">Total Debt</string>
+    <string name="dashboard_summary_average">Average Transaction Value</string>
+    <string name="dashboard_summary_since">Since: %s</string>
+    <string name="dashboard_summary_total">Total</string>
+    <string name="dashboard_graph_empty_data">There is no data to present yet</string>
+    <string name="dashboard_graph_available_balance">Balance</string>
+    <string name="dashboard_graph_due_balance">Amount Due to Electricity Supplier</string>
+
+    <string name="customers_menu_search">Search</string>
+    <string name="customer_name_surname">%s %s</string>
+    <string name="customer_detail_menu_payments">Payments</string>
+    <string name="customer_detail_menu_appliances">Appliances</string>
+    <string name="customer_detail_menu_tickets">Tickets</string>
+
+    <string name="payment_name_surname">Name Surname</string>
+    <string name="payment_meter">Meter</string>
+    <string name="payment_token">Token</string>
+    <string name="payment_customer">Customer Id</string>
+    <string name="payment_customer_hint">########</string>
+    <string name="payment_amount">Amount</string>
+    <string name="payment_amount_hint">0.00</string>
+    <string name="payment_empty_layout_content">You haven\'t made any payment yet</string>
+    <string name="payment_empty_layout__with_customer_content">You haven\'t received any payment from %1s yet, \nwould you like to start one?</string>
+    <string name="payment_empty_layout_action">Create</string>
+    <string name="payment_detail_transaction_id">Transaction Id</string>
+    <string name="payment_detail_customer">Customer</string>
+    <string name="payment_detail_amount">Amount</string>
+    <string name="payment_detail_token">Token</string>
+    <string name="payment_detail_payment_type">Payment Type</string>
+    <string name="payment_detail_meter">Meter</string>
+    <string name="payment_detail_date">Date</string>
+    <string name="payment_detail_status">Status</string>
+    <string name="payment_detail_status_success">Success</string>
+    <string name="payment_detail_status_pending">Pending</string>
+    <string name="payment_detail_status_error">Error</string>
+    <string name="payment_detail_sms_to">To</string>
+    <string name="payment_detail_sms_body">Body</string>
+    <string name="payment_graph_period">Period</string>
+    <string name="payment_graph_energy">Energy</string>
+    <string name="payment_graph_access_rate">Access Rate</string>
+    <string name="payment_graph_deferred_payment">Deferred Payment</string>
+
+    <string name="appliance">Appliance</string>
+    <string name="appliance_tenure">Tenure</string>
+    <string name="appliance_tenure_hint">Months</string>
+    <string name="appliance_down_payment">Down Payment</string>
+    <string name="appliance_payment_date">First Payment Date</string>
+    <string name="appliance_monthly_payment">Monthly Payment</string>
+    <string name="appliance_total_payment">Total Payment</string>
+    <string name="appliance_down_payment_error">Down Payment can not be more than Appliance Price</string>
+    <string name="appliance_type_amount_error">Appliance Price is missing</string>
+    <string name="appliance_detail_id">Appliance Transaction Id</string>
+    <string name="appliance_detail_total_cost">Total Cost</string>
+    <string name="appliance_detail_tenure">Tenure</string>
+    <string name="appliance_detail_asset">Appliance</string>
+    <string name="appliance_detail_customer">Customer</string>
+    <string name="appliance_detail_date">Created At</string>
+    <string name="appliance_detail_paid_amount">Paid Amount</string>
+    <string name="appliance_detail_remaining_amount">Remaining Amount</string>
+    <string name="appliance_detail_completed">Completed</string>
+    <string name="appliance_detail_ongoing">Ongoing</string>
+    <string name="appliance_detail_payments"><u>Payment Details</u></string>
+    <string name="appliance_detail_payments_header">Payment Details</string>
+    <string name="appliance_detail_payments_due_date">Due Date:</string>
+    <string name="appliance_detail_payments_paid">Paid:</string>
+    <string name="appliance_detail_payments_remaining">Remaining:</string>
+    <string name="appliance_to_sell_empty">You do not have any appliance to sell yet!</string>
+    <string name="appliance_empty_layout_content">You haven\'t sold any appliance yet</string>
+    <string name="appliance_empty_layout__with_customer_content">You haven\'t sold any appliance to %1s yet, \nwould you like to sell one?</string>
+
+    <string name="ticket_detail_id">Ticket Id</string>
+    <string name="ticket_detail_description">Description</string>
+    <string name="ticket_detail_category">Category</string>
+    <string name="ticket_detail_owner">Owner</string>
+    <string name="ticket_detail_status">Status</string>
+    <string name="ticket_detail_status_closed">Closed</string>
+    <string name="ticket_detail_status_open">Open</string>
+    <string name="ticket_detail_date">Date</string>
+    <string name="ticket_summary_name_surname">Name Surname</string>
+    <string name="ticket_summary_message">Message</string>
+    <string name="ticket_summary_due_date">Due Date</string>
+    <string name="ticket_summary_category">Category</string>
+    <string name="ticket_empty_layout_content">You haven\'t created any ticket yet</string>
+    <string name="ticket_empty_layout__with_customer_content">You haven\'t created any ticket for %1s yet, \nwould you like to create one?</string>
+
+    <string name="notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="notification_channel_name" translatable="false">Merchant Notification</string>
+    <string name="notification_channel_description" translatable="false">Merchant Channel</string>
+
+    <string name="title_server_url">"Server Url"</string>
+    <string name="hint_server_url">"e.g. http://localhost.com"</string>
+    <string name="server_url_validation">"Server Url is not valid, please check and try again."</string>
+</resources>

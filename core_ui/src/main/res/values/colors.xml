@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="colorPrimary">#B1060F</color>
+    <color name="colorPrimary_alpha_12">#1FB1060F</color>
+    <color name="colorPrimaryDark">#780709</color>
+    <color name="colorAccent">#B1060F</color>
+    <color name="colorAccent_26">#42B1060F</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha_12">#1FFFFFFF</color>
+    <color name="white_alpha_64">#A3FFFFFF</color>
+    <color name="white_alpha_87">#DEFFFFFF</color>
+    <color name="black_alpha_22">#22000000</color>
+    <color name="white_alpha_94">#F0FFFFFF</color>
+    <color name="black_alpha_4">#22000000</color>
+    <color name="gray_2D2F31">#2D2F31</color>
+    <color name="gray_616161">#616161</color>
+    <color name="gray_616161_opac_16">#29616161</color>
+    <color name="gray_757575">#757575</color>
+    <color name="gray_BDBDBD">#BDBDBD</color>
+    <color name="gray_E0E0E0">#E0E0E0</color>
+    <color name="gray_EEEEEE">#EEEEEE</color>
+    <color name="gray_424242">#424242</color>
+    <color name="gray_EDEEF5">#EDEEF5</color>
+    <color name="gray_DFE0E6">#DFE0E6</color>
+    <color name="gray_D2D3D8">#D2D3D8</color>
+    <color name="gray_F4F4F4">#F4F4F4</color>
+    <color name="blue_1A237E">#1a237e</color>
+    <color name="red_FF3B30">#FF3B30</color>
+    <color name="green_00C853">#00C853</color>
+    <color name="purple_C8CAE0">#C8CAE0</color>
+    <color name="yellow_e7b53f">#e7b53f</color>
+</resources>

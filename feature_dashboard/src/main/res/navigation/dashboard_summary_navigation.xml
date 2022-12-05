@@ -1,0 +1,9 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dashboardSummary"
+    app:startDestination="@id/dashboardSummaryFragment">
+    <fragment
+        android:id="@+id/dashboardSummaryFragment"
+        android:name="com.inensus.feature_dashboard.summary.view.DashboardSummaryFragment" />
+
+</navigation>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:fitsSystemWindows="true"
+    android:focusable="true">
+
+    <include
+        android:id="@+id/drawerHeader"
+        layout="@layout/drawer_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/drawerHeaderSkeleton"
+        layout="@layout/drawer_header_skeleton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/drawerHeaderError"
+        layout="@layout/drawer_header_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/signOutText"
+        app:layout_constraintTop_toBottomOf="@id/drawerHeader"
+        tools:listitem="@layout/item_drawer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.inensus.feature_main.view.DrawerItemView
+                android:id="@+id/itemDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_ripple_background"
+                app:drawer_icon="@drawable/ic_dashboard"
+                app:drawer_title="@string/navigation_title_dashboard" />
+
+            <com.inensus.feature_main.view.DrawerItemView
+                android:id="@+id/itemCustomers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_ripple_background"
+                app:drawer_icon="@drawable/ic_customer"
+                app:drawer_title="@string/navigation_title_customers" />
+
+            <com.inensus.feature_main.view.DrawerItemView
+                android:id="@+id/itemPayments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_ripple_background"
+                app:drawer_icon="@drawable/ic_payment"
+                app:drawer_title="@string/navigation_title_payments" />
+
+            <com.inensus.feature_main.view.DrawerItemView
+                android:id="@+id/itemAppliances"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_ripple_background"
+                app:drawer_icon="@drawable/ic_appliance"
+                app:drawer_title="@string/navigation_title_appliances" />
+
+            <com.inensus.feature_main.view.DrawerItemView
+                android:id="@+id/itemTickets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_ripple_background"
+                app:drawer_icon="@drawable/ic_ticket"
+                app:drawer_title="@string/navigation_title_tickets" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/signOutText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:fontFamily="@font/semi_bold"
+        android:gravity="center_horizontal"
+        android:text="@string/sign_out"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

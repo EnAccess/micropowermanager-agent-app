@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DrawerItemView">
+        <attr name="drawer_icon" format="reference"/>
+        <attr name="drawer_title" format="reference|string"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseInputView">
+        <attr name="title" format="reference|string" />
+        <attr name="hint" format="reference|string" />
+        <attr name="text" format="reference|string" />
+        <attr name="icon" format="reference" />
+        <attr name="input_view_title_color" format="reference|color" />
+        <attr name="input_view_text_color" format="reference|color" />
+        <attr name="hint_color" format="reference|color" />
+        <attr name="border_color" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="ErrorState">
+        <attr name="state_error" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ShimmerLayout">
+        <attr name="shimmer_color" format="color|reference" />
+        <attr name="shimmer_animation_duration" format="integer|reference" />
+        <attr name="shimmer_auto_start" format="boolean|reference" />
+        <attr name="shimmer_angle" format="integer|reference" />
+        <attr name="shimmer_mask_width" format="float|reference" />
+        <attr name="shimmer_gradient_center_color_width" format="float|reference" />
+        <attr name="shimmer_reverse_animation" format="boolean|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DropdownInputView">
+        <attr name="dropdown_input_title" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="DateInputView">
+        <attr name="date_input_title" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="DashboardSummaryItemView">
+        <attr name="summary_icon" format="reference"/>
+        <attr name="summary_title" format="reference|string"/>
+    </declare-styleable>
+</resources>

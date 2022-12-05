@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="payment_main_tabs">
+        <item>PAYMENTS</item>
+        <item>GRAPH</item>
+    </array>
+
+    <array name="dashboard_graph_main_tabs">
+        <item>BALANCE</item>
+        <item>REVENUE</item>
+    </array>
+</resources>
