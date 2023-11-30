@@ -27,4 +27,5 @@ class PaymentSummaryViewModel(private val repository: PaymentFormRepository) : B
             })
             .addTo(compositeDisposable)
     }
+
 }
