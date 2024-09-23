@@ -8,15 +8,15 @@ import java.math.BigDecimal
 
 class PaymentSummaryCreator(private val context: Context) {
 
-    fun createSummaryItems(name: String, surname: String, meter: String, amount: BigDecimal) =
+    fun createSummaryItems(name: String, surname: String, device: String, amount: BigDecimal) =
         arrayListOf(
             KeyValue.Default(
                 context.getString(R.string.payment_name_surname),
                 "$name $surname"
             ),
             KeyValue.Default(
-                context.getString(R.string.payment_meter),
-                meter
+                context.getString(R.string.payment_device),
+                device
             ),
             KeyValue.Amount(
                 context.getString(R.string.payment_amount),

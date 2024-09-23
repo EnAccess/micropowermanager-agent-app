@@ -28,11 +28,11 @@
                     android:layout_height="match_parent">
 
                     <com.inensus.core_ui.dropdown_input.DropdownInputView
-                        android:id="@+id/meterDropdown"
+                        android:id="@+id/deviceDropdown"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_margin="8dp"
-                        app:dropdown_input_title="@string/payment_meter"
+                        app:dropdown_input_title="@string/payment_device"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/meterDropdown"
+                        app:layout_constraintTop_toBottomOf="@+id/deviceDropdown"
                         app:title="@string/payment_amount" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
