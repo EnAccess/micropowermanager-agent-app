@@ -31,7 +31,7 @@ abstract class BaseFragment : Fragment() {
 
     private fun observeError() {
         provideViewModel().error.observe(viewLifecycleOwner, Observer {
-            showAlertDialog(context, it.error.message)
+            showAlertDialog(context, it.data.message[0])
         })
     }
 

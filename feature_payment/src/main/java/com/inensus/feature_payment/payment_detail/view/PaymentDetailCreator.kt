@@ -16,8 +16,8 @@ class PaymentDetailCreator(private val context: Context) {
             KeyValue.Default(
                 context.getString(R.string.payment_detail_customer), context.getString(
                     R.string.customer_name_surname,
-                    paymentDetail.paymentMeter?.meterParameter?.owner?.name,
-                    paymentDetail.paymentMeter?.meterParameter?.owner?.surname
+                    paymentDetail.paymentDevice?.person?.name,
+                    paymentDetail.paymentDevice?.person?.surname
                 )
             ),
             KeyValue.Amount(
@@ -27,7 +27,7 @@ class PaymentDetailCreator(private val context: Context) {
             ),
             KeyValue.Default(context.getString(R.string.payment_detail_token), paymentDetail.token?.token ?: ""),
             KeyValue.Default(context.getString(R.string.payment_detail_payment_type), paymentDetail.type),
-            KeyValue.Default(context.getString(R.string.payment_detail_meter), paymentDetail.meter),
+            KeyValue.Default(context.getString(R.string.payment_detail_device), paymentDetail.device),
             KeyValue.Default(
                 context.getString(R.string.payment_detail_date),
                 DateUtils.convertDateToString(paymentDetail.createdAt, DATE_FORMAT_FULL)

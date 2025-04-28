@@ -16,7 +16,7 @@ data class Payment(
     @SerializedName("created_at") val createdAt: Date,
     @SerializedName("transaction") val transaction: Transaction?,
     @SerializedName("original_agent") val originalAgent: OriginalAgent?,
-    @SerializedName("meter") val meter: PaymentMeter?,
+    @SerializedName("device") val device: PaymentDevice?,
     @SerializedName("token") val token: Token?
 ) : Parcelable
 
@@ -27,10 +27,8 @@ data class Transaction(@SerializedName("type") val type: String, @SerializedName
 data class OriginalAgent(@SerializedName("status") val status: Int) : Parcelable
 
 @Parcelize
-data class PaymentMeter(@SerializedName("serial_number") val serialNumber: String, @SerializedName("meter_parameter") val meterParameter: MeterParameter) : Parcelable
+data class PaymentDevice(@SerializedName("device_serial") val deviceSerial: String, @SerializedName("person") val person: Owner) : Parcelable
 
-@Parcelize
-data class MeterParameter(@SerializedName("owner") val owner: Owner) : Parcelable
 
 @Parcelize
 data class Owner(@SerializedName("name") val name: String, @SerializedName("surname") val surname: String) : Parcelable
