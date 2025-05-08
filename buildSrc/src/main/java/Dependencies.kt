@@ -1,4 +1,4 @@
-const val kotlinVersion = "1.4.0-rc"
+const val kotlinVersion = "1.4.32"
 const val navigation = "2.3.0-alpha03"
 
 object Modules {
@@ -80,6 +80,7 @@ object Libraries {
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktx}"
 
     const val koinScope = "io.insert-koin:koin-androidx-scope:${Versions.koin}"

@@ -28,6 +28,7 @@ android {
 
 dependencies {
     api(Libraries.kotlinStdLib)
+    api(Libraries.kotlinReflect)
     api(Libraries.ktxCore)
     api(Libraries.koinScope)
     api(Libraries.koinViewModel)
