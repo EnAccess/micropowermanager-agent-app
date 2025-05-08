@@ -17,5 +17,3 @@ include ':app',
         ':shared_success',
         ':shared_customer',
         ':shared_messaging'
-
-rootProject.name = "inensus-merchant"
