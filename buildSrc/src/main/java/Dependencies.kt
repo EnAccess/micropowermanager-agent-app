@@ -25,7 +25,7 @@ object Modules {
 object BuildPlugins {
 
     object Versions {
-        const val buildToolsVersion = "4.0.1"
+        const val buildToolsVersion = "4.2.2"
         const val gradleVersionPlugin = "0.27.0"
         const val googleServices = "4.3.3"
         const val firebaseCrashlytics = "2.2.0"
