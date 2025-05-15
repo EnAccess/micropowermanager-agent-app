@@ -1,15 +1,16 @@
 plugins {
-    id(BuildPlugins.androidLibrary)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    // TBD: Deprecated
+    id("kotlin-android-extensions")
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdkVersion(21)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -35,10 +36,10 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core))
+    implementation(project(":core"))
 
-    api(Libraries.retrofit)
-    api(Libraries.retrofitGsonConverter)
-    api(Libraries.retrofitAdapter)
-    implementation(Libraries.okhttpLogging)
+    api("com.squareup.retrofit2:retrofit:2.7.1")
+    api("com.squareup.retrofit2:converter-gson:2.7.1")
+    api("com.squareup.retrofit2:adapter-rxjava2:2.7.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.3.0")
 }

@@ -1,15 +1,16 @@
 plugins {
-    id(BuildPlugins.androidLibrary)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    // TBD: Deprecated
+    id("kotlin-android-extensions")
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdkVersion(21)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -29,17 +30,17 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core))
-    implementation(project(Modules.coreUi))
-    implementation(project(Modules.coreNetworkAuth))
-    implementation(project(Modules.coreLocalization))
-    implementation(project(Modules.featureDashboard))
-    implementation(project(Modules.featureCustomers))
-    implementation(project(Modules.featurePayment))
-    implementation(project(Modules.featureAppliance))
-    implementation(project(Modules.featureTicket))
-    implementation(project(Modules.sharedAgent))
-    implementation(project(Modules.sharedNavigation))
-    implementation(project(Modules.sharedMessaging))
-    implementation(project(Modules.sharedSuccess))
+    implementation(project(":core"))
+    implementation(project(":core_ui"))
+    implementation(project(":core_network_auth"))
+    implementation(project(":core_localization"))
+    implementation(project(":feature_dashboard"))
+    implementation(project(":feature_customers"))
+    implementation(project(":feature_payment"))
+    implementation(project(":feature_appliance"))
+    implementation(project(":feature_ticket"))
+    implementation(project(":shared_agent"))
+    implementation(project(":shared_navigation"))
+    implementation(project(":shared_messaging"))
+    implementation(project(":shared_success"))
 }
