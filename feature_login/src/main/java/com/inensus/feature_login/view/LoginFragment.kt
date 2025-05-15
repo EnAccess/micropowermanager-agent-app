@@ -19,10 +19,10 @@ import com.inensus.shared_navigation.Feature
 import com.inensus.shared_navigation.SharedNavigation
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.stateViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : BaseFragment() {
-    private val viewModel: LoginViewModel by stateViewModel()
+    private val viewModel: LoginViewModel by sharedViewModel()
     private val navigation: SharedNavigation by inject()
 
     override fun onCreateView(
