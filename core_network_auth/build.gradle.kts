@@ -1,15 +1,16 @@
 plugins {
-    id(BuildPlugins.androidLibrary)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    // TBD: Deprecated
+    id("kotlin-android-extensions")
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdkVersion(21)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -27,6 +28,6 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core))
-    api(project(Modules.coreNetwork))
+    implementation(project(":core"))
+    api(project(":core_network"))
 }

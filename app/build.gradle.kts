@@ -1,20 +1,22 @@
 plugins {
-    id(BuildPlugins.androidApplication)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
-    id(BuildPlugins.kotlinKapt)
-    id(BuildPlugins.googleServicesBuild)
-    id(BuildPlugins.firebaseCrashlyticsBuild)
-    id(BuildPlugins.gradleVersionsBuild)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    // TBD: Deprecated
+    id("kotlin-android-extensions")
+
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.github.ben-manes.versions")
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdk = 29
 
     defaultConfig {
         applicationId = "com.inensus.merchant"
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdkVersion(21)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -53,23 +55,23 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.core))
-    implementation(project(Modules.coreUi))
-    implementation(project(Modules.coreNetwork))
-    implementation(project(Modules.coreNetworkAuth))
-    implementation(project(Modules.coreNetworkNoAuth))
-    implementation(project(Modules.coreLocalization))
-    implementation(project(Modules.featureLogin))
-    implementation(project(Modules.featureMain))
-    implementation(project(Modules.sharedNavigation))
-    implementation(project(Modules.sharedAgent))
-    implementation(project(Modules.sharedSuccess))
-    implementation(project(Modules.sharedCustomer))
-    implementation(project(Modules.sharedMessaging))
+    implementation(project(":core"))
+    implementation(project(":core_ui"))
+    implementation(project(":core_network"))
+    implementation(project(":core_network_auth"))
+    implementation(project(":core_network_no_auth"))
+    implementation(project(":core_localization"))
+    implementation(project(":feature_login"))
+    implementation(project(":feature_main"))
+    implementation(project(":shared_navigation"))
+    implementation(project(":shared_agent"))
+    implementation(project(":shared_success"))
+    implementation(project(":shared_customer"))
+    implementation(project(":shared_messaging"))
 
-    testImplementation(TestLibraries.junit4)
-    androidTestImplementation(TestLibraries.testRunner)
-    androidTestImplementation(TestLibraries.espresso)
+    testImplementation("junit:junit:4.13")
+    androidTestImplementation("androidx.test:runner:1.3.0-rc03")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0-rc03")
 }
 
 tasks.register("printVersionName") {

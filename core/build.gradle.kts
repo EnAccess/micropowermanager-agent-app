@@ -1,15 +1,16 @@
 plugins {
-    id(BuildPlugins.androidLibrary)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    // TBD: Deprecated
+    id("kotlin-android-extensions")
 }
 
 android {
-    compileSdkVersion(AndroidSdk.compile)
+    compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion(AndroidSdk.min)
-        targetSdkVersion(AndroidSdk.target)
+        minSdkVersion(21)
+        targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -26,21 +27,28 @@ android {
     }
 }
 
+val kotlinVersion: String by rootProject.extra
+
 dependencies {
-    api(Libraries.kotlinStdLib)
-    api(Libraries.kotlinReflect)
-    api(Libraries.ktxCore)
-    api(Libraries.koinScope)
-    api(Libraries.koinViewModel)
-    api(Libraries.koinCore)
-    api(Libraries.koinExt)
-    api(Libraries.rxJava)
-    api(Libraries.rxKotlin)
-    api(Libraries.rxAndroid)
-    api(Libraries.rxBinding)
-    api(Libraries.timber)
-    api(Libraries.preferenceKtx)
-    api(Libraries.firebaseMessaging)
-    api(Libraries.firebaseAnalytics)
-    api(Libraries.firebaseCrashlytics)
+    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    api("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    api("androidx.core:core-ktx:1.1.0-alpha05")
+
+    // Koin
+    api("io.insert-koin:koin-androidx-scope:2.1.6")
+    api("io.insert-koin:koin-androidx-viewmodel:2.1.6")
+    api("io.insert-koin:koin-core:2.1.6")
+    api("io.insert-koin:koin-core-ext:2.1.6")
+
+    api("io.reactivex.rxjava2:rxjava:2.2.9")
+    api("io.reactivex.rxjava2:rxkotlin:2.3.0")
+    api("io.reactivex.rxjava2:rxandroid:2.1.1")
+    api("com.jakewharton.rxbinding2:rxbinding:2.2.0")
+
+    api("com.jakewharton.timber:timber:4.7.1")
+    api("androidx.preference:preference-ktx:1.1.1")
+
+    api("com.google.firebase:firebase-messaging:20.2.3")
+    api("com.google.firebase:firebase-analytics-ktx:17.4.4")
+    api("com.google.firebase:firebase-crashlytics:17.1.1")
 }
