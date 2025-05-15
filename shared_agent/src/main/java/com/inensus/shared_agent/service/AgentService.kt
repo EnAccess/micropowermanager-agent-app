@@ -6,7 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface AgentService {
-
     @GET
-    fun getMe(@Url url: String): Single<Agent>
+    fun getMe(
+        @Url url: String,
+    ): Single<Agent>
 }

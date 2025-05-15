@@ -9,5 +9,5 @@ data class ConfirmApplianceRequest(
     @SerializedName("agent_assigned_appliance_id") val applianceId: Long?,
     @SerializedName("down_payment") val downPayment: BigDecimal?,
     @SerializedName("first_payment_date") val date: Date?,
-    @SerializedName("tenure") val tenure: Int?
+    @SerializedName("tenure") val tenure: Int?,
 )

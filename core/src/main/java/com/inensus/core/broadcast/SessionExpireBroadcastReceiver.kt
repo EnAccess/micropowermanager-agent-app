@@ -6,10 +6,12 @@ import android.content.Intent
 import com.inensus.core.lifecycle.LiveEvent
 
 class SessionExpireBroadcastReceiver : BroadcastReceiver() {
-
     val event = LiveEvent<Unit>()
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(
+        context: Context?,
+        intent: Intent?,
+    ) {
         event.postValue(Unit)
     }
 

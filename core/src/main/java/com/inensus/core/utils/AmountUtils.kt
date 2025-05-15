@@ -5,10 +5,14 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 
 object AmountUtils {
-    fun convertAmountToString(amount: BigDecimal, decimalFormat: NumberFormat = DECIMAL_FORMAT_DEFAULT): String =
+    fun convertAmountToString(
+        amount: BigDecimal,
+        decimalFormat: NumberFormat = DECIMAL_FORMAT_DEFAULT,
+    ): String =
         decimalFormat
             .format(amount)
-            .replace('\u00A0', ' ').trim()
+            .replace('\u00A0', ' ')
+            .trim()
 
     private fun getNumberFormat(decimalDigitSize: Int): DecimalFormat =
         (NumberFormat.getCurrencyInstance() as DecimalFormat).apply {

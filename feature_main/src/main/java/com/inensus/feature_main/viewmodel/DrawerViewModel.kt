@@ -10,8 +10,9 @@ import com.inensus.feature_main.view.NavigationAction
 import com.inensus.shared_agent.service.AgentRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class DrawerViewModel(private val repository: AgentRepository) : BaseViewModel() {
-
+class DrawerViewModel(
+    private val repository: AgentRepository,
+) : BaseViewModel() {
     private val _uiState = MutableLiveData<DrawerUiState>()
     val uiState: LiveData<DrawerUiState> = _uiState
 
@@ -28,7 +29,8 @@ class DrawerViewModel(private val repository: AgentRepository) : BaseViewModel()
     fun getMe() {
         _uiState.value = DrawerUiState.AgentLoading
 
-        repository.getMe()
+        repository
+            .getMe()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()

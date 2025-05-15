@@ -16,8 +16,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
 import org.koin.java.KoinJavaComponent.getKoin
 
-class ApplianceListViewModel(private val repository: ApplianceListRepository, private val customerRepository: CustomerRepository) : BaseViewModel() {
-
+class ApplianceListViewModel(
+    private val repository: ApplianceListRepository,
+    private val customerRepository: CustomerRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<ApplianceListUiState>()
     val uiState: LiveEvent<ApplianceListUiState> = _uiState
 
@@ -41,15 +43,12 @@ class ApplianceListViewModel(private val repository: ApplianceListRepository, pr
             .filter { uiState.value !is ApplianceListUiState.Loading }
             .doOnNext {
                 _uiState.postValue(ApplianceListUiState.Loading(loadingApplianceListType))
-            }
-            .flatMapSingle {
+            }.flatMapSingle {
                 repository.getAppliances(loadingApplianceListType, customerRepository.customer)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
+            }.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 _uiState.value = it
-            }
-            .addTo(compositeDisposable)
+            }.addTo(compositeDisposable)
     }
 
     fun getAppliances(type: LoadingApplianceListType) {

@@ -20,16 +20,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class DashboardGraphBalanceFragment : Fragment() {
-
     private val viewModel: DashboardGraphBalanceViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_dashboard_graph_balance, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -48,7 +50,10 @@ class DashboardGraphBalanceFragment : Fragment() {
         })
     }
 
-    private fun handleSuccessState(xAxisList: ArrayList<String>, chartData: List<List<Entry>>) {
+    private fun handleSuccessState(
+        xAxisList: ArrayList<String>,
+        chartData: List<List<Entry>>,
+    ) {
         chart.xAxis.valueFormatter = DashboardGraphBalanceXAxisFormatter(xAxisList)
         setupChartData(chartData)
     }
@@ -88,7 +93,7 @@ class DashboardGraphBalanceFragment : Fragment() {
                 GRAPH_OFFSET,
                 GRAPH_OFFSET,
                 GRAPH_OFFSET,
-                GRAPH_OFFSET
+                GRAPH_OFFSET,
             )
 
             setNoDataTextTypeface(ResourcesCompat.getFont(context, R.font.semi_bold))
@@ -119,22 +124,38 @@ class DashboardGraphBalanceFragment : Fragment() {
         }
     }
 
-    private fun generateDataSet(index: Int, entries: List<Entry>) =
-        LineDataSet(entries, if (index == 0) getString(R.string.dashboard_graph_available_balance) else getString(R.string.dashboard_graph_due_balance)).apply {
-            setCircleColor(ContextCompat.getColor(requireContext(), R.color.gray_616161))
-            circleHoleColor = ContextCompat.getColor(requireContext(), R.color.white)
-            circleRadius = 3f
-            circleHoleRadius = 1.7f
-            lineWidth = GRAPH_LINE_WIDTH
-            setDrawValues(false)
-            setDrawHorizontalHighlightIndicator(false)
-            setDrawVerticalHighlightIndicator(false)
-            mode = LineDataSet.Mode.CUBIC_BEZIER
-            color = if (index == 0) ContextCompat.getColor(requireContext(), R.color.colorPrimary) else ContextCompat.getColor(
-                requireContext(),
-                R.color.gray_616161
-            )
-        }
+    private fun generateDataSet(
+        index: Int,
+        entries: List<Entry>,
+    ) = LineDataSet(
+        entries,
+        if (index ==
+            0
+        ) {
+            getString(R.string.dashboard_graph_available_balance)
+        } else {
+            getString(R.string.dashboard_graph_due_balance)
+        },
+    ).apply {
+        setCircleColor(ContextCompat.getColor(requireContext(), R.color.gray_616161))
+        circleHoleColor = ContextCompat.getColor(requireContext(), R.color.white)
+        circleRadius = 3f
+        circleHoleRadius = 1.7f
+        lineWidth = GRAPH_LINE_WIDTH
+        setDrawValues(false)
+        setDrawHorizontalHighlightIndicator(false)
+        setDrawVerticalHighlightIndicator(false)
+        mode = LineDataSet.Mode.CUBIC_BEZIER
+        color =
+            if (index == 0) {
+                ContextCompat.getColor(requireContext(), R.color.colorPrimary)
+            } else {
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray_616161,
+                )
+            }
+    }
 
     companion object {
         private const val GRAPH_GRANULARITY = 1f

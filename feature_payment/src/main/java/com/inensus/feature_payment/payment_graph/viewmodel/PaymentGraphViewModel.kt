@@ -16,9 +16,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class PaymentGraphViewModel(
     private val repository: PaymentGraphRepository,
     private val customerRepository: CustomerRepository,
-    private val converter: PaymentGraphModelConverter
+    private val converter: PaymentGraphModelConverter,
 ) : BaseViewModel() {
-
     private var _period: MutableLiveData<PaymentGraphPeriod> = MutableLiveData()
     val period: LiveData<PaymentGraphPeriod> = _period
 
@@ -38,15 +37,17 @@ class PaymentGraphViewModel(
     private fun getPaymentGraphData() {
         showLoading()
 
-        repository.getPaymentGraphData(customerRepository.customer?.id, _period.value?.key)
+        repository
+            .getPaymentGraphData(customerRepository.customer?.id, _period.value?.key)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()
-                _uiState.value = PaymentGraphUiState.Success(
-                    repository.graphPeriods.map { period -> period.value },
-                    converter.xAxisList,
-                    converter.fromDataToUiModel(converter.fromJsonToData(it))
-                )
+                _uiState.value =
+                    PaymentGraphUiState.Success(
+                        repository.graphPeriods.map { period -> period.value },
+                        converter.xAxisList,
+                        converter.fromDataToUiModel(converter.fromJsonToData(it)),
+                    )
             }, {
                 handleError(it.toServiceError())
             })

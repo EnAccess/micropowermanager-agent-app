@@ -5,5 +5,5 @@ import com.inensus.core_network.model.Payment
 
 data class PaymentResponse(
     @SerializedName("next_page_url") val nextPageUrl: String,
-    @SerializedName("data") val data: List<Payment>
+    @SerializedName("data") val data: List<Payment>,
 )

@@ -16,8 +16,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
 import org.koin.java.KoinJavaComponent.getKoin
 
-class TicketListViewModel(private val repository: TicketListRepository, private val customerRepository: CustomerRepository) : BaseViewModel() {
-
+class TicketListViewModel(
+    private val repository: TicketListRepository,
+    private val customerRepository: CustomerRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<TicketListUiState>()
     val uiState: LiveEvent<TicketListUiState> = _uiState
 
@@ -41,15 +43,12 @@ class TicketListViewModel(private val repository: TicketListRepository, private 
             .filter { uiState.value !is TicketListUiState.Loading }
             .doOnNext {
                 _uiState.postValue(TicketListUiState.Loading(loadingTicketListType))
-            }
-            .flatMapSingle {
+            }.flatMapSingle {
                 repository.getTickets(loadingTicketListType, customerRepository.customer)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
+            }.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 _uiState.value = it
-            }
-            .addTo(compositeDisposable)
+            }.addTo(compositeDisposable)
     }
 
     fun getTickets(type: LoadingTicketListType) {

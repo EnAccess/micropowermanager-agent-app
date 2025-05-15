@@ -28,18 +28,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class ApplianceFormFragment : Fragment() {
-
     private val viewModel: ApplianceFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_appliance_form, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_appliance_form, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -83,45 +83,63 @@ class ApplianceFormFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is ApplianceFormUiState.Loading -> handleAppliancesLoadingState()
-                is ApplianceFormUiState.AppliancesLoaded -> handleAppliancesLoadedState(it.appliances)
-                is ApplianceFormUiState.Error -> handleErrorState()
-                is ApplianceFormUiState.OpenSummary -> openSummaryPage(it.summaryItems)
-                is ApplianceFormUiState.ValidationError -> handleValidationError(it.errors)
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is ApplianceFormUiState.Loading -> handleAppliancesLoadingState()
+                    is ApplianceFormUiState.AppliancesLoaded -> handleAppliancesLoadedState(it.appliances)
+                    is ApplianceFormUiState.Error -> handleErrorState()
+                    is ApplianceFormUiState.OpenSummary -> openSummaryPage(it.summaryItems)
+                    is ApplianceFormUiState.ValidationError -> handleValidationError(it.errors)
+                }
+            },
+        )
 
-        viewModel.appliance.observe(viewLifecycleOwner, Observer {
-            if (applianceDropdown.value != it.type.name) {
-                applianceDropdown.value = it.type.name
-            }
-        })
+        viewModel.appliance.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (applianceDropdown.value != it.type.name) {
+                    applianceDropdown.value = it.type.name
+                }
+            },
+        )
 
-        viewModel.firstPaymentDate.observe(viewLifecycleOwner, Observer {
-            if (paymentDate.date?.compareWithoutTime(it) != 0) {
-                paymentDate.date = it
-            }
-        })
+        viewModel.firstPaymentDate.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (paymentDate.date?.compareWithoutTime(it) != 0) {
+                    paymentDate.date = it
+                }
+            },
+        )
 
-        viewModel.downPayment.observe(viewLifecycleOwner, Observer {
-            if (it != null && downPayment.getMainTextView().text.toString() != it.toString()) {
-                downPayment.getMainTextView().setText(it.toString())
-            }
-        })
+        viewModel.downPayment.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it != null && downPayment.getMainTextView().text.toString() != it.toString()) {
+                    downPayment.getMainTextView().setText(it.toString())
+                }
+            },
+        )
 
-        viewModel.tenure.observe(viewLifecycleOwner, Observer {
-            if (it != null && tenure.getMainTextView().text.toString() != it.toString()) {
-                tenure.getMainTextView().setText(it.toString())
-            }
-        })
+        viewModel.tenure.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it != null && tenure.getMainTextView().text.toString() != it.toString()) {
+                    tenure.getMainTextView().setText(it.toString())
+                }
+            },
+        )
 
-        viewModel.monthlyPaymentAmount.observe(viewLifecycleOwner, Observer {
-            if (amountValue.text != it) {
-                amountValue.text = AmountUtils.convertAmountToString(it)
-            }
-        })
+        viewModel.monthlyPaymentAmount.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (amountValue.text != it) {
+                    amountValue.text = AmountUtils.convertAmountToString(it)
+                }
+            },
+        )
     }
 
     private fun handleAppliancesLoadingState() {
@@ -152,7 +170,8 @@ class ApplianceFormFragment : Fragment() {
     }
 
     private fun openSummaryPage(summaryItems: ArrayList<KeyValue>) {
-        (activity as BaseActivity).provideNavController()
+        (activity as BaseActivity)
+            .provideNavController()
             .navigate(R.id.openApplianceSummary, bundleOf(ApplianceSummaryFragment.EXTRA_KEY_VALUE_LIST to summaryItems))
     }
 

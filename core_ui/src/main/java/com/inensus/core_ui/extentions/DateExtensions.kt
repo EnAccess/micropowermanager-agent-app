@@ -10,13 +10,15 @@ fun DatePicker.getDate(): Date {
 }
 
 fun Date.compareWithoutTime(date: Date): Int {
-    val first = Calendar.getInstance().also {
-        it.time = this
-    }
+    val first =
+        Calendar.getInstance().also {
+            it.time = this
+        }
 
-    val second = Calendar.getInstance().also {
-        it.time = date
-    }
+    val second =
+        Calendar.getInstance().also {
+            it.time = date
+        }
 
     return when {
         first.get(Calendar.YEAR) != second.get(Calendar.YEAR) -> {

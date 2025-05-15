@@ -3,7 +3,9 @@ package com.inensus.core.sharedpreferences
 import android.content.Context
 import androidx.preference.PreferenceManager
 
-class SharedPreferenceWrapper(context: Context) {
+class SharedPreferenceWrapper(
+    context: Context,
+) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     var accessToken: String

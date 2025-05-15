@@ -12,19 +12,21 @@ import kotlinx.android.synthetic.main.fragment_customer_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerDetailFragment : Fragment() {
-
     private val viewModel: CustomerDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_customer_detail, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -41,9 +43,12 @@ class CustomerDetailFragment : Fragment() {
     }
 
     private fun observeCustomer() {
-        viewModel.customer.observe(viewLifecycleOwner, Observer {
-            setTitle("${it.name} ${it.surname}")
-        })
+        viewModel.customer.observe(
+            viewLifecycleOwner,
+            Observer {
+                setTitle("${it.name} ${it.surname}")
+            },
+        )
     }
 
     private fun setTitle(title: String) {
@@ -51,19 +56,19 @@ class CustomerDetailFragment : Fragment() {
     }
 
     private fun setupBottomNavigation() {
-
         activity?.let { activity ->
-            val navGraphIds = listOf(
-                R.navigation.payment_navigation,
-                R.navigation.appliance_navigation,
-                R.navigation.ticket_navigation
-            )
+            val navGraphIds =
+                listOf(
+                    R.navigation.payment_navigation,
+                    R.navigation.appliance_navigation,
+                    R.navigation.ticket_navigation,
+                )
 
             bottomNavigation.setupWithNavController(
                 navGraphIds = navGraphIds,
                 fragmentManager = childFragmentManager,
                 containerId = R.id.content,
-                intent = activity.intent
+                intent = activity.intent,
             )
         }
     }

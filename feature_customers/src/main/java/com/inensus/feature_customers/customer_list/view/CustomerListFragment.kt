@@ -26,20 +26,22 @@ import kotlinx.android.synthetic.main.fragment_customers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerListFragment : Fragment() {
-
     private val viewModel: CustomersViewModel by viewModel()
     private var searchTerm: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_customers, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -52,7 +54,10 @@ class CustomerListFragment : Fragment() {
         viewModel.saveCustomersState((rvCustomers.adapter as CustomerListAdapter).customers)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(
+        menu: Menu,
+        inflater: MenuInflater,
+    ) {
         inflater.inflate(R.menu.menu_customers, menu)
 
         setupSearchView(menu)
@@ -65,11 +70,12 @@ class CustomerListFragment : Fragment() {
 
         rvCustomers.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = CustomerListAdapter().apply {
-                onItemClick = {
-                    viewModel.onCustomerTapped(it)
+            adapter =
+                CustomerListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onCustomerTapped(it)
+                    }
                 }
-            }
 
             addOnScrollListener(setupPagination())
         }
@@ -77,7 +83,11 @@ class CustomerListFragment : Fragment() {
 
     private fun setupPagination() =
         object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+            ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 val adapter = (rvCustomers.adapter as CustomerListAdapter)
 
@@ -88,28 +98,37 @@ class CustomerListFragment : Fragment() {
         }
 
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is CustomerListUiState.Loading -> handleLoading(it.type)
-                CustomerListUiState.Error -> handleError()
-                CustomerListUiState.NoMoreData -> handleNoMore()
-                CustomerListUiState.Empty -> handleEmpty()
-                is CustomerListUiState.Success -> handleSuccess(it.customers, it.type)
-                is CustomerListUiState.CustomerTapped -> handleCustomerTapped()
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is CustomerListUiState.Loading -> handleLoading(it.type)
+                    CustomerListUiState.Error -> handleError()
+                    CustomerListUiState.NoMoreData -> handleNoMore()
+                    CustomerListUiState.Empty -> handleEmpty()
+                    is CustomerListUiState.Success -> handleSuccess(it.customers, it.type)
+                    is CustomerListUiState.CustomerTapped -> handleCustomerTapped()
+                }
+            },
+        )
 
-        viewModel.customers.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                handleEmpty()
-            } else {
-                handleSuccess(it, LoadCustomerType.INITIAL)
-            }
-        })
+        viewModel.customers.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it.isEmpty()) {
+                    handleEmpty()
+                } else {
+                    handleSuccess(it, LoadCustomerType.INITIAL)
+                }
+            },
+        )
 
-        viewModel.searchTerm.observe(viewLifecycleOwner, Observer {
-            searchTerm = it
-        })
+        viewModel.searchTerm.observe(
+            viewLifecycleOwner,
+            Observer {
+                searchTerm = it
+            },
+        )
     }
 
     private fun handleLoading(type: LoadCustomerType) {
@@ -150,27 +169,34 @@ class CustomerListFragment : Fragment() {
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
-    private fun handleSuccess(customers: List<Customer>, loadCustomerType: LoadCustomerType) {
+    private fun handleSuccess(
+        customers: List<Customer>,
+        loadCustomerType: LoadCustomerType,
+    ) {
         rvCustomers.animateShow()
         updateCustomersData(customers, loadCustomerType)
         loadingLayout.animateGone()
         progressBar.gone()
     }
 
-    private fun updateCustomersData(customers: List<Customer>, loadCustomerType: LoadCustomerType) {
+    private fun updateCustomersData(
+        customers: List<Customer>,
+        loadCustomerType: LoadCustomerType,
+    ) {
         val adapter = (rvCustomers.adapter as CustomerListAdapter)
 
         if (loadCustomerType == LoadCustomerType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.customers).apply { addAll(customers) })
         } else {
-            rvCustomers.adapter = CustomerListAdapter().apply {
-                onItemClick = {
-                    viewModel.onCustomerTapped(it)
-                }
+            rvCustomers.adapter =
+                CustomerListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onCustomerTapped(it)
+                    }
 
-                this.customers = customers
-                notifyDataSetChanged()
-            }
+                    this.customers = customers
+                    notifyDataSetChanged()
+                }
         }
     }
 

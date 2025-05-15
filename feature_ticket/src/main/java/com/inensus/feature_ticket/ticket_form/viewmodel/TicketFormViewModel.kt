@@ -19,9 +19,8 @@ class TicketFormViewModel(
     private val repository: TicketFormRepository,
     private val customerRepository: CustomerRepository,
     private val summaryCreator: TicketSummaryCreator,
-    private val validator: TicketFormValidator
+    private val validator: TicketFormValidator,
 ) : BaseViewModel() {
-
     private val _uiState = LiveEvent<TicketFormUiState>()
     var uiState: LiveEvent<TicketFormUiState> = _uiState
 
@@ -62,15 +61,16 @@ class TicketFormViewModel(
                     category = _category.value?.id
                 }
 
-                _uiState.value = TicketFormUiState.OpenSummary(
-                    summaryCreator.createSummaryItems(
-                        customerRepository.customer?.name ?: "",
-                        customerRepository.customer?.surname ?: "",
-                        _message.value!!,
-                        _dueDate.value,
-                        _category.value?.name!!
+                _uiState.value =
+                    TicketFormUiState.OpenSummary(
+                        summaryCreator.createSummaryItems(
+                            customerRepository.customer?.name ?: "",
+                            customerRepository.customer?.surname ?: "",
+                            _message.value!!,
+                            _dueDate.value,
+                            _category.value?.name!!,
+                        ),
                     )
-                )
             } else {
                 _uiState.value = TicketFormUiState.ValidationError(it)
             }
@@ -78,7 +78,8 @@ class TicketFormViewModel(
     }
 
     private fun getCategories() {
-        repository.getCategories()
+        repository
+            .getCategories()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _categories.value = it.data

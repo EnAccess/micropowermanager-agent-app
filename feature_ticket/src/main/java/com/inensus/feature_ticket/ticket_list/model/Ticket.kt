@@ -8,8 +8,14 @@ data class Ticket(
     @SerializedName("status") val status: Int,
     @SerializedName("category") val category: Category?,
     @SerializedName("owner") val owner: Owner?,
-    @SerializedName("created_at") val createdAt: Date
+    @SerializedName("created_at") val createdAt: Date,
 )
 
-data class Category(@SerializedName("label_name") val name: String)
-data class Owner(@SerializedName("name") val name: String, @SerializedName("surname") val surname: String)
+data class Category(
+    @SerializedName("label_name") val name: String,
+)
+
+data class Owner(
+    @SerializedName("name") val name: String,
+    @SerializedName("surname") val surname: String,
+)

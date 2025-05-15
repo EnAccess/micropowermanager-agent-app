@@ -12,16 +12,16 @@ import com.inensus.feature_dashboard.graph.view.revenue.DashboardGraphRevenueFra
 import kotlinx.android.synthetic.main.fragment_dashboard_graph_main.*
 
 class DashboardGraphMainFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_dashboard_graph_main, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_dashboard_graph_main, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupPagerAdapter()
@@ -34,13 +34,15 @@ class DashboardGraphMainFragment : Fragment() {
     }
 
     private fun setupPagerAdapter() {
-        pager.adapter = DashboardGraphMainViewPagerAdapter(
-            listOf(DashboardGraphBalanceFragment(),
-                DashboardGraphRevenueFragment()
-            ),
-            childFragmentManager,
-            viewLifecycleOwner.lifecycle
-        )
+        pager.adapter =
+            DashboardGraphMainViewPagerAdapter(
+                listOf(
+                    DashboardGraphBalanceFragment(),
+                    DashboardGraphRevenueFragment(),
+                ),
+                childFragmentManager,
+                viewLifecycleOwner.lifecycle,
+            )
         setupTabs()
     }
 

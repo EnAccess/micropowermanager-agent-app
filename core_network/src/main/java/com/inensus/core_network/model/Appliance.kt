@@ -9,8 +9,10 @@ import java.math.BigDecimal
 data class Appliance(
     @SerializedName("id") val id: Long,
     @SerializedName("cost") val cost: BigDecimal,
-    @SerializedName("appliance") val type: ApplianceType
+    @SerializedName("appliance") val type: ApplianceType,
 ) : Parcelable
 
 @Parcelize
-data class ApplianceType(@SerializedName("name") val name: String) : Parcelable
+data class ApplianceType(
+    @SerializedName("name") val name: String,
+) : Parcelable

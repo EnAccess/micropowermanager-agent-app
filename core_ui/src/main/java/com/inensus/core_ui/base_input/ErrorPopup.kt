@@ -9,8 +9,9 @@ import android.widget.PopupWindow
 import com.inensus.core_ui.R
 import kotlinx.android.synthetic.main.error_popup_layout.view.*
 
-class ErrorPopup(context: Context) : PopupWindow() {
-
+class ErrorPopup(
+    context: Context,
+) : PopupWindow() {
     init {
         isOutsideTouchable = true
         contentView = LayoutInflater.from(context).inflate(R.layout.error_popup_layout, null)

@@ -13,21 +13,23 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object ApplianceModule {
-    fun createApplianceModules(): List<Module> = listOf(
+    fun createApplianceModules(): List<Module> =
+        listOf(
+            module {
+                viewModel { ApplianceFormViewModel(get(), get(), get()) }
+                viewModel { ApplianceSummaryViewModel(get()) }
+                single { ApplianceSummaryCreator(get()) }
+                single { ApplianceFormValidator() }
+            },
+            createApplianceNetworkModule(),
+        )
+
+    private fun createApplianceNetworkModule() =
         module {
-            viewModel { ApplianceFormViewModel(get(), get(), get()) }
-            viewModel { ApplianceSummaryViewModel(get()) }
-            single { ApplianceSummaryCreator(get()) }
-            single { ApplianceFormValidator() }
-        },
-        createApplianceNetworkModule()
-    )
+            single { provideApplianceService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
 
-    private fun createApplianceNetworkModule() = module {
-        single { provideApplianceService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
-
-        single { ApplianceFormRepository(get(), get(), get()) }
-    }
+            single { ApplianceFormRepository(get(), get(), get()) }
+        }
 
     private fun provideApplianceService(retrofitClient: Retrofit) = retrofitClient.create(ApplianceService::class.java)
 }

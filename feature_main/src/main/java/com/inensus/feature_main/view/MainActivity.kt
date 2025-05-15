@@ -31,7 +31,6 @@ import org.koin.android.ext.android.inject
 import kotlin.math.min
 
 class MainActivity : BaseActivity() {
-
     private val sessionExpireReceiver: SessionExpireBroadcastReceiver by inject()
     private val preferences: SharedPreferenceWrapper by inject()
     private val navigation: SharedNavigation by inject()
@@ -41,7 +40,8 @@ class MainActivity : BaseActivity() {
     private lateinit var mainNavigation: MainActivityNavigation
     private lateinit var drawerFragment: DrawerFragment
     private var isAtTheTopLevel = false
-    private val topLevelNavigationIds = setOf(R.id.dashboardFragment, R.id.customersFragment, R.id.paymentsFragment, R.id.appliancesFragment, R.id.ticketsFragment)
+    private val topLevelNavigationIds =
+        setOf(R.id.dashboardFragment, R.id.customersFragment, R.id.paymentsFragment, R.id.appliancesFragment, R.id.ticketsFragment)
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,18 +78,21 @@ class MainActivity : BaseActivity() {
 
         if (savedInstanceState == null) {
             drawerFragment = DrawerFragment.newInstance()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.navView, drawerFragment, "").commit()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.navView, drawerFragment, "")
+                .commit()
         } else {
             drawerFragment = supportFragmentManager.findFragmentById(R.id.navView) as DrawerFragment
         }
 
         mainNavigation = MainActivityNavigation(navController)
 
-        val appBarConfiguration = AppBarConfiguration(
-            topLevelNavigationIds,
-            drawerLayout
-        )
+        val appBarConfiguration =
+            AppBarConfiguration(
+                topLevelNavigationIds,
+                drawerLayout,
+            )
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
@@ -106,10 +109,11 @@ class MainActivity : BaseActivity() {
     private fun setupDrawerWidth(view: View) {
         view.afterMeasured {
             view.updateLayoutParams<ViewGroup.LayoutParams> {
-                width = min(
-                    resources.getDimensionPixelSize(R.dimen.max_nav_drawer_width),
-                    rootView.width - resources.getDimensionPixelSize(R.dimen.nav_drawer_margin_right)
-                )
+                width =
+                    min(
+                        resources.getDimensionPixelSize(R.dimen.max_nav_drawer_width),
+                        rootView.width - resources.getDimensionPixelSize(R.dimen.nav_drawer_margin_right),
+                    )
             }
         }
     }
@@ -161,15 +165,15 @@ class MainActivity : BaseActivity() {
     }
 
     private fun logout() {
-        AlertDialog.Builder(this)
+        AlertDialog
+            .Builder(this)
             .setTitle(getString(R.string.warning))
             .setCancelable(false)
             .setMessage(getString(R.string.error_session_expired))
             .setPositiveButton(getString(R.string.ok)) { _, _ ->
                 preferences.accessToken = ""
                 navigation.navigateTo(this, Feature.Login)
-            }
-            .show()
+            }.show()
     }
 
     private fun handleNotification(intent: Intent?) {

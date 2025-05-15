@@ -7,5 +7,7 @@ import retrofit2.http.Url
 
 interface PaymentGraphService {
     @GET
-    fun getPaymentGraph(@Url url: String): Single<JsonObject>
+    fun getPaymentGraph(
+        @Url url: String,
+    ): Single<JsonObject>
 }

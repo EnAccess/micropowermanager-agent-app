@@ -5,5 +5,5 @@ import com.inensus.core_network.model.Appliance
 
 data class ApplianceTypeResponse(
     @SerializedName("data") val data: List<Appliance>,
-    @SerializedName("next_page_url") val nextPageUrl: String
+    @SerializedName("next_page_url") val nextPageUrl: String,
 )

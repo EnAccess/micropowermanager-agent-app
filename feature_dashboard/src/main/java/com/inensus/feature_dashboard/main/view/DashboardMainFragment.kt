@@ -15,16 +15,18 @@ import kotlinx.android.synthetic.main.fragment_dashboard_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardMainFragment : Fragment() {
-
     private val viewModel: DashboardMainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_dashboard_main, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -78,18 +80,18 @@ class DashboardMainFragment : Fragment() {
     }
 
     private fun setupBottomNavigation() {
-
         activity?.let { activity ->
-            val navGraphIds = listOf(
-                R.navigation.dashboard_summary_navigation,
-                R.navigation.dashboard_graph_navigation
-            )
+            val navGraphIds =
+                listOf(
+                    R.navigation.dashboard_summary_navigation,
+                    R.navigation.dashboard_graph_navigation,
+                )
 
             bottomNavigation.setupWithNavController(
                 navGraphIds = navGraphIds,
                 fragmentManager = childFragmentManager,
                 containerId = R.id.content,
-                intent = activity.intent
+                intent = activity.intent,
             )
         }
     }

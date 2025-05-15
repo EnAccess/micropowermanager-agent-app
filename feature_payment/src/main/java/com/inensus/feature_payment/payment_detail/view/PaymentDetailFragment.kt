@@ -15,15 +15,18 @@ import kotlinx.android.synthetic.main.fragment_payment_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentDetailFragment : BaseFragment() {
-
     private val viewModel: PaymentDetailViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? = inflater.inflate(R.layout.fragment_payment_detail, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getLong(EXTRA_PAYMENT_ID)?.let {
@@ -36,9 +39,12 @@ class PaymentDetailFragment : BaseFragment() {
     override fun provideViewModel() = viewModel
 
     private fun observePaymentDetails() {
-        viewModel.paymentDetails.observe(viewLifecycleOwner, Observer {
-            setupPaymentDetails(it)
-        })
+        viewModel.paymentDetails.observe(
+            viewLifecycleOwner,
+            Observer {
+                setupPaymentDetails(it)
+            },
+        )
     }
 
     private fun setupPaymentDetails(paymentDetails: List<KeyValue>) {

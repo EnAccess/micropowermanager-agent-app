@@ -12,15 +12,20 @@ import com.inensus.feature_ticket.ticket_list.model.Ticket
 import kotlinx.android.synthetic.main.ticket_list_item.view.*
 
 class TicketListAdapter : RecyclerView.Adapter<TicketListAdapter.ViewHolder>() {
-
     lateinit var onItemClick: ((ticket: Ticket) -> Unit)
     var tickets: List<Ticket> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.ticket_list_item, parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ) = ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.ticket_list_item, parent, false),
     )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.bind(tickets[position])
     }
 
@@ -32,7 +37,9 @@ class TicketListAdapter : RecyclerView.Adapter<TicketListAdapter.ViewHolder>() {
         tickets = newItems
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(
+        view: View,
+    ) : RecyclerView.ViewHolder(view) {
         fun bind(ticket: Ticket) {
             with(itemView) {
                 statusImage.setImageDrawable(
@@ -40,7 +47,7 @@ class TicketListAdapter : RecyclerView.Adapter<TicketListAdapter.ViewHolder>() {
                         1 -> ContextCompat.getDrawable(context, R.drawable.ic_status_close)
                         0 -> ContextCompat.getDrawable(context, R.drawable.ic_status_open)
                         else -> ContextCompat.getDrawable(context, R.drawable.ic_status_open)
-                    }
+                    },
                 )
                 typeText.text = ticket.category?.name
                 senderText.text = context.getString(R.string.customer_name_surname, ticket.owner?.name, ticket.owner?.surname)

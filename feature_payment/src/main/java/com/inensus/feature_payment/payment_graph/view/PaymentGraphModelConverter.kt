@@ -33,7 +33,7 @@ class PaymentGraphModelConverter {
         listOf(
             createEnergyEntries(response.energies),
             createAccessRateEntries(response.accessRates),
-            createDeferredPaymentEntries(response.deferredPayments)
+            createDeferredPaymentEntries(response.deferredPayments),
         )
 
     private fun createEnergyEntries(data: List<EnergyData>): List<BarEntry> =

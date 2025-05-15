@@ -7,9 +7,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object TicketDetailModule {
-    fun createTicketDetailModule() = module {
-        viewModel { TicketDetailViewModel(get(), get()) }
-        single { TicketDetailCreator(get()) }
-        single { TicketDetailRepository(get(), get()) }
-    }
+    fun createTicketDetailModule() =
+        module {
+            viewModel { TicketDetailViewModel(get(), get()) }
+            single { TicketDetailCreator(get()) }
+            single { TicketDetailRepository(get(), get()) }
+        }
 }

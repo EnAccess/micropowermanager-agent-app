@@ -17,9 +17,14 @@ data class PaymentDetail(
     @SerializedName("original_transaction") val originalTransaction: OriginalTransaction?,
     @SerializedName("sms") val sms: Sms?,
     @SerializedName("meter") val paymentMeter: PaymentMeter?,
-    @SerializedName("token") val token: Token?
+    @SerializedName("token") val token: Token?,
 )
 
-data class OriginalTransaction(@SerializedName("status") val status: Int)
+data class OriginalTransaction(
+    @SerializedName("status") val status: Int,
+)
 
-data class Sms(@SerializedName("receiver") val receiver: String, @SerializedName("body") val body: String)
+data class Sms(
+    @SerializedName("receiver") val receiver: String,
+    @SerializedName("body") val body: String,
+)

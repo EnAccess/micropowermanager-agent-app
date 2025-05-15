@@ -13,8 +13,9 @@ import io.reactivex.rxkotlin.Singles
 import org.koin.java.KoinJavaComponent
 import timber.log.Timber
 
-class DashboardMainViewModel(private val repository: DashboardRepository) : BaseViewModel() {
-
+class DashboardMainViewModel(
+    private val repository: DashboardRepository,
+) : BaseViewModel() {
     private val _uiState = MutableLiveData<DashboardMainUiState>()
     val uiState: LiveData<DashboardMainUiState> = _uiState
 
@@ -33,11 +34,12 @@ class DashboardMainViewModel(private val repository: DashboardRepository) : Base
     fun getDashboardData() {
         _uiState.value = DashboardMainUiState.Loading
 
-        Singles.zip(
-            repository.getDashboardSummary(),
-            repository.getDashboardGraphBalance(),
-            repository.getDashboardGraphRevenue()
-        ) { _, _, _ -> }
+        Singles
+            .zip(
+                repository.getDashboardSummary(),
+                repository.getDashboardGraphBalance(),
+                repository.getDashboardGraphRevenue(),
+            ) { _, _, _ -> }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _uiState.value = DashboardMainUiState.Success

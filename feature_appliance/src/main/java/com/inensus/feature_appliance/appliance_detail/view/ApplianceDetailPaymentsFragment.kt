@@ -16,18 +16,20 @@ import com.inensus.feature_appliance.R
 import kotlinx.android.synthetic.main.fragment_appliance_detail_payments.*
 
 class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val contextThemeWrapper = ContextThemeWrapper(activity, R.style.AppTheme)
 
         return layoutInflater.cloneInContext(contextThemeWrapper).inflate(R.layout.fragment_appliance_detail_payments, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -64,14 +66,23 @@ class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
                 val behavior = BottomSheetBehavior.from(bottomSheet)
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-                behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {}
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                        if (slideOffset > 0) {
-                            closeImageView.rotation = slideOffset * ROTATION_COEFFICIENT
+                behavior.addBottomSheetCallback(
+                    object : BottomSheetBehavior.BottomSheetCallback() {
+                        override fun onStateChanged(
+                            bottomSheet: View,
+                            newState: Int,
+                        ) {}
+
+                        override fun onSlide(
+                            bottomSheet: View,
+                            slideOffset: Float,
+                        ) {
+                            if (slideOffset > 0) {
+                                closeImageView.rotation = slideOffset * ROTATION_COEFFICIENT
+                            }
                         }
-                    }
-                })
+                    },
+                )
             }
         }
     }

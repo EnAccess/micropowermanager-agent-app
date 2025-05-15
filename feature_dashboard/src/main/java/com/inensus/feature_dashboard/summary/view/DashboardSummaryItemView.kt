@@ -14,8 +14,10 @@ import kotlinx.android.synthetic.main.dashboard_summary_item.view.*
 import java.math.BigDecimal
 import java.util.*
 
-class DashboardSummaryItemView(context: Context, attributeSet: AttributeSet) : FrameLayout(context, attributeSet) {
-
+class DashboardSummaryItemView(
+    context: Context,
+    attributeSet: AttributeSet,
+) : FrameLayout(context, attributeSet) {
     private var iconResourceId: Int? = null
     private var title: String? = null
 
@@ -25,14 +27,20 @@ class DashboardSummaryItemView(context: Context, attributeSet: AttributeSet) : F
     }
 
     @SuppressLint("Recycle")
-    private fun initializeAttrs(context: Context, attrs: AttributeSet) {
+    private fun initializeAttrs(
+        context: Context,
+        attrs: AttributeSet,
+    ) {
         context.obtainStyledAttributes(attrs, R.styleable.DashboardSummaryItemView).use {
             iconResourceId = it.getResourceId(R.styleable.DashboardSummaryItemView_summary_icon, 0)
             title = it.getString(R.styleable.DashboardSummaryItemView_summary_title)
         }
     }
 
-    fun bindData(amount: BigDecimal, since: Date? = null) {
+    fun bindData(
+        amount: BigDecimal,
+        since: Date? = null,
+    ) {
         tvAmountView.text = AmountUtils.convertAmountToString(amount)
 
         tvDescriptionEnd.text = since?.let {

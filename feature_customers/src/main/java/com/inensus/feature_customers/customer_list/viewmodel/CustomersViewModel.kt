@@ -14,8 +14,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
 import java.util.concurrent.TimeUnit
 
-open class CustomersViewModel(private val repository: CustomersRepository, private val customerRepository: CustomerRepository) : BaseViewModel() {
-
+open class CustomersViewModel(
+    private val repository: CustomersRepository,
+    private val customerRepository: CustomerRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<CustomerListUiState>()
     val uiState: LiveEvent<CustomerListUiState> = _uiState
 
@@ -40,22 +42,22 @@ open class CustomersViewModel(private val repository: CustomersRepository, priva
             .debounce(PAGING_DEBOUNCE, TimeUnit.MILLISECONDS)
             .doOnNext {
                 _uiState.postValue(CustomerListUiState.Loading(loadCustomerType))
-            }
-            .flatMapSingle {
+            }.flatMapSingle {
                 if (loadCustomerType == LoadCustomerType.PAGINATE) {
                     repository.getCustomers(loadCustomerType)
                 } else {
                     repository.searchCustomer(it, loadCustomerType)
                 }
-            }
-            .observeOn(AndroidSchedulers.mainThread())
+            }.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 _uiState.value = it
-            }
-            .addTo(compositeDisposable)
+            }.addTo(compositeDisposable)
     }
 
-    fun getCustomers(searchTerm: String = "", type: LoadCustomerType) {
+    fun getCustomers(
+        searchTerm: String = "",
+        type: LoadCustomerType,
+    ) {
         loadCustomerType = type
 
         pagination.onNext(searchTerm)

@@ -19,16 +19,18 @@ import kotlinx.android.synthetic.main.fragment_payment_graph.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentGraphFragment : BaseFragment() {
-
     private val viewModel: PaymentGraphViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_payment_graph, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -58,7 +60,11 @@ class PaymentGraphFragment : BaseFragment() {
         })
     }
 
-    private fun handleSuccessState(periodList: List<String>, xAxisList: ArrayList<String>, barData: List<List<BarEntry>>) {
+    private fun handleSuccessState(
+        periodList: List<String>,
+        xAxisList: ArrayList<String>,
+        barData: List<List<BarEntry>>,
+    ) {
         periodDropdown.bindData(periodList)
 
         chart.xAxis.valueFormatter = PaymentGraphXAxisFormatter(xAxisList)
@@ -99,7 +105,7 @@ class PaymentGraphFragment : BaseFragment() {
                 GRAPH_OFFSET,
                 GRAPH_OFFSET,
                 GRAPH_OFFSET,
-                GRAPH_OFFSET
+                GRAPH_OFFSET,
             )
 
             setNoDataTextTypeface(ResourcesCompat.getFont(context, R.font.semi_bold))
@@ -146,25 +152,29 @@ class PaymentGraphFragment : BaseFragment() {
         }
     }
 
-    private fun generateDataSet(index: Int, entries: List<BarEntry>) =
-        BarDataSet(
-            entries, when (index) {
-                0 -> getString(R.string.payment_graph_energy)
-                1 -> getString(R.string.payment_graph_access_rate)
-                2 -> getString(R.string.payment_graph_deferred_payment)
-                else -> ""
-            }
-        ).apply {
-            setDrawValues(false)
-            setDrawIcons(false)
+    private fun generateDataSet(
+        index: Int,
+        entries: List<BarEntry>,
+    ) = BarDataSet(
+        entries,
+        when (index) {
+            0 -> getString(R.string.payment_graph_energy)
+            1 -> getString(R.string.payment_graph_access_rate)
+            2 -> getString(R.string.payment_graph_deferred_payment)
+            else -> ""
+        },
+    ).apply {
+        setDrawValues(false)
+        setDrawIcons(false)
 
-            color = when (index) {
+        color =
+            when (index) {
                 0 -> ContextCompat.getColor(requireContext(), R.color.colorPrimary)
                 1 -> ContextCompat.getColor(requireContext(), R.color.gray_616161)
                 2 -> ContextCompat.getColor(requireContext(), R.color.blue_1A237E)
                 else -> ContextCompat.getColor(requireContext(), R.color.colorPrimary)
             }
-        }
+    }
 
     override fun provideViewModel() = viewModel
 

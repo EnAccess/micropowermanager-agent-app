@@ -16,8 +16,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.processors.PublishProcessor
 import org.koin.java.KoinJavaComponent.getKoin
 
-class PaymentListViewModel(private val repository: PaymentListRepository, private val customerRepository: CustomerRepository) : BaseViewModel() {
-
+class PaymentListViewModel(
+    private val repository: PaymentListRepository,
+    private val customerRepository: CustomerRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<PaymentListUiState>()
     val uiState: LiveEvent<PaymentListUiState> = _uiState
 
@@ -41,15 +43,12 @@ class PaymentListViewModel(private val repository: PaymentListRepository, privat
             .filter { uiState.value !is PaymentListUiState.Loading }
             .doOnNext {
                 _uiState.postValue(PaymentListUiState.Loading(loadingPaymentListType))
-            }
-            .flatMapSingle {
+            }.flatMapSingle {
                 repository.getPayments(loadingPaymentListType, customerRepository.customer)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
+            }.observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 _uiState.value = it
-            }
-            .addTo(compositeDisposable)
+            }.addTo(compositeDisposable)
     }
 
     fun getPayments(type: LoadingPaymentListType) {

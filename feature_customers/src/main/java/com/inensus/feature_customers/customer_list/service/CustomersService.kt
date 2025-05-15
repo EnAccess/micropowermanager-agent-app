@@ -5,8 +5,9 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-
 interface CustomersService {
     @GET
-    fun getCustomers(@Url url: String): Single<CustomerResponse>
+    fun getCustomers(
+        @Url url: String,
+    ): Single<CustomerResponse>
 }

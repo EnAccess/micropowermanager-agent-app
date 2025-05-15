@@ -8,7 +8,10 @@ import com.inensus.core_ui.R
 import com.inensus.core_ui.default_input.DefaultInputView
 import kotlinx.android.synthetic.main.view_default_input.view.*
 
-class PasswordInputView(context: Context, attrs: AttributeSet) : DefaultInputView(context, attrs) {
+class PasswordInputView(
+    context: Context,
+    attrs: AttributeSet,
+) : DefaultInputView(context, attrs) {
     private var passwordState: Boolean = true
 
     override fun setupView() {

@@ -17,16 +17,19 @@ import kotlinx.android.synthetic.main.fragment_appliance_summary.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplianceSummaryFragment : BaseFragment() {
-
     private val viewModel: ApplianceSummaryViewModel by viewModel()
     private var successFragment: SuccessFragment? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? = inflater.inflate(R.layout.fragment_appliance_summary, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getParcelableArrayList<KeyValue>(EXTRA_KEY_VALUE_LIST)?.apply {
@@ -54,11 +57,14 @@ class ApplianceSummaryFragment : BaseFragment() {
     }
 
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                ApplianceSummaryUiState.OpenSuccess -> handleSuccess()
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    ApplianceSummaryUiState.OpenSuccess -> handleSuccess()
+                }
+            },
+        )
     }
 
     private fun setupSuccessFragment() {
@@ -70,10 +76,11 @@ class ApplianceSummaryFragment : BaseFragment() {
     }
 
     private fun handleSuccess() {
-        successFragment = SuccessFragment.newInstance((rvSummary.adapter as KeyValueAdapter).keyValuePairs).also {
-            setSuccessCallback(it)
-            it.show(childFragmentManager, SUCCESS_FRAGMENT_TAG)
-        }
+        successFragment =
+            SuccessFragment.newInstance((rvSummary.adapter as KeyValueAdapter).keyValuePairs).also {
+                setSuccessCallback(it)
+                it.show(childFragmentManager, SUCCESS_FRAGMENT_TAG)
+            }
     }
 
     private fun setSuccessCallback(fragment: SuccessFragment) {

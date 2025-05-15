@@ -22,16 +22,19 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class LoginFragment : BaseFragment() {
-
     private val viewModel: LoginViewModel by stateViewModel()
     private val navigation: SharedNavigation by inject()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? = inflater.inflate(R.layout.fragment_login, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -44,33 +47,42 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is LoginUiState.ServerUrl -> {
-                    askForServerUrl()
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is LoginUiState.ServerUrl -> {
+                        askForServerUrl()
+                    }
+
+                    is LoginUiState.Success -> {
+                        navigation.navigateTo(requireActivity(), Feature.Main)
+                    }
+
+                    is LoginUiState.ValidationError -> {
+                        handleValidationError(it.errors)
+                    }
                 }
+            },
+        )
 
-                is LoginUiState.Success -> {
-                    navigation.navigateTo(requireActivity(), Feature.Main)
+        viewModel.email.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (emailInput.getText() != it) {
+                    emailInput.setText(it)
                 }
+            },
+        )
 
-                is LoginUiState.ValidationError -> {
-                    handleValidationError(it.errors)
+        viewModel.password.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (passwordInput.getText() != it) {
+                    passwordInput.setText(it)
                 }
-            }
-        })
-
-        viewModel.email.observe(viewLifecycleOwner, Observer {
-            if (emailInput.getText() != it) {
-                emailInput.setText(it)
-            }
-        })
-
-        viewModel.password.observe(viewLifecycleOwner, Observer {
-            if (passwordInput.getText() != it) {
-                passwordInput.setText(it)
-            }
-        })
+            },
+        )
     }
 
     private fun setupListeners() {
@@ -79,7 +91,8 @@ class LoginFragment : BaseFragment() {
         loginButton.setOnClickListener { viewModel.onLoginButtonTapped() }
 
         forgotPasswordText.setOnClickListener {
-            AlertDialog.Builder(requireContext())
+            AlertDialog
+                .Builder(requireContext())
                 .setTitle(getString(R.string.warning))
                 .setCancelable(false)
                 .setMessage(getString(R.string.login_forgot_password_action))
@@ -112,13 +125,13 @@ class LoginFragment : BaseFragment() {
                 CustomTypefaceSpan(regularTypeface ?: Typeface.DEFAULT),
                 0,
                 length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
             )
             setSpan(
                 CustomTypefaceSpan(boldTypeface ?: Typeface.DEFAULT),
                 regularPart.length,
                 length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
             )
         }
     }
@@ -127,7 +140,8 @@ class LoginFragment : BaseFragment() {
         errors.forEach { validationError ->
             when (validationError) {
                 is LoginUiState.ValidationError.Error.EmailIsBlank,
-                is LoginUiState.ValidationError.Error.EmailIsNotInCorrectFormat -> {
+                is LoginUiState.ValidationError.Error.EmailIsNotInCorrectFormat,
+                -> {
                     emailInput.setErrorState(true)
                 }
 

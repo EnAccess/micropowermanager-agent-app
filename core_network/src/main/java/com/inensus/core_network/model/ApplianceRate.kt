@@ -9,5 +9,5 @@ import java.math.BigDecimal
 data class ApplianceRate(
     @SerializedName("rate_cost") val rateCost: BigDecimal,
     @SerializedName("remaining") val remaining: BigDecimal,
-    @SerializedName("due_date") val dueDate: String
+    @SerializedName("due_date") val dueDate: String,
 ) : Parcelable

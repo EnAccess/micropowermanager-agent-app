@@ -17,9 +17,11 @@ import com.inensus.core_ui.extentions.setEnabledWithChildren
 
 abstract class BaseInputView(
     context: Context,
-    attrs: AttributeSet
-) : ConstraintLayout(context, attrs), ErrorState, DisableState, FocusableState {
-
+    attrs: AttributeSet,
+) : ConstraintLayout(context, attrs),
+    ErrorState,
+    DisableState,
+    FocusableState {
     var errorState: Boolean = false
         private set
 
@@ -96,7 +98,10 @@ abstract class BaseInputView(
     }
 
     abstract fun getTitleView(): TextView?
+
     abstract fun getMainTextView(): TextView?
+
     abstract fun getIcon(): AppCompatImageView?
+
     abstract fun getBorderView(): View?
 }

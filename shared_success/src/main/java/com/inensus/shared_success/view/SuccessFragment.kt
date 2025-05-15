@@ -21,20 +21,22 @@ import com.inensus.shared_success.R
 import kotlinx.android.synthetic.main.fragment_success.*
 
 class SuccessFragment : BottomSheetDialogFragment() {
-
     var dismissCallback: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val contextThemeWrapper = ContextThemeWrapper(activity, R.style.AppTheme)
 
         return layoutInflater.cloneInContext(contextThemeWrapper).inflate(R.layout.fragment_success, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -90,12 +92,13 @@ class SuccessFragment : BottomSheetDialogFragment() {
     }
 
     private fun print() {
-        PrintHelper(requireActivity()).apply {
-            scaleMode = PrintHelper.SCALE_MODE_FIT
-        }.also { printHelper ->
-            val bitmap = takeScreenShot()
-            printHelper.printBitmap(getString(R.string.success_print_file_name), bitmap)
-        }
+        PrintHelper(requireActivity())
+            .apply {
+                scaleMode = PrintHelper.SCALE_MODE_FIT
+            }.also { printHelper ->
+                val bitmap = takeScreenShot()
+                printHelper.printBitmap(getString(R.string.success_print_file_name), bitmap)
+            }
     }
 
     private fun takeScreenShot(): Bitmap {
@@ -115,9 +118,11 @@ class SuccessFragment : BottomSheetDialogFragment() {
         private const val EXTRA_INPUT = "extra_input"
         private const val EXTRA_IS_PENDING = "is_pending"
 
-        fun newInstance(keyValues: List<KeyValue>, isPending: Boolean = false) =
-            SuccessFragment().apply {
-                arguments = bundleOf(EXTRA_INPUT to keyValues, EXTRA_IS_PENDING to isPending)
-            }
+        fun newInstance(
+            keyValues: List<KeyValue>,
+            isPending: Boolean = false,
+        ) = SuccessFragment().apply {
+            arguments = bundleOf(EXTRA_INPUT to keyValues, EXTRA_IS_PENDING to isPending)
+        }
     }
 }

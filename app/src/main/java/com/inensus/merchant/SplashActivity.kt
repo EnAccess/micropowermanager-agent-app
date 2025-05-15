@@ -8,7 +8,6 @@ import com.inensus.shared_navigation.SharedNavigation
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
-
     private val navigation: SharedNavigation by inject()
     private val sharedPreferenceWrapper: SharedPreferenceWrapper by inject()
 

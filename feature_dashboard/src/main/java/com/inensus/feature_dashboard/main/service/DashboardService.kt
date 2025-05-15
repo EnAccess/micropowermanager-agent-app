@@ -8,11 +8,17 @@ import retrofit2.http.Url
 
 interface DashboardService {
     @GET
-    fun getDashboardSummary(@Url url: String): Single<DashboardSummaryResponse>
+    fun getDashboardSummary(
+        @Url url: String,
+    ): Single<DashboardSummaryResponse>
 
     @GET
-    fun getDashboardGraphBalance(@Url url: String): Single<JsonObject>
+    fun getDashboardGraphBalance(
+        @Url url: String,
+    ): Single<JsonObject>
 
     @GET
-    fun getDashboardGraphRevenue(@Url url: String): Single<JsonObject>
+    fun getDashboardGraphRevenue(
+        @Url url: String,
+    ): Single<JsonObject>
 }

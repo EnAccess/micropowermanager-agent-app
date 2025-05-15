@@ -6,8 +6,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object ApplianceDetailModule {
-    fun createApplianceDetailModule() = module {
-        viewModel { ApplianceDetailViewModel(get()) }
-        single { ApplianceDetailCreator(get()) }
-    }
+    fun createApplianceDetailModule() =
+        module {
+            viewModel { ApplianceDetailViewModel(get()) }
+            single { ApplianceDetailCreator(get()) }
+        }
 }

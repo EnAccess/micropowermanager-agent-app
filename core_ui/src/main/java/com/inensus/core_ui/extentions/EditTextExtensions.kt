@@ -21,27 +21,42 @@ fun EditText.requestFocusWithKeyboard() {
 }
 
 fun EditText.afterTextChanged(afterTextChanged: (Editable) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun afterTextChanged(editable: Editable?) {
-            editable?.run {
-                afterTextChanged.invoke(this)
+    this.addTextChangedListener(
+        object : TextWatcher {
+            override fun beforeTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int,
+            ) {
             }
-        }
-    })
+
+            override fun onTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int,
+            ) {
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                editable?.run {
+                    afterTextChanged.invoke(this)
+                }
+            }
+        },
+    )
 }
 
-fun EditText.textChangedWithDelay(delay: Long = 800, afterTextChanged: (Editable) -> Unit): Disposable {
-    return RxTextView.textChanges(this)
+fun EditText.textChangedWithDelay(
+    delay: Long = 800,
+    afterTextChanged: (Editable) -> Unit,
+): Disposable =
+    RxTextView
+        .textChanges(this)
         .skipInitialValue()
         .debounce(delay, TimeUnit.MILLISECONDS)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
             afterTextChanged.invoke(this.text)
         }, Timber::e)
-}

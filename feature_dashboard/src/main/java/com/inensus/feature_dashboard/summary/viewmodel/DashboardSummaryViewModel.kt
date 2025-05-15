@@ -5,7 +5,8 @@ import com.inensus.core_ui.BaseViewModel
 import com.inensus.feature_dashboard.main.service.DashboardRepository
 import com.inensus.feature_dashboard.summary.model.DashboardSummaryData
 
-class DashboardSummaryViewModel(repository: DashboardRepository) : BaseViewModel() {
-
+class DashboardSummaryViewModel(
+    repository: DashboardRepository,
+) : BaseViewModel() {
     val summaryData: LiveData<DashboardSummaryData> = repository.summaryData
 }

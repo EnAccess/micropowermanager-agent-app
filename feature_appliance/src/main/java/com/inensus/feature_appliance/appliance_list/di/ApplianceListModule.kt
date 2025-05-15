@@ -8,21 +8,23 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object ApplianceListModule {
-    fun createApplianceListModules(): List<Module> = listOf(
-        module {
-            viewModel {
-                getKoin().createScope(APPLIANCE_LIST_SCOPE, named(APPLIANCE_LIST_SCOPE))
-                ApplianceListViewModel(getScope(APPLIANCE_LIST_SCOPE).get(), get())
-            }
-        },
-        createApplianceListNetworkModule()
-    )
+    fun createApplianceListModules(): List<Module> =
+        listOf(
+            module {
+                viewModel {
+                    getKoin().createScope(APPLIANCE_LIST_SCOPE, named(APPLIANCE_LIST_SCOPE))
+                    ApplianceListViewModel(getScope(APPLIANCE_LIST_SCOPE).get(), get())
+                }
+            },
+            createApplianceListNetworkModule(),
+        )
 
-    private fun createApplianceListNetworkModule() = module {
-        scope(named(APPLIANCE_LIST_SCOPE)) {
-            scoped { ApplianceListRepository(get(), get()) }
+    private fun createApplianceListNetworkModule() =
+        module {
+            scope(named(APPLIANCE_LIST_SCOPE)) {
+                scoped { ApplianceListRepository(get(), get()) }
+            }
         }
-    }
 
     const val APPLIANCE_LIST_SCOPE = "APPLIANCE_LIST_SCOPE"
 }

@@ -7,14 +7,18 @@ import com.inensus.core.sharedpreferences.SharedPreferenceWrapper
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthorizationInterceptor(private val context: Context, private val sharedPreferenceWrapper: SharedPreferenceWrapper) : Interceptor {
-
+class AuthorizationInterceptor(
+    private val context: Context,
+    private val sharedPreferenceWrapper: SharedPreferenceWrapper,
+) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-
-        val request = chain.request().newBuilder()
-            .addHeader(HEADER_AUTHORIZATION, BEARER + sharedPreferenceWrapper.accessToken)
-            .addHeader(HEADER_DEVICE_ID, sharedPreferenceWrapper.deviceId)
-            .build()
+        val request =
+            chain
+                .request()
+                .newBuilder()
+                .addHeader(HEADER_AUTHORIZATION, BEARER + sharedPreferenceWrapper.accessToken)
+                .addHeader(HEADER_DEVICE_ID, sharedPreferenceWrapper.deviceId)
+                .build()
 
         val response = chain.proceed(request)
 

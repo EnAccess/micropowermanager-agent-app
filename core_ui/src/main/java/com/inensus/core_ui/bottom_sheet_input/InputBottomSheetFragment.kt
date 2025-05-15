@@ -13,22 +13,24 @@ import kotlinx.android.synthetic.main.fragment_input_bottom_sheet.*
 import org.koin.android.ext.android.inject
 
 class InputBottomSheetFragment : BottomSheetDialogFragment() {
-
     private val preferences: SharedPreferenceWrapper by inject()
 
     override fun getTheme() = R.style.AppTheme_BottomSheet
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         val contextThemeWrapper = ContextThemeWrapper(activity, R.style.AppTheme)
 
         return layoutInflater.cloneInContext(contextThemeWrapper).inflate(R.layout.fragment_input_bottom_sheet, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         inputView.getTitleView().text = getString(R.string.title_server_url)
         inputView.setText(preferences.baseUrl ?: "")
