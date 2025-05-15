@@ -22,6 +22,8 @@ plugins {
 
     id("com.android.application") version "4.2.2" apply false
     id("org.jetbrains.kotlin.android") version "1.5.32" apply false
+    id("org.jetbrains.kotlin.kapt") version "1.5.32" apply false
+    id("org.jetbrains.kotlin.plugin.parcelize") version "1.5.32" apply false
 
     id("com.github.ben-manes.versions") version "0.27.0" apply false
 

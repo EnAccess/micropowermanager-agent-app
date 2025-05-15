@@ -1,7 +1,6 @@
 package com.inensus.feature_appliance.appliance_list.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +9,7 @@ import com.inensus.core.utils.AmountUtils
 import com.inensus.core.utils.DateUtils
 import com.inensus.core_network.model.ApplianceTransaction
 import com.inensus.feature_appliance.R
-import kotlinx.android.synthetic.main.appliance_list_item.view.*
+import com.inensus.feature_appliance.databinding.ApplianceListItemBinding
 import java.math.BigDecimal
 
 class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolder>() {
@@ -20,9 +19,10 @@ class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolde
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.appliance_list_item, parent, false),
-    )
+    ): ViewHolder {
+        val binding = ApplianceListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
@@ -40,10 +40,11 @@ class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolde
     }
 
     inner class ViewHolder(
-        view: View,
-    ) : RecyclerView.ViewHolder(view) {
+        private val binding: ApplianceListItemBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: ApplianceTransaction) {
-            with(itemView) {
+            with(binding) {
+                val context = root.context
                 statusImage.setImageDrawable(
                     if (transaction.rates.none { it.remainingAmount > BigDecimal.ZERO }) {
                         ContextCompat.getDrawable(context, R.drawable.ic_success)

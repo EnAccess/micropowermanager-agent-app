@@ -14,22 +14,27 @@ import com.inensus.core_ui.BaseFragment
 import com.inensus.core_ui.bottom_sheet_input.InputBottomSheetFragment
 import com.inensus.core_ui.util.CustomTypefaceSpan
 import com.inensus.feature_login.R
+import com.inensus.feature_login.databinding.FragmentLoginBinding
 import com.inensus.feature_login.viewmodel.LoginViewModel
 import com.inensus.shared_navigation.Feature
 import com.inensus.shared_navigation.SharedNavigation
-import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : BaseFragment() {
     private val viewModel: LoginViewModel by sharedViewModel()
     private val navigation: SharedNavigation by inject()
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? = inflater.inflate(R.layout.fragment_login, container, false)
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -69,8 +74,8 @@ class LoginFragment : BaseFragment() {
         viewModel.email.observe(
             viewLifecycleOwner,
             Observer {
-                if (emailInput.getText() != it) {
-                    emailInput.setText(it)
+                if (binding.emailInput.getText() != it) {
+                    binding.emailInput.setText(it)
                 }
             },
         )
@@ -78,19 +83,19 @@ class LoginFragment : BaseFragment() {
         viewModel.password.observe(
             viewLifecycleOwner,
             Observer {
-                if (passwordInput.getText() != it) {
-                    passwordInput.setText(it)
+                if (binding.passwordInput.getText() != it) {
+                    binding.passwordInput.setText(it)
                 }
             },
         )
     }
 
     private fun setupListeners() {
-        emailInput.afterTextChanged = { viewModel.onEmailChanged(it.toString()) }
-        passwordInput.afterTextChanged = { viewModel.onPasswordChanged(it.toString()) }
-        loginButton.setOnClickListener { viewModel.onLoginButtonTapped() }
+        binding.emailInput.afterTextChanged = { viewModel.onEmailChanged(it.toString()) }
+        binding.passwordInput.afterTextChanged = { viewModel.onPasswordChanged(it.toString()) }
+        binding.loginButton.setOnClickListener { viewModel.onLoginButtonTapped() }
 
-        forgotPasswordText.setOnClickListener {
+        binding.forgotPasswordText.setOnClickListener {
             AlertDialog
                 .Builder(requireContext())
                 .setTitle(getString(R.string.warning))
@@ -108,7 +113,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun setHeaderText() {
-        headerText.text = createHeaderSpannableString()
+        binding.headerText.text = createHeaderSpannableString()
     }
 
     private fun createHeaderSpannableString(): SpannableStringBuilder {
@@ -142,11 +147,11 @@ class LoginFragment : BaseFragment() {
                 is LoginUiState.ValidationError.Error.EmailIsBlank,
                 is LoginUiState.ValidationError.Error.EmailIsNotInCorrectFormat,
                 -> {
-                    emailInput.setErrorState(true)
+                    binding.emailInput.setErrorState(true)
                 }
 
                 is LoginUiState.ValidationError.Error.PasswordIsBlank -> {
-                    passwordInput.setErrorState(true)
+                    binding.passwordInput.setErrorState(true)
                 }
             }
         }

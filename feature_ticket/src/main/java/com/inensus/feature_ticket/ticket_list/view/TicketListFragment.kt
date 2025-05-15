@@ -16,20 +16,25 @@ import com.inensus.core_ui.BaseActivity
 import com.inensus.core_ui.extentions.*
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_ticket.R
+import com.inensus.feature_ticket.databinding.FragmentTicketListBinding
 import com.inensus.feature_ticket.ticket_detail.view.TicketDetailFragment
 import com.inensus.feature_ticket.ticket_list.model.Ticket
 import com.inensus.feature_ticket.ticket_list.viewmodel.TicketListViewModel
-import kotlinx.android.synthetic.main.fragment_ticket_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketListFragment : Fragment() {
+    private var _binding: FragmentTicketListBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: TicketListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_ticket_list, container, false)
+    ): View {
+        _binding = FragmentTicketListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -44,7 +49,7 @@ class TicketListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        viewModel.saveTicketsState((rvTickets.adapter as TicketListAdapter).tickets)
+        viewModel.saveTicketsState((binding.rvTickets.adapter as TicketListAdapter).tickets)
     }
 
     private fun setupView() {
@@ -52,11 +57,11 @@ class TicketListFragment : Fragment() {
             viewModel.getTickets(type = LoadingTicketListType.INITIAL)
         }
 
-        createTicket.setOnClickListener {
+        binding.createTicket.setOnClickListener {
             (activity as BaseActivity).provideNavController().navigate(R.id.openTicketForm)
         }
 
-        rvTickets.apply {
+        binding.rvTickets.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
                 TicketListAdapter().apply {
@@ -77,7 +82,7 @@ class TicketListFragment : Fragment() {
                 dy: Int,
             ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                val adapter = (rvTickets.adapter as TicketListAdapter)
+                val adapter = (binding.rvTickets.adapter as TicketListAdapter)
 
                 if (lastItemPosition + LIST_THRESHOLD > adapter.tickets.size && adapter.tickets.isNotEmpty()) {
                     viewModel.getTickets(type = LoadingTicketListType.PAGINATE)
@@ -121,38 +126,38 @@ class TicketListFragment : Fragment() {
 
     private fun handleLoading(type: LoadingTicketListType) {
         if (type == LoadingTicketListType.PAGINATE) {
-            progressBar.show()
+            binding.progressBar.show()
         } else {
-            rvTickets.gone()
-            loadingLayout.show()
+            binding.rvTickets.gone()
+            binding.loadingLayout.root.show()
         }
-        errorLayout.gone()
-        emptyLayout.gone()
+        binding.errorLayout.root.gone()
+        binding.emptyLayout.root.gone()
     }
 
     private fun handleError() {
-        errorLayout.animateShow()
-        loadingLayout.animateGone()
-        emptyLayout.gone()
-        progressBar.hide()
-        rvTickets.gone()
+        binding.errorLayout.root.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.emptyLayout.root.gone()
+        binding.progressBar.hide()
+        binding.rvTickets.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleEmpty() {
-        emptyLayout.animateShow()
-        loadingLayout.animateGone()
-        errorLayout.gone()
-        progressBar.hide()
-        (rvTickets.adapter as TicketListAdapter).tickets = emptyList()
-        rvTickets.gone()
+        binding.emptyLayout.root.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.errorLayout.root.gone()
+        binding.progressBar.hide()
+        (binding.rvTickets.adapter as TicketListAdapter).tickets = emptyList()
+        binding.rvTickets.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleNoMore() {
-        progressBar.hide()
+        binding.progressBar.hide()
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
@@ -160,11 +165,11 @@ class TicketListFragment : Fragment() {
         tickets: List<Ticket>,
         loadCustomerType: LoadingTicketListType,
     ) {
-        if (tickets != (rvTickets.adapter as TicketListAdapter).tickets) {
-            progressBar.hide()
-            rvTickets.animateShow()
+        if (tickets != (binding.rvTickets.adapter as TicketListAdapter).tickets) {
+            binding.progressBar.hide()
+            binding.rvTickets.animateShow()
             updateTicketsData(tickets, loadCustomerType)
-            loadingLayout.animateGone()
+            binding.loadingLayout.root.animateGone()
         }
     }
 
@@ -172,12 +177,12 @@ class TicketListFragment : Fragment() {
         tickets: List<Ticket>,
         loadCustomerType: LoadingTicketListType,
     ) {
-        val adapter = (rvTickets.adapter as TicketListAdapter)
+        val adapter = (binding.rvTickets.adapter as TicketListAdapter)
 
         if (loadCustomerType == LoadingTicketListType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.tickets).apply { addAll(tickets) })
         } else {
-            rvTickets.adapter =
+            binding.rvTickets.adapter =
                 TicketListAdapter().apply {
                     onItemClick = {
                         viewModel.onTicketTapped(it)
@@ -188,7 +193,7 @@ class TicketListFragment : Fragment() {
                 }
         }
 
-        viewModel.saveTicketsState((rvTickets.adapter as TicketListAdapter).tickets)
+        viewModel.saveTicketsState((binding.rvTickets.adapter as TicketListAdapter).tickets)
     }
 
     private fun handleTicketTapped(ticketId: String) {
@@ -199,7 +204,7 @@ class TicketListFragment : Fragment() {
     }
 
     private fun updateView(customer: Customer?) {
-        createTicket.visibility = if (customer != null) View.VISIBLE else View.GONE
+        binding.createTicket.visibility = if (customer != null) View.VISIBLE else View.GONE
         view?.findViewById<TextView>(R.id.tvEmptyDescription)?.text =
             if (customer != null) {
                 getString(

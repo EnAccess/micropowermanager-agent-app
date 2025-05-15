@@ -1,7 +1,6 @@
 package com.inensus.feature_payment.payment_list.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +9,7 @@ import com.inensus.core.utils.AmountUtils
 import com.inensus.core.utils.DateUtils
 import com.inensus.core_network.model.Payment
 import com.inensus.feature_payment.R
-import kotlinx.android.synthetic.main.payment_list_item.view.*
+import com.inensus.feature_payment.databinding.PaymentListItemBinding
 
 class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>() {
     lateinit var onItemClick: ((payment: Payment) -> Unit)
@@ -19,9 +18,10 @@ class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.payment_list_item, parent, false),
-    )
+    ): ViewHolder {
+        val binding = PaymentListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
@@ -39,10 +39,11 @@ class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>()
     }
 
     inner class ViewHolder(
-        view: View,
-    ) : RecyclerView.ViewHolder(view) {
+        private val binding: PaymentListItemBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(payment: Payment) {
-            with(itemView) {
+            with(binding) {
+                val context = root.context
                 statusImage.setImageDrawable(
                     when (payment.originalAgent?.status) {
                         1 -> ContextCompat.getDrawable(context, R.drawable.ic_success)

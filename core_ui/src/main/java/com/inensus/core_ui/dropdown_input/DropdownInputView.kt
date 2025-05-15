@@ -10,30 +10,32 @@ import androidx.core.content.res.use
 import androidx.core.view.children
 import com.inensus.core_ui.R
 import com.inensus.core_ui.base_input.ErrorState
+import com.inensus.core_ui.databinding.ViewDropdownInputBinding
 import com.inensus.core_ui.extentions.hide
-import kotlinx.android.synthetic.main.view_dropdown_input.view.*
 
 class DropdownInputView(
     context: Context,
     attributeSet: AttributeSet,
 ) : ConstraintLayout(context, attributeSet),
     ErrorState {
+    private lateinit var binding: ViewDropdownInputBinding
+
     var onValueChanged: ((String) -> Unit)? = null
     private var errorState: Boolean = false
     private lateinit var popupMenu: PopupMenu
 
     var value: String
-        get() = valueText.text.toString()
+        get() = binding.valueText.text.toString()
         set(value) {
-            valueText.text = value
-            placeholderText.hide()
+            binding.valueText.text = value
+            binding.placeholderText.hide()
             setErrorState(false)
 
             onValueChanged?.invoke(value)
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_dropdown_input, this, true)
+        binding = ViewDropdownInputBinding.inflate(LayoutInflater.from(context), this)
         initializeAttributes(context, attributeSet)
     }
 
@@ -71,7 +73,7 @@ class DropdownInputView(
     }
 
     private fun setupView(title: String?) {
-        titleText.text = title
+        binding.titleText.text = title
 
         popupMenu =
             PopupMenu(context, this).apply {

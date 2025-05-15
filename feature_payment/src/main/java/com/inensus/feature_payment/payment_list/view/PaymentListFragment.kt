@@ -17,19 +17,24 @@ import com.inensus.core_ui.BaseActivity
 import com.inensus.core_ui.extentions.*
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_payment.R
+import com.inensus.feature_payment.databinding.FragmentPaymentListBinding
 import com.inensus.feature_payment.payment_detail.view.PaymentDetailFragment
 import com.inensus.feature_payment.payment_list.viewmodel.PaymentListViewModel
-import kotlinx.android.synthetic.main.fragment_payment_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentListFragment : Fragment() {
+    private var _binding: FragmentPaymentListBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: PaymentListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_payment_list, container, false)
+    ): View {
+        _binding = FragmentPaymentListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -44,7 +49,7 @@ class PaymentListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        viewModel.savePaymentsState((rvPayments.adapter as PaymentListAdapter).payments)
+        viewModel.savePaymentsState((binding.rvPayments.adapter as PaymentListAdapter).payments)
     }
 
     private fun setupView() {
@@ -52,11 +57,11 @@ class PaymentListFragment : Fragment() {
             viewModel.getPayments(type = LoadingPaymentListType.INITIAL)
         }
 
-        createPayment.setOnClickListener {
+        binding.createPayment.setOnClickListener {
             (activity as BaseActivity).provideNavController().navigate(R.id.openPayment)
         }
 
-        rvPayments.apply {
+        binding.rvPayments.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
                 PaymentListAdapter().apply {
@@ -77,7 +82,7 @@ class PaymentListFragment : Fragment() {
                 dy: Int,
             ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                val adapter = (rvPayments.adapter as PaymentListAdapter)
+                val adapter = (binding.rvPayments.adapter as PaymentListAdapter)
 
                 if (lastItemPosition + LIST_THRESHOLD > adapter.payments.size && adapter.payments.isNotEmpty()) {
                     viewModel.getPayments(type = LoadingPaymentListType.PAGINATE)
@@ -121,38 +126,38 @@ class PaymentListFragment : Fragment() {
 
     private fun handleLoading(type: LoadingPaymentListType) {
         if (type == LoadingPaymentListType.PAGINATE) {
-            progressBar.show()
+            binding.progressBar.show()
         } else {
-            rvPayments.gone()
-            loadingLayout.show()
+            binding.rvPayments.gone()
+            binding.loadingLayout.root.show()
         }
-        errorLayout.gone()
-        emptyLayout.gone()
+        binding.errorLayout.root.gone()
+        binding.emptyLayout.root.gone()
     }
 
     private fun handleError() {
-        errorLayout.animateShow()
-        loadingLayout.animateGone()
-        emptyLayout.gone()
-        progressBar.hide()
-        rvPayments.gone()
+        binding.errorLayout.root.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.emptyLayout.root.gone()
+        binding.progressBar.hide()
+        binding.rvPayments.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleEmpty() {
-        emptyLayout.animateShow()
-        loadingLayout.animateGone()
-        errorLayout.gone()
-        progressBar.hide()
-        (rvPayments.adapter as PaymentListAdapter).payments = emptyList()
-        rvPayments.gone()
+        binding.emptyLayout.root.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.errorLayout.root.gone()
+        binding.progressBar.hide()
+        (binding.rvPayments.adapter as PaymentListAdapter).payments = emptyList()
+        binding.rvPayments.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleNoMore() {
-        progressBar.hide()
+        binding.progressBar.hide()
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
@@ -160,11 +165,11 @@ class PaymentListFragment : Fragment() {
         payments: List<Payment>,
         loadCustomerType: LoadingPaymentListType,
     ) {
-        if (payments != (rvPayments.adapter as PaymentListAdapter).payments) {
-            progressBar.hide()
-            rvPayments.animateShow()
+        if (payments != (binding.rvPayments.adapter as PaymentListAdapter).payments) {
+            binding.progressBar.hide()
+            binding.rvPayments.animateShow()
             updatePaymentsData(payments, loadCustomerType)
-            loadingLayout.animateGone()
+            binding.loadingLayout.root.animateGone()
         }
     }
 
@@ -172,12 +177,12 @@ class PaymentListFragment : Fragment() {
         payments: List<Payment>,
         loadCustomerType: LoadingPaymentListType,
     ) {
-        val adapter = (rvPayments.adapter as PaymentListAdapter)
+        val adapter = (binding.rvPayments.adapter as PaymentListAdapter)
 
         if (loadCustomerType == LoadingPaymentListType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.payments).apply { addAll(payments) })
         } else {
-            rvPayments.adapter =
+            binding.rvPayments.adapter =
                 PaymentListAdapter().apply {
                     onItemClick = {
                         viewModel.onPaymentTapped(it)
@@ -197,7 +202,7 @@ class PaymentListFragment : Fragment() {
     }
 
     private fun updateView(customer: Customer?) {
-        createPayment.visibility = if (customer != null) View.VISIBLE else View.GONE
+        binding.createPayment.visibility = if (customer != null) View.VISIBLE else View.GONE
         view?.findViewById<TextView>(R.id.tvEmptyDescription)?.text =
             if (customer != null) {
                 getString(

@@ -7,16 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.inensus.feature_dashboard.R
+import com.inensus.feature_dashboard.databinding.FragmentDashboardGraphMainBinding
 import com.inensus.feature_dashboard.graph.view.balance.DashboardGraphBalanceFragment
 import com.inensus.feature_dashboard.graph.view.revenue.DashboardGraphRevenueFragment
-import kotlinx.android.synthetic.main.fragment_dashboard_graph_main.*
 
 class DashboardGraphMainFragment : Fragment() {
+    private var _binding: FragmentDashboardGraphMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_dashboard_graph_main, container, false)
+    ): View {
+        _binding = FragmentDashboardGraphMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -30,11 +36,11 @@ class DashboardGraphMainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        pager.adapter = null
+        binding.pager.adapter = null
     }
 
     private fun setupPagerAdapter() {
-        pager.adapter =
+        binding.pager.adapter =
             DashboardGraphMainViewPagerAdapter(
                 listOf(
                     DashboardGraphBalanceFragment(),
@@ -48,6 +54,6 @@ class DashboardGraphMainFragment : Fragment() {
 
     private fun setupTabs() {
         val tabs = resources.getStringArray(R.array.dashboard_graph_main_tabs)
-        TabLayoutMediator(tabLayout, pager) { tab, position -> tab.text = tabs[position] }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position -> tab.text = tabs[position] }.attach()
     }
 }

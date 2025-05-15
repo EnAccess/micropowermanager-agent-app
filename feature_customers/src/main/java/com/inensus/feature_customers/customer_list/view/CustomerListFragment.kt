@@ -22,10 +22,12 @@ import com.inensus.core_ui.extentions.*
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_customers.R
 import com.inensus.feature_customers.customer_list.viewmodel.CustomersViewModel
-import kotlinx.android.synthetic.main.fragment_customers.*
+import com.inensus.feature_customers.databinding.FragmentCustomersBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerListFragment : Fragment() {
+    private var _binding: FragmentCustomersBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: CustomersViewModel by viewModel()
     private var searchTerm: String? = null
 
@@ -35,7 +37,8 @@ class CustomerListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_customers, container, false)
+        _binding = FragmentCustomersBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -51,7 +54,7 @@ class CustomerListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        viewModel.saveCustomersState((rvCustomers.adapter as CustomerListAdapter).customers)
+        viewModel.saveCustomersState((binding.rvCustomers.adapter as CustomerListAdapter).customers)
     }
 
     override fun onCreateOptionsMenu(
@@ -68,7 +71,7 @@ class CustomerListFragment : Fragment() {
             viewModel.getCustomers(type = LoadCustomerType.INITIAL)
         }
 
-        rvCustomers.apply {
+        binding.rvCustomers.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
                 CustomerListAdapter().apply {
@@ -89,7 +92,7 @@ class CustomerListFragment : Fragment() {
                 dy: Int,
             ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                val adapter = (rvCustomers.adapter as CustomerListAdapter)
+                val adapter = (binding.rvCustomers.adapter as CustomerListAdapter)
 
                 if (lastItemPosition + LIST_THRESHOLD > adapter.customers.size && adapter.customers.isNotEmpty()) {
                     viewModel.getCustomers(type = LoadCustomerType.PAGINATE)
@@ -133,38 +136,38 @@ class CustomerListFragment : Fragment() {
 
     private fun handleLoading(type: LoadCustomerType) {
         if (type == LoadCustomerType.PAGINATE) {
-            progressBar.show()
+            binding.progressBar.show()
         } else {
-            rvCustomers.gone()
-            loadingLayout.show()
+            binding.rvCustomers.gone()
+            binding.loadingLayout.root.show()
         }
-        errorLayout.gone()
-        emptyLayout.gone()
+        (binding.errorLayout as View).gone()
+        (binding.emptyLayout as View).gone()
     }
 
     private fun handleError() {
-        errorLayout.animateShow()
-        loadingLayout.animateGone()
-        emptyLayout.gone()
-        progressBar.gone()
-        rvCustomers.gone()
+        (binding.errorLayout as View).animateShow()
+        binding.loadingLayout.root.animateGone()
+        (binding.emptyLayout as View).gone()
+        binding.progressBar.gone()
+        binding.rvCustomers.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleEmpty() {
-        emptyLayout.animateShow()
-        loadingLayout.animateGone()
-        errorLayout.gone()
-        progressBar.gone()
-        (rvCustomers.adapter as CustomerListAdapter).customers = emptyList()
-        rvCustomers.gone()
+        (binding.emptyLayout as View).animateShow()
+        binding.loadingLayout.root.animateGone()
+        (binding.errorLayout as View).gone()
+        binding.progressBar.gone()
+        (binding.rvCustomers.adapter as CustomerListAdapter).customers = emptyList()
+        binding.rvCustomers.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleNoMore() {
-        progressBar.gone()
+        binding.progressBar.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
@@ -173,22 +176,22 @@ class CustomerListFragment : Fragment() {
         customers: List<Customer>,
         loadCustomerType: LoadCustomerType,
     ) {
-        rvCustomers.animateShow()
+        binding.rvCustomers.animateShow()
         updateCustomersData(customers, loadCustomerType)
-        loadingLayout.animateGone()
-        progressBar.gone()
+        binding.loadingLayout.root.animateGone()
+        binding.progressBar.gone()
     }
 
     private fun updateCustomersData(
         customers: List<Customer>,
         loadCustomerType: LoadCustomerType,
     ) {
-        val adapter = (rvCustomers.adapter as CustomerListAdapter)
+        val adapter = (binding.rvCustomers.adapter as CustomerListAdapter)
 
         if (loadCustomerType == LoadCustomerType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.customers).apply { addAll(customers) })
         } else {
-            rvCustomers.adapter =
+            binding.rvCustomers.adapter =
                 CustomerListAdapter().apply {
                     onItemClick = {
                         viewModel.onCustomerTapped(it)

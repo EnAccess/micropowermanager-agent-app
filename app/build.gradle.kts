@@ -2,8 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
-    // TBD: Deprecated
-    id("kotlin-android-extensions")
 
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -59,6 +57,10 @@ android {
 
     lintOptions {
         textReport = true
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 

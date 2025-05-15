@@ -1,7 +1,6 @@
 package com.inensus.feature_customers.customer_list.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inensus.core_network.model.Customer
 import com.inensus.core_ui.extentions.createInitialsDrawable
 import com.inensus.feature_customers.R
-import kotlinx.android.synthetic.main.customer_list_item.view.*
+import com.inensus.feature_customers.databinding.CustomerListItemBinding
 
 class CustomerListAdapter : RecyclerView.Adapter<CustomerListAdapter.ViewHolder>() {
     lateinit var onItemClick: ((customer: Customer) -> Unit)
@@ -18,9 +17,10 @@ class CustomerListAdapter : RecyclerView.Adapter<CustomerListAdapter.ViewHolder>
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.customer_list_item, parent, false),
-    )
+    ): ViewHolder {
+        val binding = CustomerListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
@@ -38,10 +38,11 @@ class CustomerListAdapter : RecyclerView.Adapter<CustomerListAdapter.ViewHolder>
     }
 
     inner class ViewHolder(
-        view: View,
-    ) : RecyclerView.ViewHolder(view) {
+        private val binding: CustomerListItemBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(customer: Customer) {
-            with(itemView) {
+            with(binding) {
+                val context = root.context
                 customerImage.setImageDrawable(
                     createInitialsDrawable(
                         context.getString(R.string.customer_name_surname, customer.name, customer.surname),
@@ -55,7 +56,7 @@ class CustomerListAdapter : RecyclerView.Adapter<CustomerListAdapter.ViewHolder>
                     customerCityText.text = customer.addresses[0].city.name
                 }
 
-                setOnClickListener {
+                root.setOnClickListener {
                     onItemClick.invoke(customer)
                 }
             }

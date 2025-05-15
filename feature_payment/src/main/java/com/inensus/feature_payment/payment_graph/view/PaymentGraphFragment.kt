@@ -14,18 +14,23 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.inensus.core_ui.BaseFragment
 import com.inensus.core_ui.graph.GraphMarkerView
 import com.inensus.feature_payment.R
+import com.inensus.feature_payment.databinding.FragmentPaymentGraphBinding
 import com.inensus.feature_payment.payment_graph.viewmodel.PaymentGraphViewModel
-import kotlinx.android.synthetic.main.fragment_payment_graph.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentGraphFragment : BaseFragment() {
+    private var _binding: FragmentPaymentGraphBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: PaymentGraphViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_payment_graph, container, false)
+    ): View {
+        _binding = FragmentPaymentGraphBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -43,7 +48,7 @@ class PaymentGraphFragment : BaseFragment() {
     }
 
     private fun setupListeners() {
-        periodDropdown.onValueChanged = { viewModel.onPeriodChanged(it) }
+        binding.periodDropdown.onValueChanged = { viewModel.onPeriodChanged(it) }
     }
 
     private fun observeUiState() {
@@ -54,8 +59,8 @@ class PaymentGraphFragment : BaseFragment() {
         })
 
         viewModel.period.observe(viewLifecycleOwner, {
-            if (periodDropdown.value != it.value) {
-                periodDropdown.value = it.value
+            if (binding.periodDropdown.value != it.value) {
+                binding.periodDropdown.value = it.value
             }
         })
     }
@@ -65,14 +70,14 @@ class PaymentGraphFragment : BaseFragment() {
         xAxisList: ArrayList<String>,
         barData: List<List<BarEntry>>,
     ) {
-        periodDropdown.bindData(periodList)
+        binding.periodDropdown.bindData(periodList)
 
-        chart.xAxis.valueFormatter = PaymentGraphXAxisFormatter(xAxisList)
+        binding.chart.xAxis.valueFormatter = PaymentGraphXAxisFormatter(xAxisList)
         setupChartData(barData)
     }
 
     private fun setupChart() {
-        chart.apply {
+        binding.chart.apply {
             description.isEnabled = false
             setDrawGridBackground(false)
 
@@ -88,7 +93,7 @@ class PaymentGraphFragment : BaseFragment() {
             }
 
             with(axisLeft) {
-                typeface = ResourcesCompat.getFont(chart.context, R.font.regular)
+                typeface = ResourcesCompat.getFont(binding.chart.context, R.font.regular)
                 typeface = ResourcesCompat.getFont(context, R.font.semi_bold)
                 textColor = ContextCompat.getColor(context, R.color.gray_BDBDBD)
                 textSize = 12f
@@ -99,7 +104,7 @@ class PaymentGraphFragment : BaseFragment() {
             axisRight.isEnabled = false
             isScaleYEnabled = false
 
-            marker = GraphMarkerView(chart.context)
+            marker = GraphMarkerView(binding.chart.context)
 
             setExtraOffsets(
                 GRAPH_OFFSET,
@@ -126,14 +131,14 @@ class PaymentGraphFragment : BaseFragment() {
         }
 
         if (dataSets.isEmpty()) {
-            chart.apply {
+            binding.chart.apply {
                 data = null
                 invalidate()
             }
         } else {
             groupCount = dataSets.maxOf { it.entryCount }.toFloat()
 
-            chart.apply {
+            binding.chart.apply {
                 data = BarData(dataSets)
                 highlightValue(barData.first().first().x, 0)
 
@@ -145,7 +150,7 @@ class PaymentGraphFragment : BaseFragment() {
 
                 data.barWidth = GRAPH_BAR_WIDTH
                 xAxis.axisMinimum = 0f
-                xAxis.axisMaximum = chart.barData.getGroupWidth(GRAPH_GROUP_SPACE, GRAPH_BAR_SPACE) * groupCount
+                xAxis.axisMaximum = binding.chart.barData.getGroupWidth(GRAPH_GROUP_SPACE, GRAPH_BAR_SPACE) * groupCount
                 groupBars(0f, GRAPH_GROUP_SPACE, GRAPH_BAR_SPACE)
                 invalidate()
             }

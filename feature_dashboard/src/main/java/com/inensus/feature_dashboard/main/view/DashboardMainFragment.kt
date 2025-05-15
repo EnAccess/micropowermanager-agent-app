@@ -10,18 +10,23 @@ import com.inensus.core_ui.BaseActivity
 import com.inensus.core_ui.extentions.*
 import com.inensus.core_ui.shimmer_layout.ShimmerLayout
 import com.inensus.feature_dashboard.R
+import com.inensus.feature_dashboard.databinding.FragmentDashboardMainBinding
 import com.inensus.feature_dashboard.main.viewmodel.DashboardMainViewModel
-import kotlinx.android.synthetic.main.fragment_dashboard_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardMainFragment : Fragment() {
+    private var _binding: FragmentDashboardMainBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: DashboardMainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_dashboard_main, container, false)
+    ): View {
+        _binding = FragmentDashboardMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -54,29 +59,29 @@ class DashboardMainFragment : Fragment() {
     }
 
     private fun handleLoadingState() {
-        loadingLayout.show()
-        content.hide()
-        errorLayout.gone()
-        (loadingBottomNavigation as ShimmerLayout).startShimmerAnimation()
-        bottomNavigation.hide()
+        binding.loadingLayout.root.show()
+        binding.content.hide()
+        binding.errorLayout.root.gone()
+        binding.loadingBottomNavigation.root.startShimmerAnimation()
+        binding.bottomNavigation.hide()
     }
 
     private fun handleSuccessState() {
         setupBottomNavigation()
 
-        (loadingBottomNavigation as ShimmerLayout).stopShimmerAnimation()
-        loadingLayout.animateGone()
-        content.animateShow()
-        errorLayout.gone()
-        bottomNavigation.animateShow()
+        binding.loadingBottomNavigation.root.stopShimmerAnimation()
+        binding.loadingLayout.root.animateGone()
+        binding.content.animateShow()
+        binding.errorLayout.root.gone()
+        binding.bottomNavigation.animateShow()
     }
 
     private fun handleErrorState() {
-        loadingLayout.animateGone()
-        content.gone()
-        bottomNavigation.gone()
-        (loadingBottomNavigation as ShimmerLayout).stopShimmerAnimation()
-        errorLayout.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.content.gone()
+        binding.bottomNavigation.gone()
+        binding.loadingBottomNavigation.root.stopShimmerAnimation()
+        binding.errorLayout.root.animateShow()
     }
 
     private fun setupBottomNavigation() {
@@ -87,7 +92,7 @@ class DashboardMainFragment : Fragment() {
                     R.navigation.dashboard_graph_navigation,
                 )
 
-            bottomNavigation.setupWithNavController(
+            binding.bottomNavigation.setupWithNavController(
                 navGraphIds = navGraphIds,
                 fragmentManager = childFragmentManager,
                 containerId = R.id.content,

@@ -9,12 +9,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.use
 import com.inensus.feature_main.R
-import kotlinx.android.synthetic.main.item_drawer.view.*
+import com.inensus.feature_main.databinding.ItemDrawerBinding
 
 class DrawerItemView(
     context: Context,
     attributeSet: AttributeSet,
 ) : ConstraintLayout(context, attributeSet) {
+    public lateinit var binding: ItemDrawerBinding
     private var iconRes: Int? = null
     private var title: String? = null
 
@@ -25,19 +26,19 @@ class DrawerItemView(
                 background = ContextCompat.getDrawable(context, R.color.gray_F4F4F4)
 
                 val typeface = ResourcesCompat.getFont(context, R.font.semi_bold)
-                tvTitle.typeface = typeface
-                tvTitle.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                binding.tvTitle.typeface = typeface
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
             } else {
                 background = ContextCompat.getDrawable(context, R.color.white)
 
                 val typeface = ResourcesCompat.getFont(context, R.font.regular)
-                tvTitle.typeface = typeface
-                tvTitle.setTextColor(ContextCompat.getColor(context, R.color.gray_616161))
+                binding.tvTitle.typeface = typeface
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.gray_616161))
             }
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_drawer, this, true)
+        binding = ItemDrawerBinding.inflate(LayoutInflater.from(context), this)
         initializeAttrs(context, attributeSet)
     }
 
@@ -55,10 +56,10 @@ class DrawerItemView(
     override fun onFinishInflate() {
         super.onFinishInflate()
         iconRes?.let {
-            ivIcon.setImageDrawable(ContextCompat.getDrawable(context, it))
+            binding.ivIcon.setImageDrawable(ContextCompat.getDrawable(context, it))
         }
         title?.let {
-            tvTitle.text = title
+            binding.tvTitle.text = title
         }
     }
 }

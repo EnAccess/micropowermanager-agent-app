@@ -1,14 +1,11 @@
 package com.inensus.core_ui.key_value
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.inensus.core_ui.R
-import kotlinx.android.synthetic.main.item_key_value_amount.view.*
-import kotlinx.android.synthetic.main.item_key_value_default.view.*
-import kotlinx.android.synthetic.main.item_key_value_default.view.keyTextView
+import com.inensus.core_ui.databinding.ItemKeyValueAmountBinding
+import com.inensus.core_ui.databinding.ItemKeyValueDefaultBinding
 
 class KeyValueAdapter(
     val keyValuePairs: List<KeyValue>,
@@ -18,9 +15,18 @@ class KeyValueAdapter(
         parent: ViewGroup,
         viewType: Int,
     ) = when (viewType) {
-        KeyValueType.DEFAULT.value -> DefaultViewHolder(parent)
-        KeyValueType.AMOUNT.value -> AmountViewHolder(parent)
-        else -> DefaultViewHolder(parent)
+        KeyValueType.DEFAULT.value ->
+            DefaultViewHolder(
+                ItemKeyValueDefaultBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            )
+        KeyValueType.AMOUNT.value ->
+            AmountViewHolder(
+                ItemKeyValueAmountBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            )
+        else ->
+            DefaultViewHolder(
+                ItemKeyValueDefaultBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            )
     } as KeyValueViewHolder<KeyValue>
 
     override fun getItemViewType(position: Int): Int = keyValuePairs[position].type.value
@@ -35,31 +41,25 @@ class KeyValueAdapter(
     override fun getItemCount() = keyValuePairs.size
 
     inner class DefaultViewHolder(
-        itemView: View,
-    ) : KeyValueViewHolder<KeyValue.Default>(itemView) {
-        constructor(parent: ViewGroup) :
-            this(LayoutInflater.from(parent.context).inflate(R.layout.item_key_value_default, parent, false))
-
+        private val binding: ItemKeyValueDefaultBinding,
+    ) : KeyValueViewHolder<KeyValue.Default>(binding.root) {
         override fun bind(item: KeyValue.Default) {
-            itemView.apply {
+            with(binding) {
                 keyTextView.text = item.key
                 valueTextView.text = item.value
 
                 item.textColorId?.let {
-                    valueTextView.setTextColor(ContextCompat.getColor(context, it))
+                    valueTextView.setTextColor(ContextCompat.getColor(root.context, it))
                 }
             }
         }
     }
 
     inner class AmountViewHolder(
-        itemView: View,
-    ) : KeyValueViewHolder<KeyValue.Amount>(itemView) {
-        constructor(parent: ViewGroup) :
-            this(LayoutInflater.from(parent.context).inflate(R.layout.item_key_value_amount, parent, false))
-
+        private val binding: ItemKeyValueAmountBinding,
+    ) : KeyValueViewHolder<KeyValue.Amount>(binding.root) {
         override fun bind(item: KeyValue.Amount) {
-            itemView.apply {
+            with(binding) {
                 titleText.text = item.key
                 amountText.text = item.amount
                 currencyText.text = item.currency
