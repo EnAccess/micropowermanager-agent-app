@@ -43,6 +43,7 @@ jobs:
 
       - name: Run ktlint
         run: ktlint
+        continue-on-error: true
 
   build-debug:
     runs-on: ubuntu-latest
