@@ -8,8 +8,9 @@ import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_appliance.appliance_detail.view.ApplianceDetailCreator
 import java.math.BigDecimal
 
-class ApplianceDetailViewModel(private val detailCreator: ApplianceDetailCreator) : ViewModel() {
-
+class ApplianceDetailViewModel(
+    private val detailCreator: ApplianceDetailCreator,
+) : ViewModel() {
     private var _applianceDetails: MutableLiveData<List<KeyValue>> = MutableLiveData()
     val applianceDetails: LiveData<List<KeyValue>> = _applianceDetails
 

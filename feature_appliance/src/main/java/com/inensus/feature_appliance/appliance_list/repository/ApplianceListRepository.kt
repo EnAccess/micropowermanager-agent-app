@@ -8,13 +8,18 @@ import com.inensus.feature_appliance.appliance_list.view.LoadingApplianceListTyp
 import io.reactivex.Single
 import timber.log.Timber
 
-class ApplianceListRepository(private val service: ApplianceService, private val preferences: SharedPreferenceWrapper) {
-
-    private val initialUrl =  preferences.baseUrl + "app/agents/appliances"
+class ApplianceListRepository(
+    private val service: ApplianceService,
+    private val preferences: SharedPreferenceWrapper,
+) {
+    private val initialUrl = preferences.baseUrl + "app/agents/appliances"
 
     private var url: String? = initialUrl
 
-    fun getAppliances(loadingApplianceListType: LoadingApplianceListType, customer: Customer?): Single<ApplianceListUiState> {
+    fun getAppliances(
+        loadingApplianceListType: LoadingApplianceListType,
+        customer: Customer?,
+    ): Single<ApplianceListUiState> {
         if (loadingApplianceListType == LoadingApplianceListType.INITIAL) {
             url = initialUrl
         }
@@ -24,7 +29,8 @@ class ApplianceListRepository(private val service: ApplianceService, private val
                 url += "/" + customer.id
             }
 
-            return service.getAppliances(url!!)
+            return service
+                .getAppliances(url!!)
                 .map { response ->
                     if (response.data.isEmpty() && url?.contains("page") == false) {
                         ApplianceListUiState.Empty
@@ -32,11 +38,9 @@ class ApplianceListRepository(private val service: ApplianceService, private val
                         url = response.nextPageUrl
                         ApplianceListUiState.Success(response.data, loadingApplianceListType)
                     }
-                }
-                .doOnError { error ->
+                }.doOnError { error ->
                     Timber.e(error)
-                }
-                .onErrorResumeNext { Single.just(ApplianceListUiState.Error) }
+                }.onErrorResumeNext { Single.just(ApplianceListUiState.Error) }
         } ?: let {
             return Single.just(ApplianceListUiState.NoMoreData)
         }

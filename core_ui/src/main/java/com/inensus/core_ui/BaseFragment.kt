@@ -10,9 +10,13 @@ import androidx.lifecycle.Observer
 
 abstract class BaseFragment : Fragment() {
     abstract fun provideViewModel(): BaseViewModel
+
     private var progressDialog: AlertDialog? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         observeLoading()
@@ -20,27 +24,34 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun observeLoading() {
-        provideViewModel().loading.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                showLoading()
-            } else {
-                hideLoading()
-            }
-        })
+        provideViewModel().loading.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it) {
+                    showLoading()
+                } else {
+                    hideLoading()
+                }
+            },
+        )
     }
 
     private fun observeError() {
-        provideViewModel().error.observe(viewLifecycleOwner, Observer {
-            showAlertDialog(context, it.error.message)
-        })
+        provideViewModel().error.observe(
+            viewLifecycleOwner,
+            Observer {
+                showAlertDialog(context, it.error.message)
+            },
+        )
     }
 
     private fun showAlertDialog(
         context: Context?,
-        message: String?
+        message: String?,
     ): AlertDialog? =
         context?.let {
-            AlertDialog.Builder(context)
+            AlertDialog
+                .Builder(context)
                 .setTitle(getString(R.string.error))
                 .setMessage(message)
                 .setPositiveButton(getString(R.string.ok)) { _, _ -> }

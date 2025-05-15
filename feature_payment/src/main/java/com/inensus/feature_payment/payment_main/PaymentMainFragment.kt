@@ -12,16 +12,16 @@ import com.inensus.feature_payment.payment_list.view.PaymentListFragment
 import kotlinx.android.synthetic.main.fragment_payment_main.*
 
 class PaymentMainFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_payment_main, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_payment_main, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupPagerAdapter()
@@ -34,7 +34,12 @@ class PaymentMainFragment : Fragment() {
     }
 
     private fun setupPagerAdapter() {
-        pager.adapter = PaymentMainViewPagerAdapter(listOf(PaymentListFragment(), PaymentGraphFragment()), childFragmentManager, viewLifecycleOwner.lifecycle)
+        pager.adapter =
+            PaymentMainViewPagerAdapter(
+                listOf(PaymentListFragment(), PaymentGraphFragment()),
+                childFragmentManager,
+                viewLifecycleOwner.lifecycle,
+            )
         setupTabs()
     }
 

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ConfirmPaymentRequest(
     @SerializedName("meter_serial_number") val meter: String?,
-    @SerializedName("amount") val amount: String?
+    @SerializedName("amount") val amount: String?,
 )

@@ -8,15 +8,17 @@ import com.inensus.feature_appliance.appliance_form.repository.ApplianceFormRepo
 import com.inensus.feature_appliance.appliance_form.view.ApplianceSummaryUiState
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class ApplianceSummaryViewModel(private val repository: ApplianceFormRepository) : BaseViewModel() {
-
+class ApplianceSummaryViewModel(
+    private val repository: ApplianceFormRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<ApplianceSummaryUiState>()
     var uiState: LiveEvent<ApplianceSummaryUiState> = _uiState
 
     fun onConfirmButtonTapped() {
         showLoading()
 
-        repository.confirmAppliance()
+        repository
+            .confirmAppliance()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()

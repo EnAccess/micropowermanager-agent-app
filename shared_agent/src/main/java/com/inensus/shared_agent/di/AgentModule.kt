@@ -7,12 +7,12 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object AgentModule {
+    fun createAgentModule() =
+        module {
+            single { provideAgentService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
 
-    fun createAgentModule() = module {
-        single { provideAgentService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
-
-        single { AgentRepository(get(), get()) }
-    }
+            single { AgentRepository(get(), get()) }
+        }
 
     private fun provideAgentService(retrofitClient: Retrofit) = retrofitClient.create(AgentService::class.java)
 }

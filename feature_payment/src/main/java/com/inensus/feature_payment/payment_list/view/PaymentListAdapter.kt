@@ -13,15 +13,20 @@ import com.inensus.feature_payment.R
 import kotlinx.android.synthetic.main.payment_list_item.view.*
 
 class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>() {
-
     lateinit var onItemClick: ((payment: Payment) -> Unit)
     var payments: List<Payment> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.payment_list_item, parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ) = ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.payment_list_item, parent, false),
     )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.bind(payments[position])
     }
 
@@ -33,7 +38,9 @@ class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>()
         payments = newItems
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(
+        view: View,
+    ) : RecyclerView.ViewHolder(view) {
         fun bind(payment: Payment) {
             with(itemView) {
                 statusImage.setImageDrawable(
@@ -42,14 +49,21 @@ class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>()
                         0 -> ContextCompat.getDrawable(context, R.drawable.ic_pending)
                         -1 -> ContextCompat.getDrawable(context, R.drawable.ic_status_error)
                         else -> ContextCompat.getDrawable(context, R.drawable.ic_success)
-                    }
+                    },
                 )
                 typeText.text = payment.type?.ifBlank { payment.transaction?.type } ?: payment.transaction?.type
-                senderText.text = context.getString(
-                    R.string.customer_name_surname,
-                    payment.meter?.meterParameter?.owner?.name,
-                    payment.meter?.meterParameter?.owner?.surname
-                )
+                senderText.text =
+                    context.getString(
+                        R.string.customer_name_surname,
+                        payment.meter
+                            ?.meterParameter
+                            ?.owner
+                            ?.name,
+                        payment.meter
+                            ?.meterParameter
+                            ?.owner
+                            ?.surname,
+                    )
                 messageText.text = payment.message?.ifBlank { payment.transaction?.message } ?: payment.transaction?.message
                 amountText.text = AmountUtils.convertAmountToString(payment.amount)
                 dateText.text = DateUtils.convertDateToString(payment.createdAt)

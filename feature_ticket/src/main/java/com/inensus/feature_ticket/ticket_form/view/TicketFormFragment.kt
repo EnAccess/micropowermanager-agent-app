@@ -17,18 +17,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class TicketFormFragment : Fragment() {
-
     private val viewModel: TicketFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_ticket_form, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_ticket_form, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setListeners()
@@ -46,38 +46,54 @@ class TicketFormFragment : Fragment() {
     }
 
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is TicketFormUiState.OpenSummary -> openSummaryPage(it.summaryItems)
-                is TicketFormUiState.ValidationError -> handleValidationError(it.errors)
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is TicketFormUiState.OpenSummary -> openSummaryPage(it.summaryItems)
+                    is TicketFormUiState.ValidationError -> handleValidationError(it.errors)
+                }
+            },
+        )
 
-        viewModel.categories.observe(viewLifecycleOwner, Observer {
-            categoryDropdown.bindData(it.map { category -> category.name }, viewModel.category.value == null)
-        })
+        viewModel.categories.observe(
+            viewLifecycleOwner,
+            Observer {
+                categoryDropdown.bindData(it.map { category -> category.name }, viewModel.category.value == null)
+            },
+        )
 
-        viewModel.message.observe(viewLifecycleOwner, Observer {
-            if (it != null && messageInput.getMainTextView().text.toString() != it.toString()) {
-                messageInput.getMainTextView().setText(it.toString())
-            }
-        })
+        viewModel.message.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it != null && messageInput.getMainTextView().text.toString() != it.toString()) {
+                    messageInput.getMainTextView().setText(it.toString())
+                }
+            },
+        )
 
-        viewModel.dueDate.observe(viewLifecycleOwner, Observer {
-            if (dueDateInput.date?.compareWithoutTime(it) != 0) {
-                dueDateInput.date = it
-            }
-        })
+        viewModel.dueDate.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (dueDateInput.date?.compareWithoutTime(it) != 0) {
+                    dueDateInput.date = it
+                }
+            },
+        )
 
-        viewModel.category.observe(viewLifecycleOwner, Observer {
-            if (categoryDropdown.value != it.name) {
-                categoryDropdown.value = it.name
-            }
-        })
+        viewModel.category.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (categoryDropdown.value != it.name) {
+                    categoryDropdown.value = it.name
+                }
+            },
+        )
     }
 
     private fun openSummaryPage(summaryItems: ArrayList<KeyValue.Default>) {
-        (activity as BaseActivity).provideNavController()
+        (activity as BaseActivity)
+            .provideNavController()
             .navigate(R.id.openTicketSummary, bundleOf(TicketSummaryFragment.EXTRA_KEY_VALUE_LIST to summaryItems))
     }
 

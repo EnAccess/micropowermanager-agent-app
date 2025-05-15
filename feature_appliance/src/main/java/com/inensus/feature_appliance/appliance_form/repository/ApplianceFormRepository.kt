@@ -11,7 +11,7 @@ import java.util.*
 class ApplianceFormRepository(
     private val service: ApplianceService,
     private val customerRepository: CustomerRepository,
-    private val preferences: SharedPreferenceWrapper
+    private val preferences: SharedPreferenceWrapper,
 ) {
     var appliances: List<Appliance> = emptyList()
     var appliance: Appliance? = null
@@ -19,18 +19,23 @@ class ApplianceFormRepository(
     var firstPaymentDate: Date? = null
     var tenure: Int? = null
 
-    fun getAppliancesTypes() = service.getApplianceTypes(preferences.baseUrl + GET_APPLIANCE_TYPES_ENDPOINT).doOnSuccess { appliances = it.data }
+    fun getAppliancesTypes() =
+        service.getApplianceTypes(preferences.baseUrl + GET_APPLIANCE_TYPES_ENDPOINT).doOnSuccess {
+            appliances =
+                it.data
+        }
 
-    fun confirmAppliance() = service.confirmAppliance(
-        preferences.baseUrl + CONFIRM_APPLIANCE_ENDPOINT,
-        ConfirmApplianceRequest(
-            customerRepository.customer?.id,
-            appliance?.id,
-            downPayment,
-            firstPaymentDate,
-            tenure
+    fun confirmAppliance() =
+        service.confirmAppliance(
+            preferences.baseUrl + CONFIRM_APPLIANCE_ENDPOINT,
+            ConfirmApplianceRequest(
+                customerRepository.customer?.id,
+                appliance?.id,
+                downPayment,
+                firstPaymentDate,
+                tenure,
+            ),
         )
-    )
 
     companion object {
         private const val GET_APPLIANCE_TYPES_ENDPOINT = "app/agents/appliance_types"

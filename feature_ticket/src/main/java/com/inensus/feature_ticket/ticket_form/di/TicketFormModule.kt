@@ -13,21 +13,23 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object TicketFormModule {
-    fun createTicketModules(): List<Module> = listOf(
+    fun createTicketModules(): List<Module> =
+        listOf(
+            module {
+                viewModel { TicketFormViewModel(get(), get(), get(), get()) }
+                viewModel { TicketSummaryViewModel(get()) }
+                single { TicketSummaryCreator(get()) }
+                single { TicketFormValidator() }
+            },
+            createTicketNetworkModule(),
+        )
+
+    private fun createTicketNetworkModule() =
         module {
-            viewModel { TicketFormViewModel(get(), get(), get(), get()) }
-            viewModel { TicketSummaryViewModel(get()) }
-            single { TicketSummaryCreator(get()) }
-            single { TicketFormValidator() }
-        },
-        createTicketNetworkModule()
-    )
+            single { provideTicketService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
 
-    private fun createTicketNetworkModule() = module {
-        single { provideTicketService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
-
-        single { TicketFormRepository(get(), get(), get()) }
-    }
+            single { TicketFormRepository(get(), get(), get()) }
+        }
 
     private fun provideTicketService(retrofitClient: Retrofit) = retrofitClient.create(TicketService::class.java)
 }

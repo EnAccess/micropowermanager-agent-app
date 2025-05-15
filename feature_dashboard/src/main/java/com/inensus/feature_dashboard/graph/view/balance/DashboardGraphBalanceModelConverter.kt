@@ -7,7 +7,6 @@ import com.inensus.feature_dashboard.graph.model.BalanceData
 import com.inensus.feature_dashboard.graph.model.DashboardGraphBalanceResponse
 import com.inensus.feature_dashboard.graph.model.DebtData
 
-
 class DashboardGraphBalanceModelConverter {
     var xAxisList: ArrayList<String> = ArrayList()
 
@@ -25,10 +24,11 @@ class DashboardGraphBalanceModelConverter {
         return DashboardGraphBalanceResponse(balanceList, dueList)
     }
 
-    fun fromDataToUiModel(response: DashboardGraphBalanceResponse) = listOf(
-        createGraphBalanceEntries(response.balances),
-        createGraphDueEntries(response.dues)
-    )
+    fun fromDataToUiModel(response: DashboardGraphBalanceResponse) =
+        listOf(
+            createGraphBalanceEntries(response.balances),
+            createGraphDueEntries(response.dues),
+        )
 
     private fun createGraphBalanceEntries(data: List<BalanceData>): List<Entry> =
         data.mapIndexed { index, balanceData -> Entry(index.toFloat(), balanceData.balance) }

@@ -12,11 +12,18 @@ import retrofit2.http.Url
 
 interface PaymentService {
     @GET
-    fun getPayments(@Url url: String): Single<PaymentResponse>
+    fun getPayments(
+        @Url url: String,
+    ): Single<PaymentResponse>
 
     @GET
-    fun getPaymentDetail(@Url url: String): Single<PaymentDetailResponse>
+    fun getPaymentDetail(
+        @Url url: String,
+    ): Single<PaymentDetailResponse>
 
     @POST
-    fun confirmPayment(@Url url: String, @Body request: ConfirmPaymentRequest): Completable
+    fun confirmPayment(
+        @Url url: String,
+        @Body request: ConfirmPaymentRequest,
+    ): Completable
 }

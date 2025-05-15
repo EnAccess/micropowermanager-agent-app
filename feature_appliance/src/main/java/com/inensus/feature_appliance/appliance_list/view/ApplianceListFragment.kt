@@ -23,18 +23,18 @@ import kotlinx.android.synthetic.main.fragment_appliance_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplianceListFragment : Fragment() {
-
     private val viewModel: ApplianceListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_appliance_list, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_appliance_list, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -58,11 +58,12 @@ class ApplianceListFragment : Fragment() {
 
         rvAppliances.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ApplianceListAdapter().apply {
-                onItemClick = {
-                    viewModel.onApplianceTapped(it)
+            adapter =
+                ApplianceListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onApplianceTapped(it)
+                    }
                 }
-            }
 
             addOnScrollListener(setupPagination())
         }
@@ -70,7 +71,11 @@ class ApplianceListFragment : Fragment() {
 
     private fun setupPagination() =
         object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+            ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 val adapter = (rvAppliances.adapter as ApplianceListAdapter)
 
@@ -81,28 +86,37 @@ class ApplianceListFragment : Fragment() {
         }
 
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is ApplianceListUiState.Loading -> handleLoading(it.type)
-                ApplianceListUiState.Error -> handleError()
-                ApplianceListUiState.NoMoreData -> handleNoMore()
-                ApplianceListUiState.Empty -> handleEmpty()
-                is ApplianceListUiState.Success -> handleSuccess(it.appliances, it.type)
-                is ApplianceListUiState.ApplianceTapped -> handleApplianceTapped(it.appliance)
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is ApplianceListUiState.Loading -> handleLoading(it.type)
+                    ApplianceListUiState.Error -> handleError()
+                    ApplianceListUiState.NoMoreData -> handleNoMore()
+                    ApplianceListUiState.Empty -> handleEmpty()
+                    is ApplianceListUiState.Success -> handleSuccess(it.appliances, it.type)
+                    is ApplianceListUiState.ApplianceTapped -> handleApplianceTapped(it.appliance)
+                }
+            },
+        )
 
-        viewModel.appliances.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                viewModel.getAppliances(type = LoadingApplianceListType.INITIAL)
-            } else {
-                handleSuccess(it, LoadingApplianceListType.INITIAL)
-            }
-        })
+        viewModel.appliances.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it.isEmpty()) {
+                    viewModel.getAppliances(type = LoadingApplianceListType.INITIAL)
+                } else {
+                    handleSuccess(it, LoadingApplianceListType.INITIAL)
+                }
+            },
+        )
 
-        viewModel.customer.observe(viewLifecycleOwner, Observer {
-            updateView(it)
-        })
+        viewModel.customer.observe(
+            viewLifecycleOwner,
+            Observer {
+                updateView(it)
+            },
+        )
     }
 
     private fun handleLoading(type: LoadingApplianceListType) {
@@ -142,7 +156,10 @@ class ApplianceListFragment : Fragment() {
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
-    private fun handleSuccess(appliances: List<ApplianceTransaction>, loadCustomerType: LoadingApplianceListType) {
+    private fun handleSuccess(
+        appliances: List<ApplianceTransaction>,
+        loadCustomerType: LoadingApplianceListType,
+    ) {
         if (appliances != (rvAppliances.adapter as ApplianceListAdapter).appliances) {
             progressBar.hide()
             rvAppliances.animateShow()
@@ -151,20 +168,24 @@ class ApplianceListFragment : Fragment() {
         }
     }
 
-    private fun updateAppliancesData(appliances: List<ApplianceTransaction>, loadCustomerType: LoadingApplianceListType) {
+    private fun updateAppliancesData(
+        appliances: List<ApplianceTransaction>,
+        loadCustomerType: LoadingApplianceListType,
+    ) {
         val adapter = (rvAppliances.adapter as ApplianceListAdapter)
 
         if (loadCustomerType == LoadingApplianceListType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.appliances).apply { addAll(appliances) })
         } else {
-            rvAppliances.adapter = ApplianceListAdapter().apply {
-                onItemClick = {
-                    viewModel.onApplianceTapped(it)
-                }
+            rvAppliances.adapter =
+                ApplianceListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onApplianceTapped(it)
+                    }
 
-                this.appliances = appliances
-                notifyDataSetChanged()
-            }
+                    this.appliances = appliances
+                    notifyDataSetChanged()
+                }
         }
 
         viewModel.saveAppliancesState((rvAppliances.adapter as ApplianceListAdapter).appliances)
@@ -173,17 +194,21 @@ class ApplianceListFragment : Fragment() {
     private fun handleApplianceTapped(appliance: ApplianceTransaction) {
         (activity as BaseActivity).provideNavController().navigate(
             R.id.openApplianceDetail,
-            bundleOf(ApplianceDetailFragment.EXTRA_APPLIANCE to appliance)
+            bundleOf(ApplianceDetailFragment.EXTRA_APPLIANCE to appliance),
         )
     }
 
     private fun updateView(customer: Customer?) {
         createAppliance.visibility = if (customer != null) View.VISIBLE else View.GONE
         view?.findViewById<TextView>(R.id.tvEmptyDescription)?.text =
-            if (customer != null) getString(
-                R.string.appliance_empty_layout__with_customer_content,
-                customer.name
-            ) else getString(R.string.appliance_empty_layout_content)
+            if (customer != null) {
+                getString(
+                    R.string.appliance_empty_layout__with_customer_content,
+                    customer.name,
+                )
+            } else {
+                getString(R.string.appliance_empty_layout_content)
+            }
     }
 
     companion object {

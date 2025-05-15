@@ -8,21 +8,23 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object TicketListModule {
-    fun createTicketListModules(): List<Module> = listOf(
-        module {
-            viewModel {
-                getKoin().createScope(TICKET_LIST_SCOPE, named(TICKET_LIST_SCOPE))
-                TicketListViewModel(getScope(TICKET_LIST_SCOPE).get(), get())
-            }
-        },
-        createTicketListNetworkModule()
-    )
+    fun createTicketListModules(): List<Module> =
+        listOf(
+            module {
+                viewModel {
+                    getKoin().createScope(TICKET_LIST_SCOPE, named(TICKET_LIST_SCOPE))
+                    TicketListViewModel(getScope(TICKET_LIST_SCOPE).get(), get())
+                }
+            },
+            createTicketListNetworkModule(),
+        )
 
-    private fun createTicketListNetworkModule() = module {
-        scope(named(TICKET_LIST_SCOPE)) {
-            scoped { TicketListRepository(get(), get()) }
+    private fun createTicketListNetworkModule() =
+        module {
+            scope(named(TICKET_LIST_SCOPE)) {
+                scoped { TicketListRepository(get(), get()) }
+            }
         }
-    }
 
     const val TICKET_LIST_SCOPE = "TICKET_LIST_SCOPE"
 }

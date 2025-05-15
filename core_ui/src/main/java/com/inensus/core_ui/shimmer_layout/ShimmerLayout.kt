@@ -15,8 +15,10 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.tan
 
-class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
-
+class ShimmerLayout(
+    context: Context,
+    attrs: AttributeSet,
+) : FrameLayout(context, attrs) {
     private var maskOffsetX = 0
     private lateinit var maskRect: Rect
     private var gradientTexturePaint: Paint? = null
@@ -38,11 +40,13 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
 
     init {
         setWillNotDraw(false)
-        val a: TypedArray = context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.ShimmerLayout,
-            0, 0
-        )
+        val a: TypedArray =
+            context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.ShimmerLayout,
+                0,
+                0,
+            )
         try {
             shimmerAngle = a.getInteger(R.styleable.ShimmerLayout_shimmer_angle, DEFAULT_ANGLE.toInt())
             shimmerAnimationDuration = a.getInteger(R.styleable.ShimmerLayout_shimmer_animation_duration, DEFAULT_ANIMATION_DURATION)
@@ -91,13 +95,14 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
             return
         }
         if (width == 0) {
-            startAnimationPreDrawListener = object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    viewTreeObserver.removeOnPreDrawListener(this)
-                    startShimmerAnimation()
-                    return true
+            startAnimationPreDrawListener =
+                object : ViewTreeObserver.OnPreDrawListener {
+                    override fun onPreDraw(): Boolean {
+                        viewTreeObserver.removeOnPreDrawListener(this)
+                        startShimmerAnimation()
+                        return true
+                    }
                 }
-            }
             viewTreeObserver.addOnPreDrawListener(startAnimationPreDrawListener)
             return
         }
@@ -113,9 +118,7 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
         resetShimmering()
     }
 
-    fun isAnimationStarted(): Boolean {
-        return isAnimationStarted
-    }
+    fun isAnimationStarted(): Boolean = isAnimationStarted
 
     fun setShimmerColor(shimmerColor: Int) {
         this.shimmerColor = shimmerColor
@@ -143,7 +146,7 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
             String.format(
                 "shimmerAngle value must be between %d and %d",
                 MIN_ANGLE_VALUE,
-                MAX_ANGLE_VALUE
+                MAX_ANGLE_VALUE,
             )
         }
         shimmerAngle = angle
@@ -161,7 +164,8 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
         require(!(maskWidth <= MIN_MASK_WIDTH_VALUE || MAX_MASK_WIDTH_VALUE < maskWidth)) {
             String.format(
                 "maskWidth value must be higher than %d and less or equal to %d",
-                MIN_MASK_WIDTH_VALUE, MAX_MASK_WIDTH_VALUE
+                MIN_MASK_WIDTH_VALUE,
+                MAX_MASK_WIDTH_VALUE,
             )
         }
         this.maskWidth = maskWidth
@@ -177,12 +181,15 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
      */
     private fun setGradientCenterColorWidth(gradientCenterColorWidth: Float) {
         require(
-            !(gradientCenterColorWidth <= MIN_GRADIENT_CENTER_COLOR_WIDTH_VALUE
-                    || MAX_GRADIENT_CENTER_COLOR_WIDTH_VALUE <= gradientCenterColorWidth)
+            !(
+                gradientCenterColorWidth <= MIN_GRADIENT_CENTER_COLOR_WIDTH_VALUE ||
+                    MAX_GRADIENT_CENTER_COLOR_WIDTH_VALUE <= gradientCenterColorWidth
+            ),
         ) {
             String.format(
                 "gradientCenterColorWidth value must be higher than %d and less than %d",
-                MIN_GRADIENT_CENTER_COLOR_WIDTH_VALUE, MAX_GRADIENT_CENTER_COLOR_WIDTH_VALUE
+                MIN_GRADIENT_CENTER_COLOR_WIDTH_VALUE,
+                MAX_GRADIENT_CENTER_COLOR_WIDTH_VALUE,
             )
         }
         this.gradientCenterColorWidth = gradientCenterColorWidth
@@ -215,7 +222,10 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
         }
     }
 
-    private fun drawShimmer(destinationCanvas: Canvas, localMaskBitmap: Bitmap) {
+    private fun drawShimmer(
+        destinationCanvas: Canvas,
+        localMaskBitmap: Bitmap,
+    ) {
         createShimmerPaint(localMaskBitmap)
         destinationCanvas.apply {
             save()
@@ -225,7 +235,6 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
             }
             restore()
         }
-
     }
 
     private fun resetShimmering() {
@@ -259,67 +268,67 @@ class ShimmerLayout(context: Context, attrs: AttributeSet) : FrameLayout(context
         val edgeColor = reduceColorAlphaValueToZero(shimmerColor)
         val shimmerLineWidth = width / 2 * maskWidth
         val yPosition = if (0 <= shimmerAngle) height.toFloat() else 0.toFloat()
-        val gradient = LinearGradient(
-            0f,
-            yPosition,
-            cos(Math.toRadians(shimmerAngle.toDouble())).toFloat() * shimmerLineWidth,
-            yPosition + sin(Math.toRadians(shimmerAngle.toDouble())).toFloat() * shimmerLineWidth,
-            intArrayOf(edgeColor, shimmerColor, shimmerColor, edgeColor),
-            getGradientColorDistribution(),
-            Shader.TileMode.CLAMP
-        )
+        val gradient =
+            LinearGradient(
+                0f,
+                yPosition,
+                cos(Math.toRadians(shimmerAngle.toDouble())).toFloat() * shimmerLineWidth,
+                yPosition + sin(Math.toRadians(shimmerAngle.toDouble())).toFloat() * shimmerLineWidth,
+                intArrayOf(edgeColor, shimmerColor, shimmerColor, edgeColor),
+                getGradientColorDistribution(),
+                Shader.TileMode.CLAMP,
+            )
         val maskBitmapShader = BitmapShader(localMaskBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
         val composeShader = ComposeShader(gradient, maskBitmapShader, PorterDuff.Mode.DST_IN)
 
-        gradientTexturePaint = Paint().apply {
-            isAntiAlias = true
-            isDither = true
-            isFilterBitmap = true
-            shader = composeShader
-        }
-
+        gradientTexturePaint =
+            Paint().apply {
+                isAntiAlias = true
+                isDither = true
+                isFilterBitmap = true
+                shader = composeShader
+            }
     }
 
-    private fun getShimmerAnimation(): Animator {
-        return maskAnimator ?: let {
+    private fun getShimmerAnimation(): Animator =
+        maskAnimator ?: let {
             val animationToX = width
             val animationFromX = -if (width > maskRect.width()) animationToX else maskRect.width()
 
             val shimmerBitmapWidth: Int = maskRect.width()
             val shimmerAnimationFullLength = animationToX - animationFromX
-            val animator = if (isAnimationReversed) {
-                ValueAnimator.ofInt(shimmerAnimationFullLength, 0)
-            } else {
-                ValueAnimator.ofInt(0, shimmerAnimationFullLength)
-            }.apply {
-                duration = shimmerAnimationDuration.toLong()
-                repeatCount = ObjectAnimator.INFINITE
-                addUpdateListener { animation ->
-                    maskOffsetX = animationFromX + animation.animatedValue as Int
-                    if (maskOffsetX + shimmerBitmapWidth >= 0) {
-                        invalidate()
+            val animator =
+                if (isAnimationReversed) {
+                    ValueAnimator.ofInt(shimmerAnimationFullLength, 0)
+                } else {
+                    ValueAnimator.ofInt(0, shimmerAnimationFullLength)
+                }.apply {
+                    duration = shimmerAnimationDuration.toLong()
+                    repeatCount = ObjectAnimator.INFINITE
+                    addUpdateListener { animation ->
+                        maskOffsetX = animationFromX + animation.animatedValue as Int
+                        if (maskOffsetX + shimmerBitmapWidth >= 0) {
+                            invalidate()
+                        }
                     }
                 }
-            }
             maskAnimator = animator
             animator
         }
 
-
-    }
-
-    private fun createBitmap(width: Int, height: Int): Bitmap? {
-        return try {
+    private fun createBitmap(
+        width: Int,
+        height: Int,
+    ): Bitmap? =
+        try {
             Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8)
         } catch (e: OutOfMemoryError) {
             System.gc()
             null
         }
-    }
 
-    private fun reduceColorAlphaValueToZero(actualColor: Int): Int {
-        return Color.argb(0, Color.red(actualColor), Color.green(actualColor), Color.blue(actualColor))
-    }
+    private fun reduceColorAlphaValueToZero(actualColor: Int): Int =
+        Color.argb(0, Color.red(actualColor), Color.green(actualColor), Color.blue(actualColor))
 
     private fun calculateBitmapMaskRect() = Rect(0, 0, calculateMaskWidth(), height)
 

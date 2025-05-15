@@ -15,15 +15,18 @@ import kotlinx.android.synthetic.main.fragment_ticket_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketDetailFragment : BaseFragment() {
-
     private val viewModel: TicketDetailViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? = inflater.inflate(R.layout.fragment_ticket_detail, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getString(EXTRA_TICKET_ID)?.let {
@@ -36,9 +39,12 @@ class TicketDetailFragment : BaseFragment() {
     override fun provideViewModel() = viewModel
 
     private fun observeTicketDetails() {
-        viewModel.ticketDetails.observe(viewLifecycleOwner, Observer {
-            setupTicketDetails(it)
-        })
+        viewModel.ticketDetails.observe(
+            viewLifecycleOwner,
+            Observer {
+                setupTicketDetails(it)
+            },
+        )
     }
 
     private fun setupTicketDetails(ticketDetails: List<KeyValue>) {

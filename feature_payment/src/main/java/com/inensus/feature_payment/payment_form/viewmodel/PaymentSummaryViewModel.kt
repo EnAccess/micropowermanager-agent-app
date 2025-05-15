@@ -8,16 +8,17 @@ import com.inensus.feature_payment.payment_form.service.PaymentFormRepository
 import com.inensus.feature_payment.payment_form.view.PaymentSummaryUiState
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class PaymentSummaryViewModel(private val repository: PaymentFormRepository) : BaseViewModel() {
-
+class PaymentSummaryViewModel(
+    private val repository: PaymentFormRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<PaymentSummaryUiState>()
     var uiState: LiveEvent<PaymentSummaryUiState> = _uiState
 
     fun onConfirmButtonTapped() {
-
         showLoading()
 
-        repository.confirmPayment()
+        repository
+            .confirmPayment()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()

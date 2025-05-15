@@ -7,9 +7,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 object PaymentDetailModule {
-    fun createPaymentDetailModule() = module {
-        viewModel { PaymentDetailViewModel(get(), get()) }
-        single { PaymentDetailCreator(get()) }
-        single { PaymentDetailRepository(get(), get()) }
-    }
+    fun createPaymentDetailModule() =
+        module {
+            viewModel { PaymentDetailViewModel(get(), get()) }
+            single { PaymentDetailCreator(get()) }
+            single { PaymentDetailRepository(get(), get()) }
+        }
 }

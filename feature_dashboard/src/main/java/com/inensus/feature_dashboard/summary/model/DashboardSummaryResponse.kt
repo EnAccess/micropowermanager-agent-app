@@ -4,12 +4,14 @@ import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 import java.util.*
 
-data class DashboardSummaryResponse(@SerializedName("data") val data: DashboardSummaryData)
+data class DashboardSummaryResponse(
+    @SerializedName("data") val data: DashboardSummaryData,
+)
 
 data class DashboardSummaryData(
     @SerializedName("balance") val balance: BigDecimal,
     @SerializedName("profit") val profit: BigDecimal,
     @SerializedName("dept") val debt: BigDecimal,
     @SerializedName("average") val average: BigDecimal,
-    @SerializedName("since") val since: Date
+    @SerializedName("since") val since: Date,
 )

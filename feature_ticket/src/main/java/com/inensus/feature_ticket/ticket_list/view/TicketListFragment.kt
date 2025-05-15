@@ -23,18 +23,18 @@ import kotlinx.android.synthetic.main.fragment_ticket_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketListFragment : Fragment() {
-
     private val viewModel: TicketListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_ticket_list, container, false)
-    }
+        savedInstanceState: Bundle?,
+    ): View = inflater.inflate(R.layout.fragment_ticket_list, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -58,11 +58,12 @@ class TicketListFragment : Fragment() {
 
         rvTickets.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = TicketListAdapter().apply {
-                onItemClick = {
-                    viewModel.onTicketTapped(it)
+            adapter =
+                TicketListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onTicketTapped(it)
+                    }
                 }
-            }
 
             addOnScrollListener(setupPagination())
         }
@@ -70,7 +71,11 @@ class TicketListFragment : Fragment() {
 
     private fun setupPagination() =
         object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+            ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 val adapter = (rvTickets.adapter as TicketListAdapter)
 
@@ -81,28 +86,37 @@ class TicketListFragment : Fragment() {
         }
 
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is TicketListUiState.Loading -> handleLoading(it.type)
-                TicketListUiState.Error -> handleError()
-                TicketListUiState.NoMoreData -> handleNoMore()
-                TicketListUiState.Empty -> handleEmpty()
-                is TicketListUiState.Success -> handleSuccess(it.tickets, it.type)
-                is TicketListUiState.TicketTapped -> handleTicketTapped(it.ticketId)
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    is TicketListUiState.Loading -> handleLoading(it.type)
+                    TicketListUiState.Error -> handleError()
+                    TicketListUiState.NoMoreData -> handleNoMore()
+                    TicketListUiState.Empty -> handleEmpty()
+                    is TicketListUiState.Success -> handleSuccess(it.tickets, it.type)
+                    is TicketListUiState.TicketTapped -> handleTicketTapped(it.ticketId)
+                }
+            },
+        )
 
-        viewModel.tickets.observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                viewModel.getTickets(type = LoadingTicketListType.INITIAL)
-            } else {
-                handleSuccess(it, LoadingTicketListType.INITIAL)
-            }
-        })
+        viewModel.tickets.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (it.isEmpty()) {
+                    viewModel.getTickets(type = LoadingTicketListType.INITIAL)
+                } else {
+                    handleSuccess(it, LoadingTicketListType.INITIAL)
+                }
+            },
+        )
 
-        viewModel.customer.observe(viewLifecycleOwner, Observer {
-            updateView(it)
-        })
+        viewModel.customer.observe(
+            viewLifecycleOwner,
+            Observer {
+                updateView(it)
+            },
+        )
     }
 
     private fun handleLoading(type: LoadingTicketListType) {
@@ -142,7 +156,10 @@ class TicketListFragment : Fragment() {
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
-    private fun handleSuccess(tickets: List<Ticket>, loadCustomerType: LoadingTicketListType) {
+    private fun handleSuccess(
+        tickets: List<Ticket>,
+        loadCustomerType: LoadingTicketListType,
+    ) {
         if (tickets != (rvTickets.adapter as TicketListAdapter).tickets) {
             progressBar.hide()
             rvTickets.animateShow()
@@ -151,20 +168,24 @@ class TicketListFragment : Fragment() {
         }
     }
 
-    private fun updateTicketsData(tickets: List<Ticket>, loadCustomerType: LoadingTicketListType) {
+    private fun updateTicketsData(
+        tickets: List<Ticket>,
+        loadCustomerType: LoadingTicketListType,
+    ) {
         val adapter = (rvTickets.adapter as TicketListAdapter)
 
         if (loadCustomerType == LoadingTicketListType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.tickets).apply { addAll(tickets) })
         } else {
-            rvTickets.adapter = TicketListAdapter().apply {
-                onItemClick = {
-                    viewModel.onTicketTapped(it)
-                }
+            rvTickets.adapter =
+                TicketListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onTicketTapped(it)
+                    }
 
-                this.tickets = tickets
-                notifyDataSetChanged()
-            }
+                    this.tickets = tickets
+                    notifyDataSetChanged()
+                }
         }
 
         viewModel.saveTicketsState((rvTickets.adapter as TicketListAdapter).tickets)
@@ -173,17 +194,21 @@ class TicketListFragment : Fragment() {
     private fun handleTicketTapped(ticketId: String) {
         (activity as BaseActivity).provideNavController().navigate(
             R.id.openTicketDetail,
-            bundleOf(TicketDetailFragment.EXTRA_TICKET_ID to ticketId)
+            bundleOf(TicketDetailFragment.EXTRA_TICKET_ID to ticketId),
         )
     }
 
     private fun updateView(customer: Customer?) {
         createTicket.visibility = if (customer != null) View.VISIBLE else View.GONE
         view?.findViewById<TextView>(R.id.tvEmptyDescription)?.text =
-            if (customer != null) getString(
-                R.string.ticket_empty_layout__with_customer_content,
-                customer.name
-            ) else getString(R.string.ticket_empty_layout_content)
+            if (customer != null) {
+                getString(
+                    R.string.ticket_empty_layout__with_customer_content,
+                    customer.name,
+                )
+            } else {
+                getString(R.string.ticket_empty_layout_content)
+            }
     }
 
     companion object {

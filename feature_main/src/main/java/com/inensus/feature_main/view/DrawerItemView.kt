@@ -11,8 +11,10 @@ import androidx.core.content.res.use
 import com.inensus.feature_main.R
 import kotlinx.android.synthetic.main.item_drawer.view.*
 
-class DrawerItemView(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet) {
-
+class DrawerItemView(
+    context: Context,
+    attributeSet: AttributeSet,
+) : ConstraintLayout(context, attributeSet) {
     private var iconRes: Int? = null
     private var title: String? = null
 
@@ -40,7 +42,10 @@ class DrawerItemView(context: Context, attributeSet: AttributeSet) : ConstraintL
     }
 
     @SuppressLint("Recycle")
-    private fun initializeAttrs(context: Context, attrs: AttributeSet) {
+    private fun initializeAttrs(
+        context: Context,
+        attrs: AttributeSet,
+    ) {
         context.obtainStyledAttributes(attrs, R.styleable.DrawerItemView).use {
             iconRes = it.getResourceId(R.styleable.DrawerItemView_drawer_icon, 0)
             title = it.getString(R.styleable.DrawerItemView_drawer_title)

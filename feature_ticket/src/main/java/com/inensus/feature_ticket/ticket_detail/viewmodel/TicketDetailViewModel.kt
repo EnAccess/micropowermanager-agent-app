@@ -10,15 +10,18 @@ import com.inensus.feature_ticket.ticket_detail.repository.TicketDetailRepositor
 import com.inensus.feature_ticket.ticket_detail.view.TicketDetailCreator
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class TicketDetailViewModel(private val repository: TicketDetailRepository, private val detailCreator: TicketDetailCreator) : BaseViewModel() {
-
+class TicketDetailViewModel(
+    private val repository: TicketDetailRepository,
+    private val detailCreator: TicketDetailCreator,
+) : BaseViewModel() {
     private var _ticketDetails: MutableLiveData<List<KeyValue>> = MutableLiveData()
     val ticketDetails: LiveData<List<KeyValue>> = _ticketDetails
 
     fun getTicketDetail(ticketId: String) {
         showLoading()
 
-        repository.getTicketDetail(ticketId)
+        repository
+            .getTicketDetail(ticketId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()

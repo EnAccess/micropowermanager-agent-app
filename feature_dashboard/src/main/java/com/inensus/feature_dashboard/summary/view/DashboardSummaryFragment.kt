@@ -12,16 +12,18 @@ import kotlinx.android.synthetic.main.fragment_dashboard_summary.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardSummaryFragment : Fragment() {
-
     private val viewModel: DashboardSummaryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_dashboard_summary, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         observeUiState()

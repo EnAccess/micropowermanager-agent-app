@@ -8,5 +8,8 @@ import retrofit2.http.Url
 
 interface MessagingService {
     @POST
-    fun resetFirebaseToken(@Url url: String, @Body request: MessagingRequest): Completable
+    fun resetFirebaseToken(
+        @Url url: String,
+        @Body request: MessagingRequest,
+    ): Completable
 }

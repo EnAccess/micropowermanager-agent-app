@@ -10,23 +10,29 @@ import com.inensus.shared_navigation.Feature
 import com.inensus.shared_navigation.SharedNavigation
 
 class SharedNavigationImpl : SharedNavigation {
-    override fun navigateTo(from: Activity, feature: Feature) {
-        val toActivity: Class<*> = when (feature) {
-            Feature.Main -> {
-                MainActivity::class.java
+    override fun navigateTo(
+        from: Activity,
+        feature: Feature,
+    ) {
+        val toActivity: Class<*> =
+            when (feature) {
+                Feature.Main -> {
+                    MainActivity::class.java
+                }
+                Feature.Login -> {
+                    LoginActivity::class.java
+                }
+                Feature.Splash -> {
+                    SplashActivity::class.java
+                }
             }
-            Feature.Login -> {
-                LoginActivity::class.java
-            }
-            Feature.Splash -> {
-                SplashActivity::class.java
-            }
-        }
 
         with(from) {
-            startActivity(Intent(this, toActivity).apply {
-                putExtras(intent)
-            })
+            startActivity(
+                Intent(this, toActivity).apply {
+                    putExtras(intent)
+                },
+            )
             finish()
         }
     }

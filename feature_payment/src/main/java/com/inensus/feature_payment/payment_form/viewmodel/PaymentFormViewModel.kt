@@ -16,9 +16,8 @@ class PaymentFormViewModel(
     private val repository: PaymentFormRepository,
     customerRepository: CustomerRepository,
     private val summaryCreator: PaymentSummaryCreator,
-    private val validator: PaymentFormValidator
+    private val validator: PaymentFormValidator,
 ) : ViewModel() {
-
     private val _uiState = LiveEvent<PaymentFormUiState>()
     var uiState: LiveEvent<PaymentFormUiState> = _uiState
 
@@ -45,14 +44,15 @@ class PaymentFormViewModel(
                 repository.meter = _meter.value
                 repository.amount = _amount.value
 
-                _uiState.value = PaymentFormUiState.OpenSummary(
-                    summaryCreator.createSummaryItems(
-                        _customer.value?.name ?: "",
-                        _customer.value?.surname ?: "",
-                        _meter.value ?: "",
-                        BigDecimal(_amount.value)
+                _uiState.value =
+                    PaymentFormUiState.OpenSummary(
+                        summaryCreator.createSummaryItems(
+                            _customer.value?.name ?: "",
+                            _customer.value?.surname ?: "",
+                            _meter.value ?: "",
+                            BigDecimal(_amount.value),
+                        ),
                     )
-                )
             } else {
                 _uiState.value = PaymentFormUiState.ValidationError(it)
             }

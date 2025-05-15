@@ -9,7 +9,7 @@ class ApplianceFormValidator {
         appliance: Appliance?,
         firstPaymentDate: Date?,
         downPayment: BigDecimal?,
-        tenure: Int?
+        tenure: Int?,
     ): List<ApplianceFormUiState.ValidationError.Error> =
         mutableListOf<ApplianceFormUiState.ValidationError.Error>().apply {
             if (appliance == null) {

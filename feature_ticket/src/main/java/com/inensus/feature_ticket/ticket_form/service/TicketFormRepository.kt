@@ -9,19 +9,21 @@ import java.util.*
 class TicketFormRepository(
     private val service: TicketService,
     private val customerRepository: CustomerRepository,
-    private val preferences: SharedPreferenceWrapper
+    private val preferences: SharedPreferenceWrapper,
 ) {
     var message: String? = null
     var dueDate: Date? = null
     var category: Long? = null
 
     fun getCategories() =
-        service.getCategories(preferences.baseUrl?.substring(0, preferences.baseUrl?.length?.minus(4) ?: 0) + GET_TICKET_CATEGORIES_ENDPOINT)
+        service.getCategories(
+            preferences.baseUrl?.substring(0, preferences.baseUrl?.length?.minus(4) ?: 0) + GET_TICKET_CATEGORIES_ENDPOINT,
+        )
 
     fun confirmTicket() =
         service.confirmTicket(
             preferences.baseUrl + CONFIRM_TICKET_ENDPOINT,
-            ConfirmTicketRequest("Ticket", message, dueDate, category, customerRepository.customer?.id)
+            ConfirmTicketRequest("Ticket", message, dueDate, category, customerRepository.customer?.id),
         )
 
     companion object {

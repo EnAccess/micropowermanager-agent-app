@@ -14,15 +14,20 @@ import kotlinx.android.synthetic.main.appliance_list_item.view.*
 import java.math.BigDecimal
 
 class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolder>() {
-
     lateinit var onItemClick: ((appliance: ApplianceTransaction) -> Unit)
     var appliances: List<ApplianceTransaction> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.appliance_list_item, parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ) = ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.appliance_list_item, parent, false),
     )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.bind(appliances[position])
     }
 
@@ -34,7 +39,9 @@ class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolde
         appliances = newItems
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(
+        view: View,
+    ) : RecyclerView.ViewHolder(view) {
         fun bind(transaction: ApplianceTransaction) {
             with(itemView) {
                 statusImage.setImageDrawable(
@@ -42,7 +49,7 @@ class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolde
                         ContextCompat.getDrawable(context, R.drawable.ic_success)
                     } else {
                         ContextCompat.getDrawable(context, R.drawable.ic_pending)
-                    }
+                    },
                 )
                 typeText.text = transaction.applianceType.name
                 priceText.text = AmountUtils.convertAmountToString(transaction.cost)

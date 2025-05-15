@@ -5,4 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Meter(@SerializedName("id") val id: Int, @SerializedName("serial_number") val serialNumber: String) : Parcelable
+data class Meter(
+    @SerializedName("id") val id: Int,
+    @SerializedName("serial_number") val serialNumber: String,
+) : Parcelable

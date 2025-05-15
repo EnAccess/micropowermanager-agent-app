@@ -9,9 +9,13 @@ import com.inensus.core_ui.R
 import kotlinx.android.synthetic.main.view_graph_marker.view.*
 import java.math.BigDecimal
 
-class GraphMarkerView(context: Context) : MarkerView(context, R.layout.view_graph_marker) {
-
-    override fun refreshContent(entry: Entry, highlight: Highlight) {
+class GraphMarkerView(
+    context: Context,
+) : MarkerView(context, R.layout.view_graph_marker) {
+    override fun refreshContent(
+        entry: Entry,
+        highlight: Highlight,
+    ) {
         setMarkerText(entry)
 
         super.refreshContent(entry, highlight)

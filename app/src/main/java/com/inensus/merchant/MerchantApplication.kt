@@ -18,7 +18,6 @@ import org.koin.core.logger.Level
 import timber.log.Timber
 
 class MerchantApplication : Application() {
-
     override fun onCreate() {
         super.onCreate()
 
@@ -43,8 +42,8 @@ class MerchantApplication : Application() {
                     *MainModule.createMainModules().toTypedArray(),
                     AgentModule.createAgentModule(),
                     CustomerModule.createCustomerModule(),
-                    *MessagingModule.createMessagingModules().toTypedArray()
-                )
+                    *MessagingModule.createMessagingModules().toTypedArray(),
+                ),
             )
         }
     }

@@ -8,15 +8,17 @@ import com.inensus.feature_ticket.ticket_form.service.TicketFormRepository
 import com.inensus.feature_ticket.ticket_form.view.TicketSummaryUiState
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class TicketSummaryViewModel(private val repository: TicketFormRepository) : BaseViewModel() {
-
+class TicketSummaryViewModel(
+    private val repository: TicketFormRepository,
+) : BaseViewModel() {
     private val _uiState = LiveEvent<TicketSummaryUiState>()
     var uiState: LiveEvent<TicketSummaryUiState> = _uiState
 
     fun onConfirmButtonTapped() {
         showLoading()
 
-        repository.confirmTicket()
+        repository
+            .confirmTicket()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()

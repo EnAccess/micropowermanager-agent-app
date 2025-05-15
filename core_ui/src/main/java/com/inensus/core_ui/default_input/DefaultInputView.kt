@@ -14,8 +14,10 @@ import com.inensus.core_ui.base_input.ErrorState
 import com.inensus.core_ui.extentions.afterTextChanged
 import kotlinx.android.synthetic.main.view_default_input.view.*
 
-open class DefaultInputView(context: Context, attrs: AttributeSet) : BaseInputView(context, attrs) {
-
+open class DefaultInputView(
+    context: Context,
+    attrs: AttributeSet,
+) : BaseInputView(context, attrs) {
     var afterTextChanged: ((editable: Editable) -> Unit)? = null
 
     init {

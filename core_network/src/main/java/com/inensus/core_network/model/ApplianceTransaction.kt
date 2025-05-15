@@ -15,15 +15,18 @@ data class ApplianceTransaction(
     @SerializedName("down_payment") val downPayment: BigDecimal,
     @SerializedName("asset_type") val applianceType: ApplianceType,
     @SerializedName("rates") val rates: List<Rate>,
-    @SerializedName("person") val person: Person
+    @SerializedName("person") val person: Person,
 ) : Parcelable
 
 @Parcelize
 data class Rate(
     @SerializedName("rate_cost") val rateAmount: BigDecimal,
     @SerializedName("remaining") val remainingAmount: BigDecimal,
-    @SerializedName("due_date") val dueDate: String
+    @SerializedName("due_date") val dueDate: String,
 ) : Parcelable
 
 @Parcelize
-data class Person(@SerializedName("name") val name: String, @SerializedName("surname") val surname: String) : Parcelable
+data class Person(
+    @SerializedName("name") val name: String,
+    @SerializedName("surname") val surname: String,
+) : Parcelable

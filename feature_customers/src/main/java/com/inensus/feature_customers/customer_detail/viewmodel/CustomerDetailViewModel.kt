@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.inensus.core_network.model.Customer
 import com.inensus.shared_customer.repository.CustomerRepository
 
-class CustomerDetailViewModel(private val repository: CustomerRepository) : ViewModel() {
-
+class CustomerDetailViewModel(
+    private val repository: CustomerRepository,
+) : ViewModel() {
     private var _customer: MutableLiveData<Customer> = MutableLiveData()
     val customer: LiveData<Customer> = _customer
 

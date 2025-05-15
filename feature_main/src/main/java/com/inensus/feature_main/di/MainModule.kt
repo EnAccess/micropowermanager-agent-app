@@ -18,19 +18,20 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 object MainModule {
-    fun createMainModules(): List<Module> = listOf(
-        module { viewModel { DrawerViewModel(get()) } },
-        *DashboardMainModule.createDashboardModules().toTypedArray(),
-        *CustomersModule.createCustomersModules().toTypedArray(),
-        *PaymentListModule.createPaymentListModules().toTypedArray(),
-        PaymentDetailModule.createPaymentDetailModule(),
-        *PaymentModule.createPaymentModules().toTypedArray(),
-        PaymentGraphModule.createPaymentGraphModule(),
-        *ApplianceListModule.createApplianceListModules().toTypedArray(),
-        *ApplianceModule.createApplianceModules().toTypedArray(),
-        ApplianceDetailModule.createApplianceDetailModule(),
-        *TicketFormModule.createTicketModules().toTypedArray(),
-        *TicketListModule.createTicketListModules().toTypedArray(),
-        TicketDetailModule.createTicketDetailModule()
-    )
+    fun createMainModules(): List<Module> =
+        listOf(
+            module { viewModel { DrawerViewModel(get()) } },
+            *DashboardMainModule.createDashboardModules().toTypedArray(),
+            *CustomersModule.createCustomersModules().toTypedArray(),
+            *PaymentListModule.createPaymentListModules().toTypedArray(),
+            PaymentDetailModule.createPaymentDetailModule(),
+            *PaymentModule.createPaymentModules().toTypedArray(),
+            PaymentGraphModule.createPaymentGraphModule(),
+            *ApplianceListModule.createApplianceListModules().toTypedArray(),
+            *ApplianceModule.createApplianceModules().toTypedArray(),
+            ApplianceDetailModule.createApplianceDetailModule(),
+            *TicketFormModule.createTicketModules().toTypedArray(),
+            *TicketListModule.createTicketListModules().toTypedArray(),
+            TicketDetailModule.createTicketDetailModule(),
+        )
 }

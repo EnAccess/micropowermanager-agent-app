@@ -3,8 +3,9 @@ package com.inensus.feature_main.view
 import androidx.navigation.NavController
 import com.inensus.feature_main.R
 
-class MainActivityNavigation(private val navController: NavController) {
-
+class MainActivityNavigation(
+    private val navController: NavController,
+) {
     fun handleNavigationAction(action: NavigationAction) {
         if (navController.currentDestination?.id != action.fragmentId) {
             when (action) {

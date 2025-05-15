@@ -8,21 +8,23 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object PaymentListModule {
-    fun createPaymentListModules(): List<Module> = listOf(
-        module {
-            viewModel {
-                getKoin().createScope(PAYMENT_LIST_SCOPE, named(PAYMENT_LIST_SCOPE))
-                PaymentListViewModel(getScope(PAYMENT_LIST_SCOPE).get(), get())
-            }
-        },
-        createPaymentListNetworkModule()
-    )
+    fun createPaymentListModules(): List<Module> =
+        listOf(
+            module {
+                viewModel {
+                    getKoin().createScope(PAYMENT_LIST_SCOPE, named(PAYMENT_LIST_SCOPE))
+                    PaymentListViewModel(getScope(PAYMENT_LIST_SCOPE).get(), get())
+                }
+            },
+            createPaymentListNetworkModule(),
+        )
 
-    private fun createPaymentListNetworkModule() = module {
-        scope(named(PAYMENT_LIST_SCOPE)) {
-            scoped { PaymentListRepository(get(), get()) }
+    private fun createPaymentListNetworkModule() =
+        module {
+            scope(named(PAYMENT_LIST_SCOPE)) {
+                scoped { PaymentListRepository(get(), get()) }
+            }
         }
-    }
 
     const val PAYMENT_LIST_SCOPE = "PAYMENT_LIST_SCOPE"
 }

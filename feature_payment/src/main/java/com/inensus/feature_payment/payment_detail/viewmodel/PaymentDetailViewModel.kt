@@ -10,15 +10,18 @@ import com.inensus.feature_payment.payment_detail.repository.PaymentDetailReposi
 import com.inensus.feature_payment.payment_detail.view.PaymentDetailCreator
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class PaymentDetailViewModel(private val repository: PaymentDetailRepository, private val detailCreator: PaymentDetailCreator) : BaseViewModel() {
-
+class PaymentDetailViewModel(
+    private val repository: PaymentDetailRepository,
+    private val detailCreator: PaymentDetailCreator,
+) : BaseViewModel() {
     private var _paymentDetails: MutableLiveData<List<KeyValue>> = MutableLiveData()
     val paymentDetails: LiveData<List<KeyValue>> = _paymentDetails
 
     fun getPaymentDetail(paymentId: Long) {
         showLoading()
 
-        repository.getPaymentDetail(paymentId)
+        repository
+            .getPaymentDetail(paymentId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 hideLoading()

@@ -16,7 +16,11 @@ import com.inensus.core_ui.extentions.show
 import kotlinx.android.synthetic.main.view_dropdown_input.view.*
 import java.util.*
 
-class DateInputView(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet), ErrorState {
+class DateInputView(
+    context: Context,
+    attributeSet: AttributeSet,
+) : ConstraintLayout(context, attributeSet),
+    ErrorState {
     var onDateSelected: ((Date?) -> Unit)? = null
     private var errorState: Boolean = false
 
@@ -51,7 +55,10 @@ class DateInputView(context: Context, attributeSet: AttributeSet) : ConstraintLa
             super.onCreateDrawableState(extraSpace)
         }
 
-    private fun initializeAttributes(context: Context, attrs: AttributeSet) {
+    private fun initializeAttributes(
+        context: Context,
+        attrs: AttributeSet,
+    ) {
         context.obtainStyledAttributes(attrs, R.styleable.DateInputView).use {
             val title = it.getString(R.styleable.DateInputView_date_input_title)
 
@@ -80,11 +87,12 @@ class DateInputView(context: Context, attributeSet: AttributeSet) : ConstraintLa
     }
 
     private fun openDatePicker() {
-        val calendar = date?.let { it ->
-            Calendar.getInstance().apply {
-                time = it
+        val calendar =
+            date?.let { it ->
+                Calendar.getInstance().apply {
+                    time = it
+                }
             }
-        }
 
         context?.let {
             DatePickerDialog(
@@ -94,7 +102,7 @@ class DateInputView(context: Context, attributeSet: AttributeSet) : ConstraintLa
                 },
                 calendar?.get(Calendar.YEAR) ?: -1,
                 calendar?.get(Calendar.MONTH) ?: -1,
-                calendar?.get(Calendar.DAY_OF_MONTH) ?: -1
+                calendar?.get(Calendar.DAY_OF_MONTH) ?: -1,
             ).apply {
                 datePicker.minDate = Calendar.getInstance().timeInMillis
                 show()

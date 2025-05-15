@@ -13,14 +13,23 @@ import retrofit2.http.Url
 
 interface TicketService {
     @GET
-    fun getTickets(@Url url: String): Single<TicketResponse>
+    fun getTickets(
+        @Url url: String,
+    ): Single<TicketResponse>
 
     @GET
-    fun getTicketDetail(@Url url: String): Single<TicketDetailResponse>
+    fun getTicketDetail(
+        @Url url: String,
+    ): Single<TicketDetailResponse>
 
     @GET
-    fun getCategories(@Url url: String): Single<TicketCategoryResponse>
+    fun getCategories(
+        @Url url: String,
+    ): Single<TicketCategoryResponse>
 
     @POST
-    fun confirmTicket(@Url url: String, @Body request: ConfirmTicketRequest): Completable
+    fun confirmTicket(
+        @Url url: String,
+        @Body request: ConfirmTicketRequest,
+    ): Completable
 }

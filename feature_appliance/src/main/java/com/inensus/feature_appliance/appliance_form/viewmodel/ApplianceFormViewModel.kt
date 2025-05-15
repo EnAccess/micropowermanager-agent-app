@@ -18,9 +18,8 @@ import kotlin.math.min
 class ApplianceFormViewModel(
     private val repository: ApplianceFormRepository,
     private val summaryCreator: ApplianceSummaryCreator,
-    private val validator: ApplianceFormValidator
+    private val validator: ApplianceFormValidator,
 ) : BaseViewModel() {
-
     private val _uiState = LiveEvent<ApplianceFormUiState>()
     var uiState: LiveEvent<ApplianceFormUiState> = _uiState
 
@@ -43,7 +42,8 @@ class ApplianceFormViewModel(
         if (repository.appliances.isEmpty()) {
             _uiState.postValue(ApplianceFormUiState.Loading)
 
-            repository.getAppliancesTypes()
+            repository
+                .getAppliancesTypes()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _uiState.postValue(ApplianceFormUiState.AppliancesLoaded(it.data))
@@ -101,15 +101,16 @@ class ApplianceFormViewModel(
                 repository.firstPaymentDate = _firstPaymentDate.value
                 repository.tenure = _tenure.value
 
-                _uiState.value = ApplianceFormUiState.OpenSummary(
-                    summaryCreator.createSummaryItems(
-                        _appliance.value!!,
-                        _firstPaymentDate.value!!,
-                        _downPayment.value,
-                        _tenure.value!!,
-                        _monthlyPaymentAmount.value!!
+                _uiState.value =
+                    ApplianceFormUiState.OpenSummary(
+                        summaryCreator.createSummaryItems(
+                            _appliance.value!!,
+                            _firstPaymentDate.value!!,
+                            _downPayment.value,
+                            _tenure.value!!,
+                            _monthlyPaymentAmount.value!!,
+                        ),
                     )
-                )
             } else {
                 _uiState.value = ApplianceFormUiState.ValidationError(it)
             }

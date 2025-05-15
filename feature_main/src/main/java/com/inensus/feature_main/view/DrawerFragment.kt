@@ -22,7 +22,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 
 class DrawerFragment : BaseFragment() {
-
     private val viewModel: DrawerViewModel by viewModel()
     private val preferences: SharedPreferenceWrapper by inject()
     private val navigation: SharedNavigation by inject()
@@ -32,31 +31,43 @@ class DrawerFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_drawer, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         observeUiState()
     }
 
     private fun observeUiState() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                DrawerUiState.AgentLoading -> handleAgentLoading()
-                DrawerUiState.AgentError -> handleAgent()
-                is DrawerUiState.AgentLoaded -> handleAgentLoaded(it.email, it.balance)
-            }
-        })
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it) {
+                    DrawerUiState.AgentLoading -> handleAgentLoading()
+                    DrawerUiState.AgentError -> handleAgent()
+                    is DrawerUiState.AgentLoaded -> handleAgentLoaded(it.email, it.balance)
+                }
+            },
+        )
 
-        viewModel.currentNavigation.observe(viewLifecycleOwner, Observer {
-            navCallback?.invoke(it)
-        })
+        viewModel.currentNavigation.observe(
+            viewLifecycleOwner,
+            Observer {
+                navCallback?.invoke(it)
+            },
+        )
 
-        viewModel.navigationUiState.observe(viewLifecycleOwner, Observer {
-            setSelectedActionItem(it)
-        })
+        viewModel.navigationUiState.observe(
+            viewLifecycleOwner,
+            Observer {
+                setSelectedActionItem(it)
+            },
+        )
     }
 
     private fun handleAgent() {
@@ -71,7 +82,10 @@ class DrawerFragment : BaseFragment() {
         drawerHeader.hide()
     }
 
-    private fun handleAgentLoaded(email: String, balance: BigDecimal) {
+    private fun handleAgentLoaded(
+        email: String,
+        balance: BigDecimal,
+    ) {
         drawerHeaderSkeleton.animateGone()
         drawerHeader.animateShow()
         emailText.text = email
@@ -115,15 +129,15 @@ class DrawerFragment : BaseFragment() {
     }
 
     private fun signOut() {
-        AlertDialog.Builder(context)
+        AlertDialog
+            .Builder(context)
             .setTitle(getString(R.string.warning))
             .setCancelable(false)
             .setMessage(getString(R.string.warning_sign_out))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 preferences.accessToken = ""
                 navigation.navigateTo(requireActivity(), Feature.Login)
-            }
-            .setNegativeButton(getString(R.string.no)) { _, _ -> }
+            }.setNegativeButton(getString(R.string.no)) { _, _ -> }
             .show()
     }
 

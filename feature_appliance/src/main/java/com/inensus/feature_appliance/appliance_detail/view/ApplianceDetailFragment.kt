@@ -20,16 +20,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ApplianceDetailFragment : Fragment() {
-
     private val viewModel: ApplianceDetailViewModel by viewModel()
     private lateinit var applianceTransaction: ApplianceTransaction
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? = inflater.inflate(R.layout.fragment_appliance_detail, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         applianceTransaction = arguments?.getParcelable(EXTRA_APPLIANCE)!!
@@ -43,13 +46,19 @@ class ApplianceDetailFragment : Fragment() {
     }
 
     private fun observeApplianceDetails() {
-        viewModel.applianceDetails.observe(viewLifecycleOwner, Observer {
-            setupView(it)
-        })
+        viewModel.applianceDetails.observe(
+            viewLifecycleOwner,
+            Observer {
+                setupView(it)
+            },
+        )
 
-        viewModel.paymentDetails.observe(viewLifecycleOwner, Observer {
-            paymentDetailsText.visibility = if (it) View.VISIBLE else View.GONE
-        })
+        viewModel.paymentDetails.observe(
+            viewLifecycleOwner,
+            Observer {
+                paymentDetailsText.visibility = if (it) View.VISIBLE else View.GONE
+            },
+        )
     }
 
     private fun setupView(applianceDetails: List<KeyValue>) {
@@ -68,19 +77,28 @@ class ApplianceDetailFragment : Fragment() {
     }
 
     private fun openPaymentDetails() {
-        val keyValueList = applianceTransaction.rates.map {
-            //TODO Change when server sends dueDate as Date instead of String
-            KeyValue.Default(
-                "${getString(R.string.appliance_detail_payments_due_date)} ${DateUtils.convertDateToString(
-                    SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss",
-                        Locale.getDefault()
-                    ).parse(it.dueDate) ?: Date()
-                )}",
-                if (it.remainingAmount == BigDecimal.ZERO) "${getString(R.string.appliance_detail_payments_paid)} ${it.rateAmount} ${getString(R.string.default_currency)}" else "${getString(R.string.appliance_detail_payments_remaining)} ${it.remainingAmount} ${getString(R.string.default_currency)}",
-                if (it.remainingAmount == BigDecimal.ZERO) R.color.green_00C853 else R.color.gray_424242
-            )
-        }
+        val keyValueList =
+            applianceTransaction.rates.map {
+                // TODO Change when server sends dueDate as Date instead of String
+                KeyValue.Default(
+                    "${getString(R.string.appliance_detail_payments_due_date)} ${DateUtils.convertDateToString(
+                        SimpleDateFormat(
+                            "yyyy-MM-dd HH:mm:ss",
+                            Locale.getDefault(),
+                        ).parse(it.dueDate) ?: Date(),
+                    )}",
+                    if (it.remainingAmount ==
+                        BigDecimal.ZERO
+                    ) {
+                        "${getString(R.string.appliance_detail_payments_paid)} ${it.rateAmount} ${getString(R.string.default_currency)}"
+                    } else {
+                        "${getString(
+                            R.string.appliance_detail_payments_remaining,
+                        )} ${it.remainingAmount} ${getString(R.string.default_currency)}"
+                    },
+                    if (it.remainingAmount == BigDecimal.ZERO) R.color.green_00C853 else R.color.gray_424242,
+                )
+            }
 
         ApplianceDetailPaymentsFragment.newInstance(keyValueList).also {
             it.show(childFragmentManager, PAYMENT_DETAILS_FRAGMENT_TAG)

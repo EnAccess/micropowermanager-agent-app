@@ -12,25 +12,40 @@ class DashboardRepository(
     private val service: DashboardService,
     private val balanceConverter: DashboardGraphBalanceModelConverter,
     private val revenueConverter: DashboardGraphRevenueModelConverter,
-    private val preferences: SharedPreferenceWrapper
+    private val preferences: SharedPreferenceWrapper,
 ) {
     var summaryData: MutableLiveData<DashboardSummaryData> = MutableLiveData()
     var graphBalanceData: MutableLiveData<DashboardGraphBalanceUiState> = MutableLiveData()
     var graphRevenueData: MutableLiveData<DashboardGraphRevenueUiState> = MutableLiveData()
 
-    fun getDashboardSummary() = service.getDashboardSummary(preferences.baseUrl + GET_DASHBOARD_SUMMARY_ENDPOINT).doOnSuccess {
-        summaryData.postValue(it.data)
-    }
-
-    fun getDashboardGraphBalance() = service.getDashboardGraphBalance(preferences.baseUrl + GET_DASHBOARD_GRAPH_BALANCE_ENDPOINT)
-        .doOnSuccess {
-            graphBalanceData.postValue(DashboardGraphBalanceUiState.Success(balanceConverter.xAxisList, balanceConverter.fromDataToUiModel(balanceConverter.fromJsonToData(it))))
+    fun getDashboardSummary() =
+        service.getDashboardSummary(preferences.baseUrl + GET_DASHBOARD_SUMMARY_ENDPOINT).doOnSuccess {
+            summaryData.postValue(it.data)
         }
 
-    fun getDashboardGraphRevenue() = service.getDashboardGraphRevenue(preferences.baseUrl + GET_DASHBOARD_GRAPH_REVENUE_ENDPOINT)
-        .doOnSuccess {
-            graphRevenueData.postValue(DashboardGraphRevenueUiState.Success(revenueConverter.xAxisList, revenueConverter.fromDataToUiModel(revenueConverter.fromJsonToData(it))))
-        }
+    fun getDashboardGraphBalance() =
+        service
+            .getDashboardGraphBalance(preferences.baseUrl + GET_DASHBOARD_GRAPH_BALANCE_ENDPOINT)
+            .doOnSuccess {
+                graphBalanceData.postValue(
+                    DashboardGraphBalanceUiState.Success(
+                        balanceConverter.xAxisList,
+                        balanceConverter.fromDataToUiModel(balanceConverter.fromJsonToData(it)),
+                    ),
+                )
+            }
+
+    fun getDashboardGraphRevenue() =
+        service
+            .getDashboardGraphRevenue(preferences.baseUrl + GET_DASHBOARD_GRAPH_REVENUE_ENDPOINT)
+            .doOnSuccess {
+                graphRevenueData.postValue(
+                    DashboardGraphRevenueUiState.Success(
+                        revenueConverter.xAxisList,
+                        revenueConverter.fromDataToUiModel(revenueConverter.fromJsonToData(it)),
+                    ),
+                )
+            }
 
     companion object {
         private const val GET_DASHBOARD_SUMMARY_ENDPOINT = "app/agents/dashboard/boxes"

@@ -12,25 +12,28 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object DashboardMainModule {
-    fun createDashboardModules() = createDashboardModule() +
+    fun createDashboardModules() =
+        createDashboardModule() +
             createDashboardNetworkModule() +
             DashboardSummaryModule.createDashboardSummaryModule() +
             DashboardGraphModule.createDashboardGraphModule()
 
-    private fun createDashboardModule() = module {
-        viewModel {
-            getKoin().createScope(DASHBOARD_SCOPE, named(DASHBOARD_SCOPE))
-            DashboardMainViewModel(getScope(DASHBOARD_SCOPE).get())
+    private fun createDashboardModule() =
+        module {
+            viewModel {
+                getKoin().createScope(DASHBOARD_SCOPE, named(DASHBOARD_SCOPE))
+                DashboardMainViewModel(getScope(DASHBOARD_SCOPE).get())
+            }
+
+            scope(named(DASHBOARD_SCOPE)) {
+                scoped { DashboardRepository(get(), get(), get(), get()) }
+            }
         }
 
-        scope(named(DASHBOARD_SCOPE)) {
-            scoped { DashboardRepository(get(), get(), get(), get()) }
+    private fun createDashboardNetworkModule() =
+        module {
+            single { provideDashboardService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
         }
-    }
-
-    private fun createDashboardNetworkModule() = module {
-        single { provideDashboardService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
-    }
 
     private fun provideDashboardService(retrofitClient: Retrofit) = retrofitClient.create(DashboardService::class.java)
 

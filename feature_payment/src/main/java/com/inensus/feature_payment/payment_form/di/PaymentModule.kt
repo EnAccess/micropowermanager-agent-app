@@ -13,21 +13,23 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object PaymentModule {
-    fun createPaymentModules(): List<Module> = listOf(
+    fun createPaymentModules(): List<Module> =
+        listOf(
+            module {
+                viewModel { PaymentFormViewModel(get(), get(), get(), get()) }
+                viewModel { PaymentSummaryViewModel(get()) }
+                single { PaymentSummaryCreator(get()) }
+                single { PaymentFormValidator() }
+            },
+            createPaymentNetworkModule(),
+        )
+
+    private fun createPaymentNetworkModule() =
         module {
-            viewModel { PaymentFormViewModel(get(), get(), get(), get()) }
-            viewModel { PaymentSummaryViewModel(get()) }
-            single { PaymentSummaryCreator(get()) }
-            single { PaymentFormValidator() }
-        },
-        createPaymentNetworkModule()
-    )
+            single { providePaymentService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
 
-    private fun createPaymentNetworkModule() = module {
-        single { providePaymentService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
-
-        single { PaymentFormRepository(get(), get()) }
-    }
+            single { PaymentFormRepository(get(), get()) }
+        }
 
     private fun providePaymentService(retrofitClient: Retrofit) = retrofitClient.create(PaymentService::class.java)
 }

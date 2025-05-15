@@ -12,11 +12,18 @@ import retrofit2.http.Url
 
 interface ApplianceService {
     @GET
-    fun getAppliances(@Url url: String): Single<ApplianceResponse>
+    fun getAppliances(
+        @Url url: String,
+    ): Single<ApplianceResponse>
 
     @GET
-    fun getApplianceTypes(@Url url: String): Single<ApplianceTypeResponse>
+    fun getApplianceTypes(
+        @Url url: String,
+    ): Single<ApplianceTypeResponse>
 
     @POST
-    fun confirmAppliance(@Url url: String, @Body request: ConfirmApplianceRequest): Completable
+    fun confirmAppliance(
+        @Url url: String,
+        @Body request: ConfirmApplianceRequest,
+    ): Completable
 }

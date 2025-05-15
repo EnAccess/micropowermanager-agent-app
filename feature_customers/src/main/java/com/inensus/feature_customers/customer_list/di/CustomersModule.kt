@@ -11,16 +11,18 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object CustomersModule {
-    fun createCustomersModules(): List<Module> = listOf(
-        module { viewModel { CustomersViewModel(get(), get()) } },
-        module { viewModel { CustomerDetailViewModel(get()) } },
-        createCustomersNetworkModule()
-    )
+    fun createCustomersModules(): List<Module> =
+        listOf(
+            module { viewModel { CustomersViewModel(get(), get()) } },
+            module { viewModel { CustomerDetailViewModel(get()) } },
+            createCustomersNetworkModule(),
+        )
 
-    private fun createCustomersNetworkModule() = module {
-        single { provideCustomersService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
-        single { CustomersRepository(get(), get()) }
-    }
+    private fun createCustomersNetworkModule() =
+        module {
+            single { provideCustomersService(get(qualifier = AuthQualifiers.AUTH_RETROFIT)) }
+            single { CustomersRepository(get(), get()) }
+        }
 
     private fun provideCustomersService(retrofitClient: Retrofit) = retrofitClient.create(CustomersService::class.java)
 }

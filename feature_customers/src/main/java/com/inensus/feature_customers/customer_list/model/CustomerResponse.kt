@@ -5,5 +5,5 @@ import com.inensus.core_network.model.Customer
 
 data class CustomerResponse(
     @SerializedName("next_page_url") val nextPageUrl: String,
-    @SerializedName("data") val data: List<Customer>
+    @SerializedName("data") val data: List<Customer>,
 )

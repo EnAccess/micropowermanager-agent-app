@@ -7,9 +7,10 @@ import com.inensus.shared_navigation.SharedNavigation
 import org.koin.dsl.module
 
 object ApplicationModule {
-    fun createAppModule() = module {
-        single<SharedNavigation> { SharedNavigationImpl() }
-        single { SessionExpireBroadcastReceiver() }
-        single { SharedPreferenceWrapper(get()) }
-    }
+    fun createAppModule() =
+        module {
+            single<SharedNavigation> { SharedNavigationImpl() }
+            single { SessionExpireBroadcastReceiver() }
+            single { SharedPreferenceWrapper(get()) }
+        }
 }

@@ -19,16 +19,18 @@ import kotlinx.android.synthetic.main.fragment_dashboard_graph_revenue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardGraphRevenueFragment : Fragment() {
-
     private val viewModel: DashboardGraphRevenueViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = inflater.inflate(R.layout.fragment_dashboard_graph_revenue, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
@@ -47,7 +49,10 @@ class DashboardGraphRevenueFragment : Fragment() {
         })
     }
 
-    private fun handleSuccessState(xAxisList: ArrayList<String>, barData: List<BarEntry>) {
+    private fun handleSuccessState(
+        xAxisList: ArrayList<String>,
+        barData: List<BarEntry>,
+    ) {
         chart.xAxis.valueFormatter = DashboardGraphRevenueXAxisFormatter(xAxisList)
         setupChartData(barData)
     }
@@ -88,7 +93,7 @@ class DashboardGraphRevenueFragment : Fragment() {
                 GRAPH_OFFSET,
                 GRAPH_OFFSET,
                 GRAPH_OFFSET,
-                GRAPH_OFFSET
+                GRAPH_OFFSET,
             )
 
             setNoDataTextTypeface(ResourcesCompat.getFont(context, R.font.semi_bold))

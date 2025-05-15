@@ -22,14 +22,17 @@ fun View.gone() {
 
 fun View.animateGone(duration: Long = 300) {
     if (isVisible()) {
-        this.animate()
+        this
+            .animate()
             .alpha(0.0f)
             .setDuration(duration)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    visibility = View.GONE
-                }
-            }).start()
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        visibility = View.GONE
+                    }
+                },
+            ).start()
     }
 }
 
@@ -39,25 +42,29 @@ fun View.animateShow(duration: Long = 300) {
         animate()
             .alpha(1.0f)
             .setDuration(duration)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    visibility = View.VISIBLE
-                }
-            }).start()
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    override fun onAnimationStart(animation: Animator?) {
+                        visibility = View.VISIBLE
+                    }
+                },
+            ).start()
     }
 }
 
 fun View.isVisible() = visibility == View.VISIBLE
 
 inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                f()
+    viewTreeObserver.addOnGlobalLayoutListener(
+        object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (measuredWidth > 0 && measuredHeight > 0) {
+                    viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    f()
+                }
             }
-        }
-    })
+        },
+    )
 }
 
 fun ViewGroup.setEnabledWithChildren(isEnabled: Boolean) {

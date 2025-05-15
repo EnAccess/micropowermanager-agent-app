@@ -3,7 +3,10 @@ package com.inensus.feature_payment.payment_form.service
 import com.inensus.core.sharedpreferences.SharedPreferenceWrapper
 import com.inensus.feature_payment.payment_form.model.ConfirmPaymentRequest
 
-class PaymentFormRepository(private val service: PaymentService, private val preferences: SharedPreferenceWrapper) {
+class PaymentFormRepository(
+    private val service: PaymentService,
+    private val preferences: SharedPreferenceWrapper,
+) {
     var meter: String? = null
     var amount: String? = null
 
