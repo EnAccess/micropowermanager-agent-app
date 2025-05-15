@@ -141,11 +141,22 @@ class CustomerListFragment : Fragment() {
             binding.rvCustomers.gone()
             binding.loadingLayout.root.show()
         }
+
+        // In other Fragment we could use `binding.errorLayout.root`
+        // but for some reasons this does not work in CustomerListFragment with
+        // > Unresolved reference. None of the following candidates is applicable because of receiver type mismatch:
+        // > internal val File.root: File defined in kotlin.io
+        // so we cast it as a View here...
         (binding.errorLayout as View).gone()
         (binding.emptyLayout as View).gone()
     }
 
     private fun handleError() {
+        // In other Fragment we could use `binding.errorLayout.root`
+        // but for some reasons this does not work in CustomerListFragment with
+        // > Unresolved reference. None of the following candidates is applicable because of receiver type mismatch:
+        // > internal val File.root: File defined in kotlin.io
+        // so we cast it as a View here...
         (binding.errorLayout as View).animateShow()
         binding.loadingLayout.root.animateGone()
         (binding.emptyLayout as View).gone()
@@ -156,6 +167,11 @@ class CustomerListFragment : Fragment() {
     }
 
     private fun handleEmpty() {
+        // In other Fragment we could use `binding.errorLayout.root`
+        // but for some reasons this does not work in CustomerListFragment with
+        // > Unresolved reference. None of the following candidates is applicable because of receiver type mismatch:
+        // > internal val File.root: File defined in kotlin.io
+        // so we cast it as a View here...
         (binding.emptyLayout as View).animateShow()
         binding.loadingLayout.root.animateGone()
         (binding.errorLayout as View).gone()
