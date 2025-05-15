@@ -15,8 +15,8 @@ android {
 
     defaultConfig {
         applicationId = "com.inensus.merchant"
-        minSdkVersion(21)
-        targetSdkVersion(29)
+        minSdk = 21
+        targetSdk = 29
         versionCode = 1
         versionName = "1.1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
