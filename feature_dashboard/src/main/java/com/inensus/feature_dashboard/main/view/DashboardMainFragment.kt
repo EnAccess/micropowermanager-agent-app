@@ -11,6 +11,7 @@ import com.inensus.core_ui.extentions.animateGone
 import com.inensus.core_ui.extentions.animateShow
 import com.inensus.core_ui.extentions.gone
 import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.setupWithNavController
 import com.inensus.core_ui.extentions.show
 import com.inensus.feature_dashboard.R
 import com.inensus.feature_dashboard.databinding.FragmentDashboardMainBinding
