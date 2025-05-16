@@ -7,16 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.inensus.feature_payment.R
+import com.inensus.feature_payment.databinding.FragmentPaymentMainBinding
 import com.inensus.feature_payment.payment_graph.view.PaymentGraphFragment
 import com.inensus.feature_payment.payment_list.view.PaymentListFragment
-import kotlinx.android.synthetic.main.fragment_payment_main.*
 
 class PaymentMainFragment : Fragment() {
+    private var _binding: FragmentPaymentMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_payment_main, container, false)
+    ): View {
+        _binding = FragmentPaymentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -30,11 +36,11 @@ class PaymentMainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        pager.adapter = null
+        binding.pager.adapter = null
     }
 
     private fun setupPagerAdapter() {
-        pager.adapter =
+        binding.pager.adapter =
             PaymentMainViewPagerAdapter(
                 listOf(PaymentListFragment(), PaymentGraphFragment()),
                 childFragmentManager,
@@ -45,6 +51,6 @@ class PaymentMainFragment : Fragment() {
 
     private fun setupTabs() {
         val tabs = resources.getStringArray(R.array.payment_main_tabs)
-        TabLayoutMediator(tabLayout, pager) { tab, position -> tab.text = tabs[position] }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position -> tab.text = tabs[position] }.attach()
     }
 }

@@ -6,15 +6,17 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.PopupWindow
-import com.inensus.core_ui.R
-import kotlinx.android.synthetic.main.error_popup_layout.view.*
+import com.inensus.core_ui.databinding.ErrorPopupLayoutBinding
 
 class ErrorPopup(
     context: Context,
 ) : PopupWindow() {
+    private lateinit var binding: ErrorPopupLayoutBinding
+
     init {
         isOutsideTouchable = true
-        contentView = LayoutInflater.from(context).inflate(R.layout.error_popup_layout, null)
+        binding = ErrorPopupLayoutBinding.inflate(LayoutInflater.from(context))
+        contentView = binding.root
         setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setTouchDismissListener()
     }
@@ -30,6 +32,6 @@ class ErrorPopup(
     }
 
     fun setErrorMessage(message: String) {
-        contentView.errorMessageTextView.text = message
+        binding.errorMessageTextView.text = message
     }
 }

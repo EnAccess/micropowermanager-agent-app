@@ -11,19 +11,24 @@ import androidx.lifecycle.Observer
 import com.inensus.core_ui.BaseActivity
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_payment.R
+import com.inensus.feature_payment.databinding.FragmentPaymentFormBinding
 import com.inensus.feature_payment.payment_form.viewmodel.PaymentFormViewModel
-import kotlinx.android.synthetic.main.fragment_payment_form.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class PaymentFormFragment : Fragment() {
+    private var _binding: FragmentPaymentFormBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: PaymentFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_payment_form, container, false)
+    ): View {
+        _binding = FragmentPaymentFormBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -37,13 +42,13 @@ class PaymentFormFragment : Fragment() {
     }
 
     private fun setupView() {
-        amount.getMainTextView().inputType = InputType.TYPE_CLASS_NUMBER
+        binding.amount.getMainTextView().inputType = InputType.TYPE_CLASS_NUMBER
     }
 
     private fun setListeners() {
-        deviceDropdown.onValueChanged = { viewModel.onDeviceChanged(it) }
-        amount.afterTextChanged = { viewModel.onAmountChanged(it.toString()) }
-        buttonContinue.setOnClickListener {
+        binding.deviceDropdown.onValueChanged = { viewModel.onDeviceChanged(it) }
+        binding.amount.afterTextChanged = { viewModel.onAmountChanged(it.toString()) }
+        binding.buttonContinue.setOnClickListener {
             viewModel.onContinueButtonTapped()
         }
     }
@@ -63,7 +68,7 @@ class PaymentFormFragment : Fragment() {
             viewLifecycleOwner,
             Observer { customer ->
                 customer?.devices?.let { devices ->
-                    deviceDropdown.bindData(devices.map { it.deviceSerial })
+                    binding.deviceDropdown.bindData(devices.map { it.deviceSerial })
                 }
             },
         )
@@ -71,8 +76,8 @@ class PaymentFormFragment : Fragment() {
         viewModel.device.observe(
             viewLifecycleOwner,
             Observer {
-                if (deviceDropdown.value != it) {
-                    deviceDropdown.value = it
+                if (binding.deviceDropdown.value != it) {
+                    binding.deviceDropdown.value = it
                 }
             },
         )
@@ -80,8 +85,12 @@ class PaymentFormFragment : Fragment() {
         viewModel.amount.observe(
             viewLifecycleOwner,
             Observer {
-                if (amount.getMainTextView().text.toString() != it) {
-                    amount.getMainTextView().setText(it.toString())
+                if (binding.amount
+                        .getMainTextView()
+                        .text
+                        .toString() != it
+                ) {
+                    binding.amount.getMainTextView().setText(it.toString())
                 }
             },
         )
@@ -97,10 +106,10 @@ class PaymentFormFragment : Fragment() {
         errors.forEach { validationError ->
             when (validationError) {
                 is PaymentFormUiState.ValidationError.Error.DeviceIsBlank -> {
-                    deviceDropdown.setErrorState(true)
+                    binding.deviceDropdown.setErrorState(true)
                 }
                 is PaymentFormUiState.ValidationError.Error.AmountIsBlank -> {
-                    amount.setErrorState(true)
+                    binding.amount.setErrorState(true)
                 }
             }
         }

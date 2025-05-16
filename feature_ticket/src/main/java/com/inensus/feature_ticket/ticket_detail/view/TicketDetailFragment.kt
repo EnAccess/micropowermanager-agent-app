@@ -9,19 +9,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.inensus.core_ui.BaseFragment
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.core_ui.key_value.KeyValueAdapter
-import com.inensus.feature_ticket.R
+import com.inensus.feature_ticket.databinding.FragmentTicketDetailBinding
 import com.inensus.feature_ticket.ticket_detail.viewmodel.TicketDetailViewModel
-import kotlinx.android.synthetic.main.fragment_ticket_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketDetailFragment : BaseFragment() {
+    private var _binding: FragmentTicketDetailBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: TicketDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? = inflater.inflate(R.layout.fragment_ticket_detail, container, false)
+    ): View {
+        _binding = FragmentTicketDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -48,7 +52,7 @@ class TicketDetailFragment : BaseFragment() {
     }
 
     private fun setupTicketDetails(ticketDetails: List<KeyValue>) {
-        rvTicketDetails.apply {
+        binding.rvTicketDetails.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = KeyValueAdapter(ticketDetails)
         }

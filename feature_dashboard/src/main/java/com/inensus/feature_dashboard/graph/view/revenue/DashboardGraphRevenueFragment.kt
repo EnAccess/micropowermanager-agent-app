@@ -14,18 +14,23 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.inensus.core_ui.graph.GraphMarkerView
 import com.inensus.feature_dashboard.R
+import com.inensus.feature_dashboard.databinding.FragmentDashboardGraphRevenueBinding
 import com.inensus.feature_dashboard.graph.viewmodel.DashboardGraphRevenueViewModel
-import kotlinx.android.synthetic.main.fragment_dashboard_graph_revenue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardGraphRevenueFragment : Fragment() {
+    private var _binding: FragmentDashboardGraphRevenueBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: DashboardGraphRevenueViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_dashboard_graph_revenue, container, false)
+    ): View {
+        _binding = FragmentDashboardGraphRevenueBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -53,12 +58,12 @@ class DashboardGraphRevenueFragment : Fragment() {
         xAxisList: ArrayList<String>,
         barData: List<BarEntry>,
     ) {
-        chart.xAxis.valueFormatter = DashboardGraphRevenueXAxisFormatter(xAxisList)
+        binding.chart.xAxis.valueFormatter = DashboardGraphRevenueXAxisFormatter(xAxisList)
         setupChartData(barData)
     }
 
     private fun setupChart() {
-        chart.apply {
+        binding.chart.apply {
             description.isEnabled = false
             setDrawGridBackground(false)
 
@@ -74,7 +79,7 @@ class DashboardGraphRevenueFragment : Fragment() {
             }
 
             with(axisLeft) {
-                typeface = ResourcesCompat.getFont(chart.context, R.font.regular)
+                typeface = ResourcesCompat.getFont(binding.chart.context, R.font.regular)
                 typeface = ResourcesCompat.getFont(context, R.font.semi_bold)
                 textColor = ContextCompat.getColor(context, R.color.gray_BDBDBD)
                 textSize = 12f
@@ -87,7 +92,7 @@ class DashboardGraphRevenueFragment : Fragment() {
             axisRight.isEnabled = false
             isScaleYEnabled = false
 
-            marker = GraphMarkerView(chart.context)
+            marker = GraphMarkerView(binding.chart.context)
 
             setExtraOffsets(
                 GRAPH_OFFSET,
@@ -106,12 +111,12 @@ class DashboardGraphRevenueFragment : Fragment() {
         val dataSet = mutableListOf<IBarDataSet>(generateDataSet(barData))
 
         if (dataSet.isEmpty()) {
-            chart.apply {
+            binding.chart.apply {
                 data = null
                 invalidate()
             }
         } else {
-            chart.apply {
+            binding.chart.apply {
                 data = BarData(dataSet)
                 highlightValue(barData.first().x, 0)
 

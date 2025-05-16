@@ -8,11 +8,13 @@ import androidx.lifecycle.Observer
 import com.inensus.core_ui.extentions.setupWithNavController
 import com.inensus.feature_customers.R
 import com.inensus.feature_customers.customer_detail.viewmodel.CustomerDetailViewModel
-import kotlinx.android.synthetic.main.fragment_customer_detail.*
+import com.inensus.feature_customers.databinding.FragmentCustomerDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerDetailFragment : Fragment() {
     private val viewModel: CustomerDetailViewModel by viewModel()
+    private var _binding: FragmentCustomerDetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +22,8 @@ class CustomerDetailFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_customer_detail, container, false)
+        _binding = FragmentCustomerDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -64,7 +67,7 @@ class CustomerDetailFragment : Fragment() {
                     R.navigation.ticket_navigation,
                 )
 
-            bottomNavigation.setupWithNavController(
+            binding.bottomNavigation.setupWithNavController(
                 navGraphIds = navGraphIds,
                 fragmentManager = childFragmentManager,
                 containerId = R.id.content,

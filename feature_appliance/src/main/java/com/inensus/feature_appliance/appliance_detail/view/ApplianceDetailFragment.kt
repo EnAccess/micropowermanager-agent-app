@@ -13,13 +13,15 @@ import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.core_ui.key_value.KeyValueAdapter
 import com.inensus.feature_appliance.R
 import com.inensus.feature_appliance.appliance_detail.viewmodel.ApplianceDetailViewModel
-import kotlinx.android.synthetic.main.fragment_appliance_detail.*
+import com.inensus.feature_appliance.databinding.FragmentApplianceDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ApplianceDetailFragment : Fragment() {
+    private var _binding: FragmentApplianceDetailBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: ApplianceDetailViewModel by viewModel()
     private lateinit var applianceTransaction: ApplianceTransaction
 
@@ -27,7 +29,10 @@ class ApplianceDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? = inflater.inflate(R.layout.fragment_appliance_detail, container, false)
+    ): View {
+        _binding = FragmentApplianceDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -56,13 +61,13 @@ class ApplianceDetailFragment : Fragment() {
         viewModel.paymentDetails.observe(
             viewLifecycleOwner,
             Observer {
-                paymentDetailsText.visibility = if (it) View.VISIBLE else View.GONE
+                binding.paymentDetailsText.visibility = if (it) View.VISIBLE else View.GONE
             },
         )
     }
 
     private fun setupView(applianceDetails: List<KeyValue>) {
-        rvApplianceDetails.apply {
+        binding.rvApplianceDetails.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = KeyValueAdapter(applianceDetails)
         }
@@ -71,7 +76,7 @@ class ApplianceDetailFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        paymentDetailsText.setOnClickListener {
+        binding.paymentDetailsText.setOnClickListener {
             openPaymentDetails()
         }
     }

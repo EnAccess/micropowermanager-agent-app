@@ -9,19 +9,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.inensus.core_ui.BaseFragment
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.core_ui.key_value.KeyValueAdapter
-import com.inensus.feature_payment.R
+import com.inensus.feature_payment.databinding.FragmentPaymentDetailBinding
 import com.inensus.feature_payment.payment_detail.viewmodel.PaymentDetailViewModel
-import kotlinx.android.synthetic.main.fragment_payment_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentDetailFragment : BaseFragment() {
+    private var _binding: FragmentPaymentDetailBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: PaymentDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? = inflater.inflate(R.layout.fragment_payment_detail, container, false)
+    ): View {
+        _binding = FragmentPaymentDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -48,7 +52,7 @@ class PaymentDetailFragment : BaseFragment() {
     }
 
     private fun setupPaymentDetails(paymentDetails: List<KeyValue>) {
-        rvPaymentDetails.apply {
+        binding.rvPaymentDetails.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = KeyValueAdapter(paymentDetails)
         }

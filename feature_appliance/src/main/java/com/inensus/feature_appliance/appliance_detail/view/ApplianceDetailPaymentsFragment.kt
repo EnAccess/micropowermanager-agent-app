@@ -13,17 +13,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.core_ui.key_value.KeyValueAdapter
 import com.inensus.feature_appliance.R
-import kotlinx.android.synthetic.main.fragment_appliance_detail_payments.*
+import com.inensus.feature_appliance.databinding.FragmentApplianceDetailPaymentsBinding
 
 class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentApplianceDetailPaymentsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         val contextThemeWrapper = ContextThemeWrapper(activity, R.style.AppTheme)
+        val themedInflater = inflater.cloneInContext(contextThemeWrapper)
 
-        return layoutInflater.cloneInContext(contextThemeWrapper).inflate(R.layout.fragment_appliance_detail_payments, container, false)
+        _binding = FragmentApplianceDetailPaymentsBinding.inflate(themedInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -46,13 +51,13 @@ class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupListeners() {
-        closeButton.setOnClickListener {
+        binding.closeButton.setOnClickListener {
             dismiss()
         }
     }
 
     private fun setupRecyclerView(list: List<KeyValue>) {
-        rvSuccess.apply {
+        binding.rvSuccess.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = KeyValueAdapter(list)
         }
@@ -78,7 +83,7 @@ class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
                             slideOffset: Float,
                         ) {
                             if (slideOffset > 0) {
-                                closeImageView.rotation = slideOffset * ROTATION_COEFFICIENT
+                                binding.closeImageView.rotation = slideOffset * ROTATION_COEFFICIENT
                             }
                         }
                     },

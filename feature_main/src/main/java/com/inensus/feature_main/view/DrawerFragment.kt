@@ -12,16 +12,18 @@ import com.inensus.core.utils.AmountUtils
 import com.inensus.core_ui.BaseFragment
 import com.inensus.core_ui.extentions.*
 import com.inensus.feature_main.R
+import com.inensus.feature_main.databinding.FragmentDrawerBinding
 import com.inensus.feature_main.viewmodel.DrawerViewModel
 import com.inensus.shared_navigation.Feature
 import com.inensus.shared_navigation.SharedNavigation
-import kotlinx.android.synthetic.main.drawer_header.*
-import kotlinx.android.synthetic.main.fragment_drawer.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 
 class DrawerFragment : BaseFragment() {
+    private var _binding: FragmentDrawerBinding? = null
+    private val binding get() = _binding!!
+    private val headerBinding get() = binding.drawerHeader
     private val viewModel: DrawerViewModel by viewModel()
     private val preferences: SharedPreferenceWrapper by inject()
     private val navigation: SharedNavigation by inject()
@@ -32,7 +34,10 @@ class DrawerFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_drawer, container, false)
+    ): View {
+        _binding = FragmentDrawerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -71,39 +76,40 @@ class DrawerFragment : BaseFragment() {
     }
 
     private fun handleAgent() {
-        drawerHeaderSkeleton.gone()
-        drawerHeaderError.show()
-        drawerHeader.hide()
+        binding.drawerHeaderSkeleton.root.gone()
+        binding.drawerHeaderError.root.show()
+        binding.drawerHeader.root.hide()
     }
 
     private fun handleAgentLoading() {
-        drawerHeaderSkeleton.show()
-        drawerHeaderError.gone()
-        drawerHeader.hide()
+        binding.drawerHeaderSkeleton.root.show()
+        binding.drawerHeaderError.root.gone()
+        binding.drawerHeader.root.hide()
     }
 
     private fun handleAgentLoaded(
         email: String,
         balance: BigDecimal,
     ) {
-        drawerHeaderSkeleton.animateGone()
-        drawerHeader.animateShow()
-        emailText.text = email
-        balanceText.text = getString(R.string.balance, AmountUtils.convertAmountToString(balance), getString(R.string.default_currency))
+        binding.drawerHeaderSkeleton.root.animateGone()
+        binding.drawerHeader.root.animateShow()
+        headerBinding.emailText.text = email
+        headerBinding.balanceText.text =
+            getString(R.string.balance, AmountUtils.convertAmountToString(balance), getString(R.string.default_currency))
     }
 
     private fun setupView() {
-        itemDashboard.isItemSelected = true
+        binding.itemDashboard.isItemSelected = true
 
         view?.findViewById<ImageButton>(R.id.retryButton)?.setOnClickListener { viewModel.getMe() }
 
-        itemDashboard.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenDashboard) }
-        itemCustomers.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenCustomers) }
-        itemPayments.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenPayments) }
-        itemAppliances.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenAppliances) }
-        itemTickets.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenTickets) }
+        binding.itemDashboard.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenDashboard) }
+        binding.itemCustomers.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenCustomers) }
+        binding.itemPayments.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenPayments) }
+        binding.itemAppliances.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenAppliances) }
+        binding.itemTickets.setOnClickListener { viewModel.onActionItemTapped(NavigationAction.OpenTickets) }
 
-        signOutText.setOnClickListener {
+        binding.signOutText.setOnClickListener {
             signOut()
         }
     }
@@ -113,18 +119,18 @@ class DrawerFragment : BaseFragment() {
     }
 
     private fun setSelectedActionItem(navigationAction: NavigationAction) {
-        itemDashboard.isItemSelected = false
-        itemCustomers.isItemSelected = false
-        itemPayments.isItemSelected = false
-        itemAppliances.isItemSelected = false
-        itemTickets.isItemSelected = false
+        binding.itemDashboard.isItemSelected = false
+        binding.itemCustomers.isItemSelected = false
+        binding.itemPayments.isItemSelected = false
+        binding.itemAppliances.isItemSelected = false
+        binding.itemTickets.isItemSelected = false
 
         when (navigationAction) {
-            NavigationAction.OpenDashboard -> itemDashboard
-            NavigationAction.OpenCustomers -> itemCustomers
-            NavigationAction.OpenPayments -> itemPayments
-            NavigationAction.OpenAppliances -> itemAppliances
-            NavigationAction.OpenTickets -> itemTickets
+            NavigationAction.OpenDashboard -> binding.itemDashboard
+            NavigationAction.OpenCustomers -> binding.itemCustomers
+            NavigationAction.OpenPayments -> binding.itemPayments
+            NavigationAction.OpenAppliances -> binding.itemAppliances
+            NavigationAction.OpenTickets -> binding.itemTickets
         }.isItemSelected = true
     }
 

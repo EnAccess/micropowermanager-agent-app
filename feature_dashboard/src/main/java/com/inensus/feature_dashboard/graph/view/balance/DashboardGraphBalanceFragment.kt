@@ -14,19 +14,24 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.inensus.core_ui.graph.GraphMarkerView
 import com.inensus.feature_dashboard.R
+import com.inensus.feature_dashboard.databinding.FragmentDashboardGraphBalanceBinding
 import com.inensus.feature_dashboard.graph.viewmodel.DashboardGraphBalanceViewModel
-import kotlinx.android.synthetic.main.fragment_dashboard_graph_balance.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class DashboardGraphBalanceFragment : Fragment() {
+    private var _binding: FragmentDashboardGraphBalanceBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: DashboardGraphBalanceViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_dashboard_graph_balance, container, false)
+    ): View {
+        _binding = FragmentDashboardGraphBalanceBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -54,12 +59,12 @@ class DashboardGraphBalanceFragment : Fragment() {
         xAxisList: ArrayList<String>,
         chartData: List<List<Entry>>,
     ) {
-        chart.xAxis.valueFormatter = DashboardGraphBalanceXAxisFormatter(xAxisList)
+        binding.chart.xAxis.valueFormatter = DashboardGraphBalanceXAxisFormatter(xAxisList)
         setupChartData(chartData)
     }
 
     private fun setupChart() {
-        chart.apply {
+        binding.chart.apply {
             description.isEnabled = false
             setDrawGridBackground(false)
 
@@ -76,7 +81,7 @@ class DashboardGraphBalanceFragment : Fragment() {
             }
 
             with(axisLeft) {
-                typeface = ResourcesCompat.getFont(chart.context, R.font.regular)
+                typeface = ResourcesCompat.getFont(binding.chart.context, R.font.regular)
                 setLabelCount(GRAPH_Y_ITEM_COUNT, false)
                 typeface = ResourcesCompat.getFont(context, R.font.semi_bold)
                 textColor = ContextCompat.getColor(context, R.color.gray_BDBDBD)
@@ -87,7 +92,7 @@ class DashboardGraphBalanceFragment : Fragment() {
             axisRight.isEnabled = false
             isScaleYEnabled = false
 
-            marker = GraphMarkerView(chart.context)
+            marker = GraphMarkerView(binding.chart.context)
 
             setExtraOffsets(
                 GRAPH_OFFSET,
@@ -112,12 +117,12 @@ class DashboardGraphBalanceFragment : Fragment() {
         }
 
         if (dataSets.isEmpty()) {
-            chart.apply {
+            binding.chart.apply {
                 data = null
                 invalidate()
             }
         } else {
-            chart.apply {
+            binding.chart.apply {
                 data = LineData(dataSets)
                 highlightValue(chartData.first().first().x, 0)
             }

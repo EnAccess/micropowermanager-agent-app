@@ -20,17 +20,19 @@ import com.inensus.core.sharedpreferences.SharedPreferenceWrapper
 import com.inensus.core_ui.BaseActivity
 import com.inensus.core_ui.extentions.afterMeasured
 import com.inensus.feature_main.R
+import com.inensus.feature_main.databinding.ActivityMainBinding
 import com.inensus.shared_messaging.NotificationHandler
 import com.inensus.shared_messaging.NotificationHandler.Companion.EXTRA_PAYLOAD
 import com.inensus.shared_messaging.repository.MessagingRepository
 import com.inensus.shared_navigation.Feature
 import com.inensus.shared_navigation.SharedNavigation
 import com.inensus.shared_success.view.SuccessFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import kotlin.math.min
 
 class MainActivity : BaseActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     private val sessionExpireReceiver: SessionExpireBroadcastReceiver by inject()
     private val preferences: SharedPreferenceWrapper by inject()
     private val navigation: SharedNavigation by inject()
@@ -47,9 +49,10 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.toolbar.title = ""
+        setSupportActionBar(binding.toolbar)
         setupNavigation(savedInstanceState)
         registerSessionExpireReceiver()
         registerMessagingReceiver()
@@ -74,7 +77,7 @@ class MainActivity : BaseActivity() {
     private fun setupNavigation(savedInstanceState: Bundle?) {
         navController = findNavController(R.id.mainFragment)
 
-        setupDrawerWidth(navView)
+        setupDrawerWidth(binding.navView)
 
         if (savedInstanceState == null) {
             drawerFragment = DrawerFragment.newInstance()
@@ -91,10 +94,10 @@ class MainActivity : BaseActivity() {
         val appBarConfiguration =
             AppBarConfiguration(
                 topLevelNavigationIds,
-                drawerLayout,
+                binding.drawerLayout,
             )
 
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             isAtTheTopLevel = topLevelNavigationIds.contains(destination.id)
@@ -127,8 +130,8 @@ class MainActivity : BaseActivity() {
 
     override fun onBackPressed() {
         when {
-            drawerLayout.isDrawerOpen(GravityCompat.START) -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
+            binding.drawerLayout.isDrawerOpen(GravityCompat.START) -> {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
             else -> {
                 super.onBackPressed()
@@ -137,8 +140,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun closeDrawers() {
-        drawerLayout.closeDrawers()
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
+        binding.drawerLayout.closeDrawers()
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
     }
 
     private fun registerSessionExpireReceiver() {

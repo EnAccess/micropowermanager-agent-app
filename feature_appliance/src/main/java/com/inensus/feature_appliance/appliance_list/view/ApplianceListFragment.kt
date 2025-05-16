@@ -19,17 +19,22 @@ import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_appliance.R
 import com.inensus.feature_appliance.appliance_detail.view.ApplianceDetailFragment
 import com.inensus.feature_appliance.appliance_list.viewmodel.ApplianceListViewModel
-import kotlinx.android.synthetic.main.fragment_appliance_list.*
+import com.inensus.feature_appliance.databinding.FragmentApplianceListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplianceListFragment : Fragment() {
+    private var _binding: FragmentApplianceListBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: ApplianceListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_appliance_list, container, false)
+    ): View {
+        _binding = FragmentApplianceListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -44,7 +49,7 @@ class ApplianceListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        viewModel.saveAppliancesState((rvAppliances.adapter as ApplianceListAdapter).appliances)
+        viewModel.saveAppliancesState((binding.rvAppliances.adapter as ApplianceListAdapter).appliances)
     }
 
     private fun setupView() {
@@ -52,11 +57,11 @@ class ApplianceListFragment : Fragment() {
             viewModel.getAppliances(type = LoadingApplianceListType.INITIAL)
         }
 
-        createAppliance.setOnClickListener {
+        binding.createAppliance.setOnClickListener {
             (activity as BaseActivity).provideNavController().navigate(R.id.openApplianceForm)
         }
 
-        rvAppliances.apply {
+        binding.rvAppliances.apply {
             layoutManager = LinearLayoutManager(context)
             adapter =
                 ApplianceListAdapter().apply {
@@ -77,7 +82,7 @@ class ApplianceListFragment : Fragment() {
                 dy: Int,
             ) {
                 val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                val adapter = (rvAppliances.adapter as ApplianceListAdapter)
+                val adapter = (binding.rvAppliances.adapter as ApplianceListAdapter)
 
                 if (lastItemPosition + LIST_THRESHOLD > adapter.appliances.size && adapter.appliances.isNotEmpty()) {
                     viewModel.getAppliances(type = LoadingApplianceListType.PAGINATE)
@@ -121,38 +126,38 @@ class ApplianceListFragment : Fragment() {
 
     private fun handleLoading(type: LoadingApplianceListType) {
         if (type == LoadingApplianceListType.PAGINATE) {
-            progressBar.show()
+            binding.progressBar.show()
         } else {
-            rvAppliances.gone()
-            loadingLayout.show()
+            binding.rvAppliances.gone()
+            binding.loadingLayout.root.show()
         }
-        errorLayout.gone()
-        emptyLayout.gone()
+        binding.errorLayout.root.gone()
+        binding.emptyLayout.root.gone()
     }
 
     private fun handleError() {
-        errorLayout.animateShow()
-        loadingLayout.animateGone()
-        emptyLayout.gone()
-        progressBar.hide()
-        rvAppliances.gone()
+        binding.errorLayout.root.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.emptyLayout.root.gone()
+        binding.progressBar.hide()
+        binding.rvAppliances.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleEmpty() {
-        emptyLayout.animateShow()
-        loadingLayout.animateGone()
-        errorLayout.gone()
-        progressBar.hide()
-        (rvAppliances.adapter as ApplianceListAdapter).appliances = emptyList()
-        rvAppliances.gone()
+        binding.emptyLayout.root.animateShow()
+        binding.loadingLayout.root.animateGone()
+        binding.errorLayout.root.gone()
+        binding.progressBar.hide()
+        (binding.rvAppliances.adapter as ApplianceListAdapter).appliances = emptyList()
+        binding.rvAppliances.gone()
 
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
     private fun handleNoMore() {
-        progressBar.hide()
+        binding.progressBar.hide()
         KeyboardUtils.hideKeyboard(requireActivity())
     }
 
@@ -160,11 +165,11 @@ class ApplianceListFragment : Fragment() {
         appliances: List<ApplianceTransaction>,
         loadCustomerType: LoadingApplianceListType,
     ) {
-        if (appliances != (rvAppliances.adapter as ApplianceListAdapter).appliances) {
-            progressBar.hide()
-            rvAppliances.animateShow()
+        if (appliances != (binding.rvAppliances.adapter as ApplianceListAdapter).appliances) {
+            binding.progressBar.hide()
+            binding.rvAppliances.animateShow()
             updateAppliancesData(appliances, loadCustomerType)
-            loadingLayout.animateGone()
+            binding.loadingLayout.root.animateGone()
         }
     }
 
@@ -175,12 +180,12 @@ class ApplianceListFragment : Fragment() {
         // appliances pages will be empty until Device feature updates has done in app.
         //        viewModel.saveAppliancesState(emptyList<ApplianceTransaction>())
 
-        val adapter = (rvAppliances.adapter as ApplianceListAdapter)
+        val adapter = (binding.rvAppliances.adapter as ApplianceListAdapter)
 
         if (loadCustomerType == LoadingApplianceListType.PAGINATE) {
             adapter.updateData(ArrayList(adapter.appliances).apply { addAll(appliances) })
         } else {
-            rvAppliances.adapter =
+            binding.rvAppliances.adapter =
                 ApplianceListAdapter().apply {
                     onItemClick = {
                         viewModel.onApplianceTapped(it)
@@ -191,7 +196,7 @@ class ApplianceListFragment : Fragment() {
                 }
         }
 
-        viewModel.saveAppliancesState((rvAppliances.adapter as ApplianceListAdapter).appliances)
+        viewModel.saveAppliancesState((binding.rvAppliances.adapter as ApplianceListAdapter).appliances)
     }
 
     private fun handleApplianceTapped(appliance: ApplianceTransaction) {
@@ -202,7 +207,7 @@ class ApplianceListFragment : Fragment() {
     }
 
     private fun updateView(customer: Customer?) {
-        createAppliance.visibility = if (customer != null) View.VISIBLE else View.GONE
+        binding.createAppliance.visibility = if (customer != null) View.VISIBLE else View.GONE
         view?.findViewById<TextView>(R.id.tvEmptyDescription)?.text =
             getString(R.string.appliance_under_maintenance_layout_content)
      /*       if (customer != null) getString(

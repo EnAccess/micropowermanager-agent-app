@@ -10,10 +10,10 @@ import androidx.core.view.children
 import com.inensus.core.utils.DateUtils
 import com.inensus.core_ui.R
 import com.inensus.core_ui.base_input.ErrorState
+import com.inensus.core_ui.databinding.ViewDateInputBinding
 import com.inensus.core_ui.extentions.getDate
 import com.inensus.core_ui.extentions.hide
 import com.inensus.core_ui.extentions.show
-import kotlinx.android.synthetic.main.view_dropdown_input.view.*
 import java.util.*
 
 class DateInputView(
@@ -21,6 +21,8 @@ class DateInputView(
     attributeSet: AttributeSet,
 ) : ConstraintLayout(context, attributeSet),
     ErrorState {
+    private lateinit var binding: ViewDateInputBinding
+
     var onDateSelected: ((Date?) -> Unit)? = null
     private var errorState: Boolean = false
 
@@ -28,21 +30,21 @@ class DateInputView(
         set(value) {
             value?.let {
                 field = it
-                placeholderText.hide()
-                valueText.show()
-                valueText.text = DateUtils.convertDateToString(it)
+                binding.placeholderText.hide()
+                binding.valueText.show()
+                binding.valueText.text = DateUtils.convertDateToString(it)
                 setErrorState(false)
             } ?: apply {
                 field = null
-                placeholderText.show()
-                valueText.hide()
+                binding.placeholderText.show()
+                binding.valueText.hide()
             }
 
             onDateSelected?.invoke(value)
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_date_input, this, true)
+        binding = ViewDateInputBinding.inflate(LayoutInflater.from(context), this)
         initializeAttributes(context, attributeSet)
     }
 
@@ -67,7 +69,7 @@ class DateInputView(
     }
 
     private fun setupView(title: String?) {
-        titleText.text = title
+        binding.titleText.text = title
 
         setOnClickListener {
             openDatePicker()

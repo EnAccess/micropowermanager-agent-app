@@ -1,8 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    // TBD: Deprecated
-    id("kotlin-android-extensions")
 }
 
 android {
@@ -24,6 +22,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 

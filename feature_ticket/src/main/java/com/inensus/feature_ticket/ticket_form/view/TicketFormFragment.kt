@@ -11,19 +11,24 @@ import com.inensus.core_ui.BaseActivity
 import com.inensus.core_ui.extentions.compareWithoutTime
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_ticket.R
+import com.inensus.feature_ticket.databinding.FragmentTicketFormBinding
 import com.inensus.feature_ticket.ticket_form.viewmodel.TicketFormViewModel
-import kotlinx.android.synthetic.main.fragment_ticket_form.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class TicketFormFragment : Fragment() {
+    private var _binding: FragmentTicketFormBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: TicketFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_ticket_form, container, false)
+    ): View {
+        _binding = FragmentTicketFormBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -36,11 +41,11 @@ class TicketFormFragment : Fragment() {
     }
 
     private fun setListeners() {
-        messageInput.afterTextChanged = { viewModel.onMessageChanged(it.toString()) }
-        dueDateInput.onDateSelected = { viewModel.onDueDateChanged(it) }
-        categoryDropdown.onValueChanged = { viewModel.onCategoryChanged(it) }
+        binding.messageInput.afterTextChanged = { viewModel.onMessageChanged(it.toString()) }
+        binding.dueDateInput.onDateSelected = { viewModel.onDueDateChanged(it) }
+        binding.categoryDropdown.onValueChanged = { viewModel.onCategoryChanged(it) }
 
-        buttonContinue.setOnClickListener {
+        binding.buttonContinue.setOnClickListener {
             viewModel.onContinueButtonTapped()
         }
     }
@@ -59,15 +64,20 @@ class TicketFormFragment : Fragment() {
         viewModel.categories.observe(
             viewLifecycleOwner,
             Observer {
-                categoryDropdown.bindData(it.map { category -> category.name }, viewModel.category.value == null)
+                binding.categoryDropdown.bindData(it.map { category -> category.name }, viewModel.category.value == null)
             },
         )
 
         viewModel.message.observe(
             viewLifecycleOwner,
             Observer {
-                if (it != null && messageInput.getMainTextView().text.toString() != it.toString()) {
-                    messageInput.getMainTextView().setText(it.toString())
+                if (it != null &&
+                    binding.messageInput
+                        .getMainTextView()
+                        .text
+                        .toString() != it.toString()
+                ) {
+                    binding.messageInput.getMainTextView().setText(it.toString())
                 }
             },
         )
@@ -75,8 +85,8 @@ class TicketFormFragment : Fragment() {
         viewModel.dueDate.observe(
             viewLifecycleOwner,
             Observer {
-                if (dueDateInput.date?.compareWithoutTime(it) != 0) {
-                    dueDateInput.date = it
+                if (binding.dueDateInput.date?.compareWithoutTime(it) != 0) {
+                    binding.dueDateInput.date = it
                 }
             },
         )
@@ -84,8 +94,8 @@ class TicketFormFragment : Fragment() {
         viewModel.category.observe(
             viewLifecycleOwner,
             Observer {
-                if (categoryDropdown.value != it.name) {
-                    categoryDropdown.value = it.name
+                if (binding.categoryDropdown.value != it.name) {
+                    binding.categoryDropdown.value = it.name
                 }
             },
         )
@@ -101,10 +111,10 @@ class TicketFormFragment : Fragment() {
         errors.forEach { validationError ->
             when (validationError) {
                 is TicketFormUiState.ValidationError.Error.MessageIsBlank -> {
-                    messageInput.setErrorState(true)
+                    binding.messageInput.setErrorState(true)
                 }
                 is TicketFormUiState.ValidationError.Error.CategoryIsBlank -> {
-                    categoryDropdown.setErrorState(true)
+                    binding.categoryDropdown.setErrorState(true)
                 }
             }
         }

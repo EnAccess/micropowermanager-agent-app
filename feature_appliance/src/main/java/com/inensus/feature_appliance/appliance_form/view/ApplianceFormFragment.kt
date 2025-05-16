@@ -23,18 +23,23 @@ import com.inensus.core_ui.extentions.show
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_appliance.R
 import com.inensus.feature_appliance.appliance_form.viewmodel.ApplianceFormViewModel
-import kotlinx.android.synthetic.main.fragment_appliance_form.*
+import com.inensus.feature_appliance.databinding.FragmentApplianceFormBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class ApplianceFormFragment : Fragment() {
+    private var _binding: FragmentApplianceFormBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: ApplianceFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = inflater.inflate(R.layout.fragment_appliance_form, container, false)
+    ): View {
+        _binding = FragmentApplianceFormBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -50,11 +55,11 @@ class ApplianceFormFragment : Fragment() {
     }
 
     private fun setupView() {
-        with(downPayment.getMainTextView()) {
+        with(binding.downPayment.getMainTextView()) {
             inputType = InputType.TYPE_CLASS_NUMBER
         }
 
-        with(tenure.getMainTextView()) {
+        with(binding.tenure.getMainTextView()) {
             inputType = InputType.TYPE_CLASS_NUMBER
             filters = arrayOf<InputFilter>(LengthFilter(2))
         }
@@ -62,23 +67,23 @@ class ApplianceFormFragment : Fragment() {
 
     private fun setListeners() {
         view?.findViewById<Button>(R.id.btnRetry)?.setOnClickListener { viewModel.getAppliances() }
-        applianceDropdown.onValueChanged = { viewModel.onApplianceChanged(it) }
-        paymentDate.onDateSelected = { viewModel.onFirstPaymentDateChanged(it) }
-        downPayment.afterTextChanged = {
+        binding.applianceDropdown.onValueChanged = { viewModel.onApplianceChanged(it) }
+        binding.paymentDate.onDateSelected = { viewModel.onFirstPaymentDateChanged(it) }
+        binding.downPayment.afterTextChanged = {
             if (it.toString() == "0") {
-                downPayment.setText("")
+                binding.downPayment.setText("")
             } else {
                 viewModel.onDownPaymentChanged(it.toString())
             }
         }
-        tenure.afterTextChanged = {
+        binding.tenure.afterTextChanged = {
             if (it.toString() == "0") {
-                tenure.setText("")
+                binding.tenure.setText("")
             } else {
                 viewModel.onTenureChanged(it.toString())
             }
         }
-        buttonContinue.setOnClickListener { viewModel.onContinueButtonTapped() }
+        binding.buttonContinue.setOnClickListener { viewModel.onContinueButtonTapped() }
     }
 
     @SuppressLint("SetTextI18n")
@@ -99,8 +104,8 @@ class ApplianceFormFragment : Fragment() {
         viewModel.appliance.observe(
             viewLifecycleOwner,
             Observer {
-                if (applianceDropdown.value != it.type.name) {
-                    applianceDropdown.value = it.type.name
+                if (binding.applianceDropdown.value != it.type.name) {
+                    binding.applianceDropdown.value = it.type.name
                 }
             },
         )
@@ -108,8 +113,8 @@ class ApplianceFormFragment : Fragment() {
         viewModel.firstPaymentDate.observe(
             viewLifecycleOwner,
             Observer {
-                if (paymentDate.date?.compareWithoutTime(it) != 0) {
-                    paymentDate.date = it
+                if (binding.paymentDate.date?.compareWithoutTime(it) != 0) {
+                    binding.paymentDate.date = it
                 }
             },
         )
@@ -117,8 +122,13 @@ class ApplianceFormFragment : Fragment() {
         viewModel.downPayment.observe(
             viewLifecycleOwner,
             Observer {
-                if (it != null && downPayment.getMainTextView().text.toString() != it.toString()) {
-                    downPayment.getMainTextView().setText(it.toString())
+                if (it != null &&
+                    binding.downPayment
+                        .getMainTextView()
+                        .text
+                        .toString() != it.toString()
+                ) {
+                    binding.downPayment.getMainTextView().setText(it.toString())
                 }
             },
         )
@@ -126,8 +136,13 @@ class ApplianceFormFragment : Fragment() {
         viewModel.tenure.observe(
             viewLifecycleOwner,
             Observer {
-                if (it != null && tenure.getMainTextView().text.toString() != it.toString()) {
-                    tenure.getMainTextView().setText(it.toString())
+                if (it != null &&
+                    binding.tenure
+                        .getMainTextView()
+                        .text
+                        .toString() != it.toString()
+                ) {
+                    binding.tenure.getMainTextView().setText(it.toString())
                 }
             },
         )
@@ -135,38 +150,38 @@ class ApplianceFormFragment : Fragment() {
         viewModel.monthlyPaymentAmount.observe(
             viewLifecycleOwner,
             Observer {
-                if (amountValue.text != it) {
-                    amountValue.text = AmountUtils.convertAmountToString(it)
+                if (binding.amountValue.text != it) {
+                    binding.amountValue.text = AmountUtils.convertAmountToString(it)
                 }
             },
         )
     }
 
     private fun handleAppliancesLoadingState() {
-        loadingLayout.show()
-        errorLayout.gone()
-        inputForm.gone()
+        binding.loadingLayout.root.show()
+        binding.errorLayout.root.gone()
+        binding.inputForm.gone()
     }
 
     private fun handleAppliancesLoadedState(appliances: List<Appliance>) {
         if (appliances.isEmpty()) {
-            errorLayout.show()
+            binding.errorLayout.root.show()
             view?.findViewById<TextView>(R.id.tvErrorDescription)?.text = getString(R.string.appliance_to_sell_empty)
-            inputForm.gone()
-            loadingLayout.gone()
+            binding.inputForm.gone()
+            binding.loadingLayout.root.gone()
         } else {
-            applianceDropdown.bindData(appliances.map { it.type.name })
+            binding.applianceDropdown.bindData(appliances.map { it.type.name })
 
-            inputForm.show()
-            errorLayout.gone()
-            loadingLayout.gone()
+            binding.inputForm.show()
+            binding.errorLayout.root.gone()
+            binding.loadingLayout.root.gone()
         }
     }
 
     private fun handleErrorState() {
-        errorLayout.show()
-        inputForm.gone()
-        loadingLayout.gone()
+        binding.errorLayout.root.show()
+        binding.inputForm.gone()
+        binding.loadingLayout.root.gone()
     }
 
     private fun openSummaryPage(summaryItems: ArrayList<KeyValue>) {
@@ -179,21 +194,21 @@ class ApplianceFormFragment : Fragment() {
         errors.forEach { validationError ->
             when (validationError) {
                 is ApplianceFormUiState.ValidationError.Error.ApplianceIsBlank -> {
-                    applianceDropdown.setErrorState(true)
+                    binding.applianceDropdown.setErrorState(true)
                 }
                 is ApplianceFormUiState.ValidationError.Error.ApplianceAmountIsMissing -> {
                     Toast.makeText(context, getString(R.string.appliance_type_amount_error), Toast.LENGTH_LONG).show()
-                    applianceDropdown.setErrorState(true)
+                    binding.applianceDropdown.setErrorState(true)
                 }
                 is ApplianceFormUiState.ValidationError.Error.FirstPaymentDateIsBlank -> {
-                    paymentDate.setErrorState(true)
+                    binding.paymentDate.setErrorState(true)
                 }
                 is ApplianceFormUiState.ValidationError.Error.DownPaymentMoreThanAppliance -> {
                     Toast.makeText(context, getString(R.string.appliance_down_payment_error), Toast.LENGTH_LONG).show()
-                    downPayment.setErrorState(true)
+                    binding.downPayment.setErrorState(true)
                 }
                 is ApplianceFormUiState.ValidationError.Error.TenureIsBlank -> {
-                    tenure.setErrorState(true)
+                    binding.tenure.setErrorState(true)
                 }
             }
         }

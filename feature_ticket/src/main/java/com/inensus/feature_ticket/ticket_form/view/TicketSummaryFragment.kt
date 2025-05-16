@@ -11,12 +11,14 @@ import com.inensus.core_ui.BaseFragment
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.core_ui.key_value.KeyValueAdapter
 import com.inensus.feature_ticket.R
+import com.inensus.feature_ticket.databinding.FragmentTicketSummaryBinding
 import com.inensus.feature_ticket.ticket_form.viewmodel.TicketSummaryViewModel
 import com.inensus.shared_success.view.SuccessFragment
-import kotlinx.android.synthetic.main.fragment_ticket_summary.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketSummaryFragment : BaseFragment() {
+    private var _binding: FragmentTicketSummaryBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: TicketSummaryViewModel by viewModel()
     private var successFragment: SuccessFragment? = null
 
@@ -24,7 +26,10 @@ class TicketSummaryFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? = inflater.inflate(R.layout.fragment_ticket_summary, container, false)
+    ): View {
+        _binding = FragmentTicketSummaryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -44,14 +49,14 @@ class TicketSummaryFragment : BaseFragment() {
     override fun provideViewModel() = viewModel
 
     private fun setupRecyclerView(list: List<KeyValue>) {
-        rvSummary.apply {
+        binding.rvSummary.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = KeyValueAdapter(list)
         }
     }
 
     private fun setupListeners() {
-        buttonConfirm.setOnClickListener {
+        binding.buttonConfirm.setOnClickListener {
             viewModel.onConfirmButtonTapped()
         }
     }
@@ -77,7 +82,7 @@ class TicketSummaryFragment : BaseFragment() {
 
     private fun handleSuccess() {
         successFragment =
-            SuccessFragment.newInstance((rvSummary.adapter as KeyValueAdapter).keyValuePairs).also {
+            SuccessFragment.newInstance((binding.rvSummary.adapter as KeyValueAdapter).keyValuePairs).also {
                 setSuccessCallback(it)
                 it.show(childFragmentManager, SUCCESS_FRAGMENT_TAG)
             }

@@ -18,9 +18,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.core_ui.key_value.KeyValueAdapter
 import com.inensus.shared_success.R
-import kotlinx.android.synthetic.main.fragment_success.*
+import com.inensus.shared_success.databinding.FragmentSuccessBinding
 
 class SuccessFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentSuccessBinding? = null
+    private val binding get() = _binding!!
+
     var dismissCallback: (() -> Unit)? = null
 
     override fun onCreateView(
@@ -29,8 +32,10 @@ class SuccessFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val contextThemeWrapper = ContextThemeWrapper(activity, R.style.AppTheme)
+        val themedInflater = inflater.cloneInContext(contextThemeWrapper)
 
-        return layoutInflater.cloneInContext(contextThemeWrapper).inflate(R.layout.fragment_success, container, false)
+        _binding = FragmentSuccessBinding.inflate(themedInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -54,27 +59,27 @@ class SuccessFragment : BottomSheetDialogFragment() {
         val isPending = arguments?.getBoolean(EXTRA_IS_PENDING) ?: false
 
         if (isPending) {
-            headerText.text = getString(R.string.pending_header)
-            headerText.setTextColor(ContextCompat.getColor(requireContext(), R.color.yellow_e7b53f))
+            binding.headerText.text = getString(R.string.pending_header)
+            binding.headerText.setTextColor(ContextCompat.getColor(requireContext(), R.color.yellow_e7b53f))
 
-            bodyText.text = getString(R.string.pending_body)
+            binding.bodyText.text = getString(R.string.pending_body)
 
-            stateLottie.setAnimation(R.raw.pending)
+            binding.stateLottie.setAnimation(R.raw.pending)
         }
     }
 
     private fun setupListeners() {
-        returnButton.setOnClickListener {
+        binding.returnButton.setOnClickListener {
             dismiss()
         }
 
-        print.setOnClickListener {
-            print()
-        }
+//        print().setOnClickListener {
+//            print()
+//        }
     }
 
     private fun setupRecyclerView(list: List<KeyValue>) {
-        rvSuccess.apply {
+        binding.rvSuccess.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = KeyValueAdapter(list)
         }
@@ -102,10 +107,10 @@ class SuccessFragment : BottomSheetDialogFragment() {
     }
 
     private fun takeScreenShot(): Bitmap {
-        val bitmap: Bitmap = Bitmap.createBitmap(root.width, root.height, Bitmap.Config.ARGB_8888)
+        val bitmap: Bitmap = Bitmap.createBitmap(binding.root.width, binding.root.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
-        root.draw(canvas)
+        binding.root.draw(canvas)
 
         return bitmap
     }
