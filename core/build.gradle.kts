@@ -42,7 +42,7 @@ dependencies {
     api("io.reactivex.rxjava2:rxandroid:2.1.1")
     api("com.jakewharton.rxbinding2:rxbinding:2.2.0")
 
-    api("com.jakewharton.timber:timber:4.7.1")
+    api("com.jakewharton.timber:timber:5.0.1")
     api("androidx.preference:preference-ktx:1.1.1")
 
     api("com.google.firebase:firebase-messaging:20.2.3")
