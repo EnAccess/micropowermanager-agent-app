@@ -17,17 +17,9 @@ class NotificationHandler(
         val payment: Payment? = gson.fromJson(intent.getStringExtra(EXTRA_PAYLOAD), Payment::class.java)
 
         return createSummaryItems(
-            payment
-                ?.meter
-                ?.meterParameter
-                ?.owner
-                ?.name ?: "",
-            payment
-                ?.meter
-                ?.meterParameter
-                ?.owner
-                ?.surname ?: "",
-            payment?.meter?.serialNumber ?: "",
+            payment?.device?.person?.name ?: "",
+            payment?.device?.person?.surname ?: "",
+            payment?.device?.deviceSerial ?: "",
             payment?.amount ?: BigDecimal.ZERO,
             payment?.token?.token ?: "",
         )
@@ -36,7 +28,7 @@ class NotificationHandler(
     private fun createSummaryItems(
         name: String,
         surname: String,
-        meter: String,
+        device: String,
         amount: BigDecimal,
         token: String,
     ) = arrayListOf(
@@ -45,8 +37,8 @@ class NotificationHandler(
             "$name $surname",
         ),
         KeyValue.Default(
-            context.getString(R.string.payment_meter),
-            meter,
+            context.getString(R.string.payment_device),
+            device,
         ),
         KeyValue.Amount(
             context.getString(R.string.payment_amount),
