@@ -56,14 +56,8 @@ class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>()
                 senderText.text =
                     context.getString(
                         R.string.customer_name_surname,
-                        payment.meter
-                            ?.meterParameter
-                            ?.owner
-                            ?.name,
-                        payment.meter
-                            ?.meterParameter
-                            ?.owner
-                            ?.surname,
+                        payment.device?.person?.name,
+                        payment.device?.person?.surname,
                     )
                 messageText.text = payment.message?.ifBlank { payment.transaction?.message } ?: payment.transaction?.message
                 amountText.text = AmountUtils.convertAmountToString(payment.amount)

@@ -52,7 +52,10 @@ class ApplianceListAdapter : RecyclerView.Adapter<ApplianceListAdapter.ViewHolde
                         ContextCompat.getDrawable(context, R.drawable.ic_pending)
                     },
                 )
-                typeText.text = transaction.applianceType.name
+                // FIXME: https://github.com/EnAccess/micropowermanager-agent-app/issues/12
+                // It breaks when transaction.applianceType.name is called
+                // typeText.text = transaction.applianceType.name
+                typeText.text = "Demo Appliance Type"
                 priceText.text = AmountUtils.convertAmountToString(transaction.cost)
                 dateText.text = DateUtils.convertDateToString(transaction.createdAt)
                 tenureValueText.text = transaction.tenure.toString()

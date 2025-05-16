@@ -177,6 +177,9 @@ class ApplianceListFragment : Fragment() {
         appliances: List<ApplianceTransaction>,
         loadCustomerType: LoadingApplianceListType,
     ) {
+        // appliances pages will be empty until Device feature updates has done in app.
+        //        viewModel.saveAppliancesState(emptyList<ApplianceTransaction>())
+
         val adapter = (binding.rvAppliances.adapter as ApplianceListAdapter)
 
         if (loadCustomerType == LoadingApplianceListType.PAGINATE) {
@@ -206,14 +209,11 @@ class ApplianceListFragment : Fragment() {
     private fun updateView(customer: Customer?) {
         binding.createAppliance.visibility = if (customer != null) View.VISIBLE else View.GONE
         view?.findViewById<TextView>(R.id.tvEmptyDescription)?.text =
-            if (customer != null) {
-                getString(
-                    R.string.appliance_empty_layout__with_customer_content,
-                    customer.name,
-                )
-            } else {
-                getString(R.string.appliance_empty_layout_content)
-            }
+            getString(R.string.appliance_under_maintenance_layout_content)
+     /*       if (customer != null) getString(
+                R.string.appliance_empty_layout__with_customer_content,
+                customer.name
+            ) else getString(R.string.appliance_empty_layout_content)*/
     }
 
     companion object {

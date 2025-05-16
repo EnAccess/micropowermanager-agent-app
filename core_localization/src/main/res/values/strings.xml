@@ -72,7 +72,7 @@
     <string name="customer_detail_menu_tickets">Tickets</string>
 
     <string name="payment_name_surname">Name Surname</string>
-    <string name="payment_meter">Meter</string>
+    <string name="payment_device">Device</string>
     <string name="payment_token">Token</string>
     <string name="payment_customer">Customer Id</string>
     <string name="payment_customer_hint">########</string>
@@ -86,7 +86,7 @@
     <string name="payment_detail_amount">Amount</string>
     <string name="payment_detail_token">Token</string>
     <string name="payment_detail_payment_type">Payment Type</string>
-    <string name="payment_detail_meter">Meter</string>
+    <string name="payment_detail_device">Device</string>
     <string name="payment_detail_date">Date</string>
     <string name="payment_detail_status">Status</string>
     <string name="payment_detail_status_success">Success</string>
@@ -126,6 +126,7 @@
     <string name="appliance_to_sell_empty">You do not have any appliance to sell yet!</string>
     <string name="appliance_empty_layout_content">You haven\'t sold any appliance yet</string>
     <string name="appliance_empty_layout__with_customer_content">You haven\'t sold any appliance to %1s yet, \nwould you like to sell one?</string>
+    <string name="appliance_under_maintenance_layout_content">The appliance feature is undergoing maintenance. You will be notified once it\'s completed.</string>
 
     <string name="ticket_detail_id">Ticket Id</string>
     <string name="ticket_detail_description">Description</string>

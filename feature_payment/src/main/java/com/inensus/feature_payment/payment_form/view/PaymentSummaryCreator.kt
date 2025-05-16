@@ -12,7 +12,7 @@ class PaymentSummaryCreator(
     fun createSummaryItems(
         name: String,
         surname: String,
-        meter: String,
+        device: String,
         amount: BigDecimal,
     ) = arrayListOf(
         KeyValue.Default(
@@ -20,8 +20,8 @@ class PaymentSummaryCreator(
             "$name $surname",
         ),
         KeyValue.Default(
-            context.getString(R.string.payment_meter),
-            meter,
+            context.getString(R.string.payment_device),
+            device,
         ),
         KeyValue.Amount(
             context.getString(R.string.payment_amount),
