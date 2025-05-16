@@ -14,9 +14,11 @@ import com.inensus.feature_ticket.ticket_detail.viewmodel.TicketDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketDetailFragment : BaseFragment() {
+    private val viewModel: TicketDetailViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentTicketDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TicketDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +27,11 @@ class TicketDetailFragment : BaseFragment() {
     ): View {
         _binding = FragmentTicketDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

@@ -17,12 +17,13 @@ import com.inensus.feature_dashboard.R
 import com.inensus.feature_dashboard.databinding.FragmentDashboardGraphBalanceBinding
 import com.inensus.feature_dashboard.graph.viewmodel.DashboardGraphBalanceViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class DashboardGraphBalanceFragment : Fragment() {
+    private val viewModel: DashboardGraphBalanceViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentDashboardGraphBalanceBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DashboardGraphBalanceViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +32,11 @@ class DashboardGraphBalanceFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardGraphBalanceBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

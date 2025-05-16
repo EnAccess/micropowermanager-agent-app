@@ -5,7 +5,7 @@ import com.inensus.core.utils.DateUtils
 import com.inensus.core.utils.DateUtils.DATE_FORMAT_FULL
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_ticket.R
-import java.util.*
+import java.util.Date
 
 class TicketSummaryCreator(
     private val context: Context,

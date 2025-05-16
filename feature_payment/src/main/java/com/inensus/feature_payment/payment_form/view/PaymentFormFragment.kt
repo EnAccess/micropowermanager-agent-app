@@ -17,9 +17,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class PaymentFormFragment : Fragment() {
+    private val viewModel: PaymentFormViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentPaymentFormBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PaymentFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,11 @@ class PaymentFormFragment : Fragment() {
     ): View {
         _binding = FragmentPaymentFormBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

@@ -21,10 +21,11 @@ import com.inensus.shared_success.R
 import com.inensus.shared_success.databinding.FragmentSuccessBinding
 
 class SuccessFragment : BottomSheetDialogFragment() {
+    var dismissCallback: (() -> Unit)? = null
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentSuccessBinding? = null
     private val binding get() = _binding!!
-
-    var dismissCallback: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +37,11 @@ class SuccessFragment : BottomSheetDialogFragment() {
 
         _binding = FragmentSuccessBinding.inflate(themedInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

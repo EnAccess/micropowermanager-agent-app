@@ -12,7 +12,7 @@ import com.inensus.feature_appliance.appliance_form.view.ApplianceFormValidator
 import com.inensus.feature_appliance.appliance_form.view.ApplianceSummaryCreator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 import kotlin.math.min
 
 class ApplianceFormViewModel(

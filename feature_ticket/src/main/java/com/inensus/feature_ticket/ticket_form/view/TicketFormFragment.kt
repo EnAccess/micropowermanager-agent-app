@@ -17,9 +17,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("UNCHECKED_CAST")
 class TicketFormFragment : Fragment() {
+    private val viewModel: TicketFormViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentTicketFormBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TicketFormViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,11 @@ class TicketFormFragment : Fragment() {
     ): View {
         _binding = FragmentTicketFormBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

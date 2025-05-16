@@ -7,7 +7,7 @@ import com.inensus.core_network.model.Appliance
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_appliance.R
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class ApplianceSummaryCreator(
     private val context: Context,

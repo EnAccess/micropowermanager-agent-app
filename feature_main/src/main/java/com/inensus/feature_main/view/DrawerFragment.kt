@@ -10,7 +10,11 @@ import androidx.lifecycle.Observer
 import com.inensus.core.sharedpreferences.SharedPreferenceWrapper
 import com.inensus.core.utils.AmountUtils
 import com.inensus.core_ui.BaseFragment
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.feature_main.R
 import com.inensus.feature_main.databinding.FragmentDrawerBinding
 import com.inensus.feature_main.viewmodel.DrawerViewModel
@@ -21,14 +25,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 
 class DrawerFragment : BaseFragment() {
-    private var _binding: FragmentDrawerBinding? = null
-    private val binding get() = _binding!!
     private val headerBinding get() = binding.drawerHeader
     private val viewModel: DrawerViewModel by viewModel()
     private val preferences: SharedPreferenceWrapper by inject()
     private val navigation: SharedNavigation by inject()
 
     var navCallback: ((action: NavigationAction) -> Unit)? = null
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentDrawerBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +43,11 @@ class DrawerFragment : BaseFragment() {
     ): View {
         _binding = FragmentDrawerBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

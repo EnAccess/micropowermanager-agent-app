@@ -1,7 +1,7 @@
 package com.inensus.feature_ticket.ticket_list.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.util.Date
 
 data class Ticket(
     @SerializedName("ticket_id") val ticketId: String,

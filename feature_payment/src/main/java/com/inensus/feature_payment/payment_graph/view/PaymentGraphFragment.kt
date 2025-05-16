@@ -19,9 +19,11 @@ import com.inensus.feature_payment.payment_graph.viewmodel.PaymentGraphViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentGraphFragment : BaseFragment() {
+    private val viewModel: PaymentGraphViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentPaymentGraphBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PaymentGraphViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +32,11 @@ class PaymentGraphFragment : BaseFragment() {
     ): View {
         _binding = FragmentPaymentGraphBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

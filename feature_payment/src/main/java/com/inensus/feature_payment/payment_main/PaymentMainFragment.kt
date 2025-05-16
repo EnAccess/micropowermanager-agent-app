@@ -12,6 +12,7 @@ import com.inensus.feature_payment.payment_graph.view.PaymentGraphFragment
 import com.inensus.feature_payment.payment_list.view.PaymentListFragment
 
 class PaymentMainFragment : Fragment() {
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentPaymentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -24,6 +25,12 @@ class PaymentMainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.pager.adapter = null
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -31,12 +38,6 @@ class PaymentMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupPagerAdapter()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        binding.pager.adapter = null
     }
 
     private fun setupPagerAdapter() {

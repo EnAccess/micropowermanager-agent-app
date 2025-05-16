@@ -1,7 +1,9 @@
 package com.inensus.feature_customers.customer_detail.view
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,6 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerDetailFragment : Fragment() {
     private val viewModel: CustomerDetailViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentCustomerDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -24,6 +28,11 @@ class CustomerDetailFragment : Fragment() {
         setHasOptionsMenu(true)
         _binding = FragmentCustomerDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

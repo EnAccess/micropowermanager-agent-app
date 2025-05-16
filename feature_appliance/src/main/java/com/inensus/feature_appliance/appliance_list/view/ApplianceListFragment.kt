@@ -14,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inensus.core_network.model.ApplianceTransaction
 import com.inensus.core_network.model.Customer
 import com.inensus.core_ui.BaseActivity
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_appliance.R
 import com.inensus.feature_appliance.appliance_detail.view.ApplianceDetailFragment
@@ -23,9 +27,11 @@ import com.inensus.feature_appliance.databinding.FragmentApplianceListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplianceListFragment : Fragment() {
+    private val viewModel: ApplianceListViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentApplianceListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ApplianceListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +42,12 @@ class ApplianceListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.saveAppliancesState((binding.rvAppliances.adapter as ApplianceListAdapter).appliances)
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -44,12 +56,6 @@ class ApplianceListFragment : Fragment() {
 
         setupView()
         observeUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.saveAppliancesState((binding.rvAppliances.adapter as ApplianceListAdapter).appliances)
     }
 
     private fun setupView() {

@@ -2,7 +2,7 @@ package com.inensus.feature_dashboard.summary.model
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 data class DashboardSummaryResponse(
     @SerializedName("data") val data: DashboardSummaryData,

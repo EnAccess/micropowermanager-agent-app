@@ -13,12 +13,13 @@ import com.inensus.core_ui.databinding.FragmentInputBottomSheetBinding
 import org.koin.android.ext.android.inject
 
 class InputBottomSheetFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentInputBottomSheetBinding? = null
-    private val binding get() = _binding!!
-
     private val preferences: SharedPreferenceWrapper by inject()
 
     override fun getTheme() = R.style.AppTheme_BottomSheet
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentInputBottomSheetBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +31,11 @@ class InputBottomSheetFragment : BottomSheetDialogFragment() {
 
         _binding = FragmentInputBottomSheetBinding.inflate(themedInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

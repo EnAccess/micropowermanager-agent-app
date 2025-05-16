@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inensus.core_network.model.Customer
 import com.inensus.core_ui.BaseActivity
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_ticket.R
 import com.inensus.feature_ticket.databinding.FragmentTicketListBinding
@@ -23,9 +27,11 @@ import com.inensus.feature_ticket.ticket_list.viewmodel.TicketListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketListFragment : Fragment() {
+    private val viewModel: TicketListViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentTicketListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TicketListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +42,12 @@ class TicketListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.saveTicketsState((binding.rvTickets.adapter as TicketListAdapter).tickets)
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -44,12 +56,6 @@ class TicketListFragment : Fragment() {
 
         setupView()
         observeUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.saveTicketsState((binding.rvTickets.adapter as TicketListAdapter).tickets)
     }
 
     private fun setupView() {

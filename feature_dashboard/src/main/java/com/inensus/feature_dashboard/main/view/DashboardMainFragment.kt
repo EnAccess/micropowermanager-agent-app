@@ -7,17 +7,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.inensus.core_ui.BaseActivity
-import com.inensus.core_ui.extentions.*
-import com.inensus.core_ui.shimmer_layout.ShimmerLayout
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.setupWithNavController
+import com.inensus.core_ui.extentions.show
 import com.inensus.feature_dashboard.R
 import com.inensus.feature_dashboard.databinding.FragmentDashboardMainBinding
 import com.inensus.feature_dashboard.main.viewmodel.DashboardMainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardMainFragment : Fragment() {
+    private val viewModel: DashboardMainViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentDashboardMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DashboardMainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +32,11 @@ class DashboardMainFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

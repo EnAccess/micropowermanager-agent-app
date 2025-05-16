@@ -17,13 +17,16 @@ import com.inensus.feature_appliance.databinding.FragmentApplianceDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class ApplianceDetailFragment : Fragment() {
-    private var _binding: FragmentApplianceDetailBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: ApplianceDetailViewModel by viewModel()
     private lateinit var applianceTransaction: ApplianceTransaction
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentApplianceDetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,11 @@ class ApplianceDetailFragment : Fragment() {
     ): View {
         _binding = FragmentApplianceDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

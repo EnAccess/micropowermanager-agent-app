@@ -24,6 +24,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class LoginFragment : BaseFragment() {
     private val viewModel: LoginViewModel by sharedViewModel()
     private val navigation: SharedNavigation by inject()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -34,6 +36,11 @@ class LoginFragment : BaseFragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

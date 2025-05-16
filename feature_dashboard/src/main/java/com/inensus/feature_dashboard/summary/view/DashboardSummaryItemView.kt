@@ -12,7 +12,7 @@ import com.inensus.core.utils.DateUtils
 import com.inensus.feature_dashboard.R
 import com.inensus.feature_dashboard.databinding.DashboardSummaryItemBinding
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class DashboardSummaryItemView(
     context: Context,

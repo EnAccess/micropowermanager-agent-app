@@ -11,9 +11,11 @@ import com.inensus.feature_dashboard.summary.viewmodel.DashboardSummaryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardSummaryFragment : Fragment() {
+    private val viewModel: DashboardSummaryViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentDashboardSummaryBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DashboardSummaryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,6 +24,11 @@ class DashboardSummaryFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardSummaryBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

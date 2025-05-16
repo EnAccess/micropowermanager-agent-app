@@ -17,10 +17,12 @@ import com.inensus.shared_success.view.SuccessFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplianceSummaryFragment : BaseFragment() {
-    private var _binding: FragmentApplianceSummaryBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: ApplianceSummaryViewModel by viewModel()
     private var successFragment: SuccessFragment? = null
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentApplianceSummaryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +31,11 @@ class ApplianceSummaryFragment : BaseFragment() {
     ): View {
         _binding = FragmentApplianceSummaryBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(
