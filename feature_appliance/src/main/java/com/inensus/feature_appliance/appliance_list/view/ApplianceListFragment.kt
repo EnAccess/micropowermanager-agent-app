@@ -173,24 +173,25 @@ class ApplianceListFragment : Fragment() {
         loadCustomerType: LoadingApplianceListType,
     ) {
         // appliances pages will be empty until Device feature updates has done in app.
-        viewModel.saveAppliancesState(emptyList<ApplianceTransaction>())
+        //        viewModel.saveAppliancesState(emptyList<ApplianceTransaction>())
 
-        /*       val adapter = (rvAppliances.adapter as ApplianceListAdapter)
+        val adapter = (rvAppliances.adapter as ApplianceListAdapter)
 
-             if (loadCustomerType == LoadingApplianceListType.PAGINATE) {
-                  adapter.updateData(ArrayList(adapter.appliances).apply { addAll(appliances) })
-              } else {
-                  rvAppliances.adapter = ApplianceListAdapter().apply {
-                      onItemClick = {
-                          viewModel.onApplianceTapped(it)
-                      }
+        if (loadCustomerType == LoadingApplianceListType.PAGINATE) {
+            adapter.updateData(ArrayList(adapter.appliances).apply { addAll(appliances) })
+        } else {
+            rvAppliances.adapter =
+                ApplianceListAdapter().apply {
+                    onItemClick = {
+                        viewModel.onApplianceTapped(it)
+                    }
 
-                      this.appliances = appliances
-                      notifyDataSetChanged()
-                  }
-              }
+                    this.appliances = appliances
+                    notifyDataSetChanged()
+                }
+        }
 
-              viewModel.saveAppliancesState((rvAppliances.adapter as ApplianceListAdapter).appliances)*/
+        viewModel.saveAppliancesState((rvAppliances.adapter as ApplianceListAdapter).appliances)
     }
 
     private fun handleApplianceTapped(appliance: ApplianceTransaction) {
