@@ -23,9 +23,11 @@ import com.inensus.feature_ticket.ticket_list.viewmodel.TicketListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TicketListFragment : Fragment() {
+    private val viewModel: TicketListViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentTicketListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TicketListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +38,12 @@ class TicketListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.saveTicketsState((binding.rvTickets.adapter as TicketListAdapter).tickets)
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -44,12 +52,6 @@ class TicketListFragment : Fragment() {
 
         setupView()
         observeUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.saveTicketsState((binding.rvTickets.adapter as TicketListAdapter).tickets)
     }
 
     private fun setupView() {

@@ -19,9 +19,11 @@ import com.inensus.feature_dashboard.graph.viewmodel.DashboardGraphRevenueViewMo
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardGraphRevenueFragment : Fragment() {
+    private val viewModel: DashboardGraphRevenueViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentDashboardGraphRevenueBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DashboardGraphRevenueViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +32,11 @@ class DashboardGraphRevenueFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardGraphRevenueBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

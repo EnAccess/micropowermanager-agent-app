@@ -16,6 +16,7 @@ import com.inensus.feature_appliance.R
 import com.inensus.feature_appliance.databinding.FragmentApplianceDetailPaymentsBinding
 
 class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentApplianceDetailPaymentsBinding? = null
     private val binding get() = _binding!!
 
@@ -29,6 +30,11 @@ class ApplianceDetailPaymentsFragment : BottomSheetDialogFragment() {
 
         _binding = FragmentApplianceDetailPaymentsBinding.inflate(themedInflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

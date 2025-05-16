@@ -21,14 +21,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 
 class DrawerFragment : BaseFragment() {
-    private var _binding: FragmentDrawerBinding? = null
-    private val binding get() = _binding!!
     private val headerBinding get() = binding.drawerHeader
     private val viewModel: DrawerViewModel by viewModel()
     private val preferences: SharedPreferenceWrapper by inject()
     private val navigation: SharedNavigation by inject()
 
     var navCallback: ((action: NavigationAction) -> Unit)? = null
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentDrawerBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +39,11 @@ class DrawerFragment : BaseFragment() {
     ): View {
         _binding = FragmentDrawerBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

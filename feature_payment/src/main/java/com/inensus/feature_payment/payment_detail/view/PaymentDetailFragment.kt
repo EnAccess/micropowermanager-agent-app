@@ -14,9 +14,11 @@ import com.inensus.feature_payment.payment_detail.viewmodel.PaymentDetailViewMod
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentDetailFragment : BaseFragment() {
+    private val viewModel: PaymentDetailViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentPaymentDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PaymentDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +27,11 @@ class PaymentDetailFragment : BaseFragment() {
     ): View {
         _binding = FragmentPaymentDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

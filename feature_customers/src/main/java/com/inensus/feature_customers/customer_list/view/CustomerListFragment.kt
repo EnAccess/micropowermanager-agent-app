@@ -26,10 +26,12 @@ import com.inensus.feature_customers.databinding.FragmentCustomersBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerListFragment : Fragment() {
-    private var _binding: FragmentCustomersBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: CustomersViewModel by viewModel()
     private var searchTerm: String? = null
+
+    @Suppress("ktlint:standard:backing-property-naming")
+    private var _binding: FragmentCustomersBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +43,13 @@ class CustomerListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        viewModel.saveCustomersState((binding.rvCustomers.adapter as CustomerListAdapter).customers)
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -49,12 +58,6 @@ class CustomerListFragment : Fragment() {
 
         setupView()
         observeUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.saveCustomersState((binding.rvCustomers.adapter as CustomerListAdapter).customers)
     }
 
     override fun onCreateOptionsMenu(

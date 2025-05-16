@@ -23,9 +23,11 @@ import com.inensus.feature_payment.payment_list.viewmodel.PaymentListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PaymentListFragment : Fragment() {
+    private val viewModel: PaymentListViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentPaymentListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PaymentListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +38,12 @@ class PaymentListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.savePaymentsState((binding.rvPayments.adapter as PaymentListAdapter).payments)
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -44,12 +52,6 @@ class PaymentListFragment : Fragment() {
 
         setupView()
         observeUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.savePaymentsState((binding.rvPayments.adapter as PaymentListAdapter).payments)
     }
 
     private fun setupView() {

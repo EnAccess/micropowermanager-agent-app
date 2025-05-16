@@ -13,6 +13,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CustomerDetailFragment : Fragment() {
     private val viewModel: CustomerDetailViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentCustomerDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -24,6 +26,11 @@ class CustomerDetailFragment : Fragment() {
         setHasOptionsMenu(true)
         _binding = FragmentCustomerDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(

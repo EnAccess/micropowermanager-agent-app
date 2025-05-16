@@ -23,9 +23,11 @@ import com.inensus.feature_appliance.databinding.FragmentApplianceListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApplianceListFragment : Fragment() {
+    private val viewModel: ApplianceListViewModel by viewModel()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: FragmentApplianceListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ApplianceListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +38,12 @@ class ApplianceListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.saveAppliancesState((binding.rvAppliances.adapter as ApplianceListAdapter).appliances)
+        _binding = null
+    }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -44,12 +52,6 @@ class ApplianceListFragment : Fragment() {
 
         setupView()
         observeUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        viewModel.saveAppliancesState((binding.rvAppliances.adapter as ApplianceListAdapter).appliances)
     }
 
     private fun setupView() {
