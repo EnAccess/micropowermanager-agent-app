@@ -6,8 +6,8 @@ buildscript {
         maven("https://jitpack.io")
     }
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha03")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.2")
     }
 }
 
@@ -20,14 +20,14 @@ plugins {
      * see Applying external plugins with same version to subprojects.
      */
 
-    id("com.android.application") version "4.2.2" apply false
+    id("com.android.application") version "7.1.3" apply false
     id("org.jetbrains.kotlin.android") version "1.5.32" apply false
     id("org.jetbrains.kotlin.kapt") version "1.5.32" apply false
     id("org.jetbrains.kotlin.plugin.parcelize") version "1.5.32" apply false
 
     id("com.github.ben-manes.versions") version "0.27.0" apply false
 
-    id("com.google.gms.google-services") version "4.3.3" apply false
+    id("com.google.gms.google-services") version "4.3.10" apply false
 }
 
 extra["kotlinVersion"] = "1.5.32"
