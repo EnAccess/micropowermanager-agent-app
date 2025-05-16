@@ -1,7 +1,7 @@
 package com.inensus.feature_ticket.ticket_form.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.util.Date
 
 data class ConfirmTicketRequest(
     @SerializedName("title") val title: String?,

@@ -6,7 +6,7 @@ import com.inensus.core.utils.DateUtils.DATE_FORMAT_FULL
 import com.inensus.core_ui.key_value.KeyValue
 import com.inensus.feature_ticket.R
 import com.inensus.feature_ticket.ticket_detail.model.TicketDetail
-import java.util.*
+import java.util.Locale
 
 class TicketDetailCreator(
     private val context: Context,

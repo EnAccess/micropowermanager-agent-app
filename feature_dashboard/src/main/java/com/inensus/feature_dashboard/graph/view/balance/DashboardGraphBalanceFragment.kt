@@ -17,7 +17,6 @@ import com.inensus.feature_dashboard.R
 import com.inensus.feature_dashboard.databinding.FragmentDashboardGraphBalanceBinding
 import com.inensus.feature_dashboard.graph.viewmodel.DashboardGraphBalanceViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class DashboardGraphBalanceFragment : Fragment() {
     private val viewModel: DashboardGraphBalanceViewModel by viewModel()

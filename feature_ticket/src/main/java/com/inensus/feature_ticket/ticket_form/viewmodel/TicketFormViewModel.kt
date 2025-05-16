@@ -13,7 +13,7 @@ import com.inensus.feature_ticket.ticket_form.view.TicketSummaryCreator
 import com.inensus.shared_customer.repository.CustomerRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import timber.log.Timber
-import java.util.*
+import java.util.Date
 
 class TicketFormViewModel(
     private val repository: TicketFormRepository,

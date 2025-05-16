@@ -17,7 +17,8 @@ import com.inensus.feature_appliance.databinding.FragmentApplianceDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class ApplianceDetailFragment : Fragment() {
     private val viewModel: ApplianceDetailViewModel by viewModel()

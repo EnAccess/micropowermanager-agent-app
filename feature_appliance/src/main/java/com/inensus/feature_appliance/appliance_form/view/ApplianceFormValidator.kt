@@ -2,7 +2,7 @@ package com.inensus.feature_appliance.appliance_form.view
 
 import com.inensus.core_network.model.Appliance
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class ApplianceFormValidator {
     fun validateForm(

@@ -4,7 +4,11 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -18,7 +22,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.paris.utils.setPaddingStart
 import com.inensus.core_network.model.Customer
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.show
+import com.inensus.core_ui.extentions.textChangedWithDelay
+import com.inensus.core_ui.extentions.toPx
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_customers.R
 import com.inensus.feature_customers.customer_list.viewmodel.CustomersViewModel

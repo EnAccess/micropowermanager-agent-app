@@ -1,7 +1,8 @@
 package com.inensus.core.utils
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 object DateUtils {
     private const val DATE_FORMAT_DD_MM_YYYY = "dd.MM.yyyy"

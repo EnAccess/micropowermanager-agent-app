@@ -6,7 +6,7 @@ import com.inensus.feature_appliance.ApplianceService
 import com.inensus.feature_appliance.appliance_form.model.ConfirmApplianceRequest
 import com.inensus.shared_customer.repository.CustomerRepository
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class ApplianceFormRepository(
     private val service: ApplianceService,

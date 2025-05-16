@@ -14,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inensus.core_network.model.ApplianceTransaction
 import com.inensus.core_network.model.Customer
 import com.inensus.core_ui.BaseActivity
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_appliance.R
 import com.inensus.feature_appliance.appliance_detail.view.ApplianceDetailFragment

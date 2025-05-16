@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.inensus.core_ui.BaseActivity
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.feature_dashboard.R
 import com.inensus.feature_dashboard.databinding.FragmentDashboardMainBinding
 import com.inensus.feature_dashboard.main.viewmodel.DashboardMainViewModel

@@ -1,7 +1,8 @@
 package com.inensus.core_ui.extentions
 
 import android.widget.DatePicker
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 fun DatePicker.getDate(): Date {
     val calendar = Calendar.getInstance()

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.inensus.core_network.model.PaymentDevice
 import com.inensus.core_network.model.Token
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 data class PaymentDetail(
     @SerializedName("original_transaction_id") val transactionId: Long,

@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.inensus.core_network.model.Customer
 import com.inensus.core_ui.BaseActivity
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.core_ui.util.KeyboardUtils
 import com.inensus.feature_ticket.R
 import com.inensus.feature_ticket.databinding.FragmentTicketListBinding

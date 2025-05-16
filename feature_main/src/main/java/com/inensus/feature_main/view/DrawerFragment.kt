@@ -10,7 +10,11 @@ import androidx.lifecycle.Observer
 import com.inensus.core.sharedpreferences.SharedPreferenceWrapper
 import com.inensus.core.utils.AmountUtils
 import com.inensus.core_ui.BaseFragment
-import com.inensus.core_ui.extentions.*
+import com.inensus.core_ui.extentions.animateGone
+import com.inensus.core_ui.extentions.animateShow
+import com.inensus.core_ui.extentions.gone
+import com.inensus.core_ui.extentions.hide
+import com.inensus.core_ui.extentions.show
 import com.inensus.feature_main.R
 import com.inensus.feature_main.databinding.FragmentDrawerBinding
 import com.inensus.feature_main.viewmodel.DrawerViewModel
