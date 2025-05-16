@@ -41,7 +41,7 @@ class PaymentFormFragment : Fragment() {
     }
 
     private fun setListeners() {
-        meterDropdown.onValueChanged = { viewModel.onMeterChanged(it) }
+        deviceDropdown.onValueChanged = { viewModel.onDeviceChanged(it) }
         amount.afterTextChanged = { viewModel.onAmountChanged(it.toString()) }
         buttonContinue.setOnClickListener {
             viewModel.onContinueButtonTapped()
@@ -62,17 +62,17 @@ class PaymentFormFragment : Fragment() {
         viewModel.customer.observe(
             viewLifecycleOwner,
             Observer { customer ->
-                customer?.meters?.let { meters ->
-                    meterDropdown.bindData(meters.map { it.meter.serialNumber })
+                customer?.devices?.let { devices ->
+                    deviceDropdown.bindData(devices.map { it.deviceSerial })
                 }
             },
         )
 
-        viewModel.meter.observe(
+        viewModel.device.observe(
             viewLifecycleOwner,
             Observer {
-                if (meterDropdown.value != it) {
-                    meterDropdown.value = it
+                if (deviceDropdown.value != it) {
+                    deviceDropdown.value = it
                 }
             },
         )
@@ -96,8 +96,8 @@ class PaymentFormFragment : Fragment() {
     private fun handleValidationError(errors: List<PaymentFormUiState.ValidationError.Error>) {
         errors.forEach { validationError ->
             when (validationError) {
-                is PaymentFormUiState.ValidationError.Error.MeterIsBlank -> {
-                    meterDropdown.setErrorState(true)
+                is PaymentFormUiState.ValidationError.Error.DeviceIsBlank -> {
+                    deviceDropdown.setErrorState(true)
                 }
                 is PaymentFormUiState.ValidationError.Error.AmountIsBlank -> {
                     amount.setErrorState(true)

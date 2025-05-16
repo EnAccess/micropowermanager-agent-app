@@ -24,14 +24,14 @@ class PaymentFormViewModel(
     private val _customer = MutableLiveData(customerRepository.customer)
     var customer: LiveData<Customer?> = _customer
 
-    private val _meter = MutableLiveData<String>()
-    var meter: LiveData<String> = _meter
+    private val _device = MutableLiveData<String>()
+    var device: LiveData<String> = _device
 
     private val _amount = MutableLiveData<String>()
     var amount: LiveData<String> = _amount
 
-    fun onMeterChanged(meter: String) {
-        _meter.value = meter
+    fun onDeviceChanged(device: String) {
+        _device.value = device
     }
 
     fun onAmountChanged(amount: String) {
@@ -39,9 +39,9 @@ class PaymentFormViewModel(
     }
 
     fun onContinueButtonTapped() {
-        validator.validateForm(_meter.value, _amount.value).let {
+        validator.validateForm(_device.value, _amount.value).let {
             if (it.isEmpty()) {
-                repository.meter = _meter.value
+                repository.device = _device.value
                 repository.amount = _amount.value
 
                 _uiState.value =
@@ -49,7 +49,7 @@ class PaymentFormViewModel(
                         summaryCreator.createSummaryItems(
                             _customer.value?.name ?: "",
                             _customer.value?.surname ?: "",
-                            _meter.value ?: "",
+                            _device.value ?: "",
                             BigDecimal(_amount.value),
                         ),
                     )
