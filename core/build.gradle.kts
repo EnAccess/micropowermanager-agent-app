@@ -4,13 +4,12 @@ plugins {
 }
 
 android {
+    namespace = "com.inensus.core"
     compileSdk = 29
 
     defaultConfig {
         minSdk = 21
         targetSdk = 29
-        versionCode = 1
-        versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -19,7 +18,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -43,7 +42,7 @@ dependencies {
     api("io.reactivex.rxjava2:rxandroid:2.1.1")
     api("com.jakewharton.rxbinding2:rxbinding:2.2.0")
 
-    api("com.jakewharton.timber:timber:4.7.1")
+    api("com.jakewharton.timber:timber:5.0.1")
     api("androidx.preference:preference-ktx:1.1.1")
 
     api("com.google.firebase:firebase-messaging:20.2.3")

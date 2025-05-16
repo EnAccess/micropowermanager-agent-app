@@ -4,13 +4,12 @@ plugins {
 }
 
 android {
+    namespace = "com.inensus.feature_login"
     compileSdk = 29
 
     defaultConfig {
         minSdk = 21
         targetSdk = 29
-        versionCode = 1
-        versionName = "1.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -19,7 +18,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
