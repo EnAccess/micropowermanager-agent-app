@@ -49,23 +49,23 @@ This repository contains the source code for the [MicroPowerManager Agent App](h
 To build the app
 
 - Open the project in Android Studio
-- Configure `JetBrains Runtime version 11` as Gradle JDK.
+- Configure `temurin-11` as Gradle JDK.
 
   - Open Setting (**Android Studio > Settings > Build, Execution, Deployment > Build Tools > Gradle**)
   - If not installed yet, select **Download JDK...** from the **Gradle JDK** dropdown and select
 
-    | Field    | Value                       |
-    | -------- | --------------------------- |
-    | Version  | `11`                        |
-    | Vendor   | `JetBrains Runtime (DCEVM)` |
-    | Location | `<default>`                 |
+    | Field    | Value                                  |
+    | -------- | -------------------------------------- |
+    | Version  | `11`                                   |
+    | Vendor   | `Eclipse Temurin AdoptOpenJDK HotSpot` |
+    | Location | `<default>`                            |
 
-    ![Android Studio JetBrains Runtime](docs/images/android-studio-jetbrains-11.png)
+    ![Android Studio Temurin Runtime](docs/images/android-studio-adopt-openjdk-11.png)
 
     **NOTE:** For ideal performance be sure to select the correct architecture.
     For example for users of Mac's with M-chips select `aarch64`.
 
-  - If already installed, select **jbr_dcevm-11** from the **Gradle JDK** dropdown
+  - If already installed, select **temurin-11** from the **Gradle JDK** dropdown
 
 - (Optional, but recommended) Copy `.envrc.sample` to `.envrc` and adjust `JAVA_HOME=` to match the Gradle JDK path from above.
 - Click **Sync Project with Gradle files**
