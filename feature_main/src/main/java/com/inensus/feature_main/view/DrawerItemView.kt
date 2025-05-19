@@ -15,6 +15,7 @@ class DrawerItemView(
     context: Context,
     attributeSet: AttributeSet,
 ) : ConstraintLayout(context, attributeSet) {
+    @Suppress("RedundantLateinit")
     public lateinit var binding: ItemDrawerBinding
     private var iconRes: Int? = null
     private var title: String? = null
