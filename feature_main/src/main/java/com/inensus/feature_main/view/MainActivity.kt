@@ -10,7 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.updateLayoutParams
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.inensus.core.broadcast.MessagingBroadcastReceiver
@@ -28,6 +28,7 @@ import com.inensus.shared_navigation.Feature
 import com.inensus.shared_navigation.SharedNavigation
 import com.inensus.shared_success.view.SuccessFragment
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 import kotlin.math.min
 
 class MainActivity : BaseActivity() {
@@ -75,17 +76,22 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupNavigation(savedInstanceState: Bundle?) {
-        navController = findNavController(R.id.mainFragment)
+        val navHostFragment =
+            supportFragmentManager
+                .findFragmentById(R.id.mainFragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         setupDrawerWidth(binding.navView)
 
         if (savedInstanceState == null) {
+            Timber.tag("DebugCheck").d("Didn't find instance, creating new..")
             drawerFragment = DrawerFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.navView, drawerFragment, "")
-                .commit()
+                .commitNow()
         } else {
+            Timber.tag("DebugCheck").d("Found saved instance")
             drawerFragment = supportFragmentManager.findFragmentById(R.id.navView) as DrawerFragment
         }
 
