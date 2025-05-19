@@ -29,7 +29,7 @@ val kotlinVersion: String by rootProject.extra
 dependencies {
     api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     api("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-    api("androidx.core:core-ktx:1.1.0-alpha05")
+    api("androidx.core:core-ktx:1.8.0")
 
     // Koin
     api("io.insert-koin:koin-core:3.2.2")
