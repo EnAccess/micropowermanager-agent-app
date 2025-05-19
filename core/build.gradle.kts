@@ -32,10 +32,8 @@ dependencies {
     api("androidx.core:core-ktx:1.1.0-alpha05")
 
     // Koin
-    api("io.insert-koin:koin-androidx-scope:2.2.3")
-    api("io.insert-koin:koin-androidx-viewmodel:2.2.3")
-    api("io.insert-koin:koin-core:2.2.3")
-    api("io.insert-koin:koin-core-ext:2.2.3")
+    api("io.insert-koin:koin-core:3.2.2")
+    api("io.insert-koin:koin-android:3.2.3")
 
     api("io.reactivex.rxjava2:rxjava:2.2.9")
     api("io.reactivex.rxjava2:rxkotlin:2.3.0")
