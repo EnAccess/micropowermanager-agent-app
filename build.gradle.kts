@@ -33,6 +33,21 @@ plugins {
 extra["kotlinVersion"] = "1.5.32"
 extra["navigationVersion"] = "2.3.0-alpha03"
 
+// Error: Cannot set non-nullable LiveData value to null [NullSafeMutableLiveData from jetified-lifecycle-livedata-core-ktx-2.3.1]
+// Seems to be fixed in 2.4.0
+// https://stackoverflow.com/questions/65322892/cannot-set-non-nullable-livedata-value-to-null
+subprojects {
+    afterEvaluate {
+        if (plugins.hasPlugin("com.android.application") || plugins.hasPlugin("com.android.library")) {
+            extensions.configure<com.android.build.gradle.BaseExtension> {
+                lintOptions {
+                    disable.add("NullSafeMutableLiveData")
+                }
+            }
+        }
+    }
+}
+
 tasks.register("clean").configure {
     delete("build")
 }
