@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "com.inensus.feature_main"
-    compileSdk = 29
+    compileSdk = 31
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 29
+        targetSdk = 31
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
 
