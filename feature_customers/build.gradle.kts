@@ -23,7 +23,9 @@ android {
         }
     }
 
-    kotlinOptions { jvmTarget = "1.8" }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
 
     buildFeatures {
         viewBinding = true
