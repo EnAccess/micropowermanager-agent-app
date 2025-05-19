@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "com.inensus.merchant"
-    compileSdk = 29
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.inensus.merchant"
         minSdk = 21
-        targetSdk = 29
+        targetSdk = 31
         versionCode = 1
         versionName = "1.3.1"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
