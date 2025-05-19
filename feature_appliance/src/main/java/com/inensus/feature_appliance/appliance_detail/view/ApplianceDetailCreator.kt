@@ -33,7 +33,7 @@ class ApplianceDetailCreator(
                 AmountUtils.convertAmountToString(
                     transaction.rates
                         .filter { it.rateAmount - it.remainingAmount > BigDecimal.ZERO }
-                        .sumBy { (it.rateAmount - it.remainingAmount).intValueExact() }
+                        .sumOf { (it.rateAmount - it.remainingAmount).intValueExact() }
                         .toBigDecimal(),
                 ),
                 context.getString(R.string.default_currency),
@@ -43,7 +43,7 @@ class ApplianceDetailCreator(
                 AmountUtils.convertAmountToString(
                     transaction.rates
                         .filter { it.remainingAmount > BigDecimal.ZERO }
-                        .sumBy { it.remainingAmount.intValueExact() }
+                        .sumOf { it.remainingAmount.intValueExact() }
                         .toBigDecimal(),
                 ),
                 context.getString(R.string.default_currency),

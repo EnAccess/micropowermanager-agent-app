@@ -1,7 +1,7 @@
 package com.inensus.core_ui.key_value
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 sealed class KeyValue(
     val type: KeyValueType,
