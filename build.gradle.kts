@@ -21,16 +21,16 @@ plugins {
      */
 
     id("com.android.application") version "7.4.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.5.32" apply false
-    id("org.jetbrains.kotlin.kapt") version "1.5.32" apply false
-    id("org.jetbrains.kotlin.plugin.parcelize") version "1.5.32" apply false
+    id("org.jetbrains.kotlin.android") version "1.6.21" apply false
+    id("org.jetbrains.kotlin.kapt") version "1.6.21" apply false
+    id("org.jetbrains.kotlin.plugin.parcelize") version "1.6.21" apply false
 
     id("com.github.ben-manes.versions") version "0.27.0" apply false
 
     id("com.google.gms.google-services") version "4.3.3" apply false
 }
 
-extra["kotlinVersion"] = "1.5.32"
+extra["kotlinVersion"] = "1.6.21"
 extra["navigationVersion"] = "2.3.0-alpha03"
 
 // Error: Cannot set non-nullable LiveData value to null [NullSafeMutableLiveData from jetified-lifecycle-livedata-core-ktx-2.3.1]
