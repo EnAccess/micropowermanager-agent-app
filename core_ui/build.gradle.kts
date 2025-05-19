@@ -37,9 +37,9 @@ dependencies {
     implementation(project(":core_localization"))
 
     api("androidx.fragment:fragment-ktx:1.2.0-rc01")
-    api("com.google.android.material:material:1.2.0-alpha05")
-    api("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
-    api("androidx.appcompat:appcompat:1.0.0-beta01")
+    api("com.google.android.material:material:1.3.0")
+    api("androidx.constraintlayout:constraintlayout:2.0.0")
+    api("androidx.appcompat:appcompat:1.0.0")
     api("androidx.recyclerview:recyclerview:1.1.0")
     api("com.airbnb.android:paris:1.4.0")
     api("com.github.PhilJay:MPAndroidChart:v3.1.0")

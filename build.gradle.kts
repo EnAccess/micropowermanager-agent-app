@@ -6,7 +6,7 @@ buildscript {
         maven("https://jitpack.io")
     }
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha03")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
     }
 }
@@ -31,7 +31,7 @@ plugins {
 }
 
 extra["kotlinVersion"] = "1.6.21"
-extra["navigationVersion"] = "2.3.0-alpha03"
+extra["navigationVersion"] = "2.3.0"
 
 // Error: Cannot set non-nullable LiveData value to null [NullSafeMutableLiveData from jetified-lifecycle-livedata-core-ktx-2.3.1]
 // Seems to be fixed in 2.4.0

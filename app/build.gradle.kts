@@ -81,8 +81,8 @@ dependencies {
     implementation(project(":shared_messaging"))
 
     testImplementation("junit:junit:4.13")
-    androidTestImplementation("androidx.test:runner:1.3.0-rc03")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0-rc03")
+    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
 
 tasks.register("printVersionName") {
