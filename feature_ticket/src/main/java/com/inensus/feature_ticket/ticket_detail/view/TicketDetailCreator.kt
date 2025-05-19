@@ -20,8 +20,8 @@ class TicketDetailCreator(
                 context.getString(R.string.ticket_detail_owner),
                 context.getString(
                     R.string.customer_name_surname,
-                    ticketDetail.owner?.name?.toUpperCase(Locale.getDefault()),
-                    ticketDetail.owner?.surname?.toUpperCase(Locale.getDefault()),
+                    ticketDetail.owner?.name?.uppercase(Locale.getDefault()),
+                    ticketDetail.owner?.surname?.uppercase(Locale.getDefault()),
                 ),
             ),
             KeyValue.Default(
