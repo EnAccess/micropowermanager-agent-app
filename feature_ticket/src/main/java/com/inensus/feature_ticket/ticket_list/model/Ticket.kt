@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.Date
 
 data class Ticket(
-    @SerializedName("ticket_id") val ticketId: String,
+    @SerializedName("id") val ticketId: String,
     @SerializedName("status") val status: Int,
     @SerializedName("category") val category: Category?,
     @SerializedName("owner") val owner: Owner?,
