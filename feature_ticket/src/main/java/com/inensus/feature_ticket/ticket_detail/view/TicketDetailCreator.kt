@@ -14,7 +14,7 @@ class TicketDetailCreator(
     fun createDetailItems(ticketDetail: TicketDetail) =
         arrayListOf(
             KeyValue.Default(context.getString(R.string.ticket_detail_id), ticketDetail.ticketId),
-            KeyValue.Default(context.getString(R.string.ticket_detail_description), ticketDetail.ticket?.description ?: ""),
+            KeyValue.Default(context.getString(R.string.ticket_detail_description), ticketDetail.content),
             KeyValue.Default(context.getString(R.string.ticket_detail_category), ticketDetail.category?.name ?: ""),
             KeyValue.Default(
                 context.getString(R.string.ticket_detail_owner),
