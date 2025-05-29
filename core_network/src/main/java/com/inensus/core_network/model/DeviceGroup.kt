@@ -9,4 +9,5 @@ data class DeviceGroup(
     @SerializedName("id") val id: Int,
     @SerializedName("device_serial") val deviceSerial: String,
     @SerializedName("device") val device: Device,
+    @SerializedName("device_type") val deviceType: String,
 ) : Parcelable
