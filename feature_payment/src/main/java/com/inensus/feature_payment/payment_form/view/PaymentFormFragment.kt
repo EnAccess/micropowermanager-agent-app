@@ -75,13 +75,15 @@ class PaymentFormFragment : Fragment() {
             viewLifecycleOwner,
             Observer { customer ->
                 customer?.devices?.let { devices ->
-                    binding.deviceDropdown.bindData(devices.map {
-                        when (it.deviceType) {
-                            "meter" -> "Meter (${it.deviceSerial})"
-                            "solar_home_system" -> "Solar Home System (${it.deviceSerial})"
-                            else -> it.deviceSerial
-                        }
-                    })
+                    binding.deviceDropdown.bindData(
+                        devices.map {
+                            when (it.deviceType) {
+                                "meter" -> "Meter (${it.deviceSerial})"
+                                "solar_home_system" -> "Solar Home System (${it.deviceSerial})"
+                                else -> it.deviceSerial
+                            }
+                        },
+                    )
                 }
             },
         )
