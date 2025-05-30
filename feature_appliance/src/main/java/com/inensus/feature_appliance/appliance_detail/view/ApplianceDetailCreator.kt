@@ -15,10 +15,7 @@ class ApplianceDetailCreator(
     fun createDetailItems(transaction: ApplianceTransaction) =
         arrayListOf(
             KeyValue.Default(context.getString(R.string.appliance_detail_id), transaction.id.toString()),
-            // FIXME: https://github.com/EnAccess/micropowermanager-agent-app/issues/12
-            // It breaks when transaction.applianceType.name is called
-            // KeyValue.Default(context.getString(R.string.appliance_detail_asset), transaction.applianceType.name),
-            KeyValue.Default(context.getString(R.string.appliance_detail_asset), "Demo Appliance Type"),
+            KeyValue.Default(context.getString(R.string.appliance_detail_asset), transaction.appliance.type.name),
             KeyValue.Default(
                 context.getString(R.string.appliance_detail_customer),
                 context.getString(R.string.customer_name_surname, transaction.person.name, transaction.person.surname),

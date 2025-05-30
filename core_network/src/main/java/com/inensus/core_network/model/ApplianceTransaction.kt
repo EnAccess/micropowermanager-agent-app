@@ -13,7 +13,7 @@ data class ApplianceTransaction(
     @SerializedName("created_at") val createdAt: Date,
     @SerializedName("total_cost") val cost: BigDecimal,
     @SerializedName("down_payment") val downPayment: BigDecimal,
-    @SerializedName("asset_type") val applianceType: ApplianceType,
+    @SerializedName("asset") val appliance: Appliance,
     @SerializedName("rates") val rates: List<Rate>,
     @SerializedName("person") val person: Person,
 ) : Parcelable

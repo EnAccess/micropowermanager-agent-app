@@ -8,8 +8,8 @@ import java.math.BigDecimal
 @Parcelize
 data class Appliance(
     @SerializedName("id") val id: Long,
-    @SerializedName("cost") val cost: BigDecimal,
-    @SerializedName("appliance") val type: ApplianceType,
+    @SerializedName("price") val cost: BigDecimal,
+    @SerializedName("asset_type") val type: ApplianceType,
 ) : Parcelable
 
 @Parcelize
