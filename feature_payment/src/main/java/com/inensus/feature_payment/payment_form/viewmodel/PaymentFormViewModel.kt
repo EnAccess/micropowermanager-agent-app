@@ -41,7 +41,9 @@ class PaymentFormViewModel(
     fun onContinueButtonTapped() {
         validator.validateForm(_device.value, _amount.value).let {
             if (it.isEmpty()) {
-                repository.device = _device.value
+                val deviceSerial = _device.value?.substringAfter("(")?.substringBefore(")") ?: _device.value
+
+                repository.device = deviceSerial
                 repository.amount = _amount.value
 
                 _uiState.value =
@@ -49,7 +51,7 @@ class PaymentFormViewModel(
                         summaryCreator.createSummaryItems(
                             _customer.value?.name ?: "",
                             _customer.value?.surname ?: "",
-                            _device.value ?: "",
+                            deviceSerial ?: "",
                             BigDecimal(_amount.value),
                         ),
                     )
