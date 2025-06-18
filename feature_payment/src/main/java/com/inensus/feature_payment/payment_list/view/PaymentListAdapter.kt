@@ -45,7 +45,7 @@ class PaymentListAdapter : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>()
             with(binding) {
                 val context = root.context
                 statusImage.setImageDrawable(
-                    when (payment.originalAgent?.status) {
+                    when (payment.originalTransaction?.status) {
                         1 -> ContextCompat.getDrawable(context, R.drawable.ic_success)
                         0 -> ContextCompat.getDrawable(context, R.drawable.ic_pending)
                         -1 -> ContextCompat.getDrawable(context, R.drawable.ic_status_error)

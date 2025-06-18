@@ -15,7 +15,7 @@ data class Payment(
     @SerializedName("amount") val amount: BigDecimal,
     @SerializedName("created_at") val createdAt: Date,
     @SerializedName("transaction") val transaction: Transaction?,
-    @SerializedName("original_agent") val originalAgent: OriginalAgent?,
+    @SerializedName("original_transaction") val originalTransaction: OriginalTransaction?,
     @SerializedName("device") val device: PaymentDevice?,
     @SerializedName("token") val token: Token?,
 ) : Parcelable
@@ -27,7 +27,7 @@ data class Transaction(
 ) : Parcelable
 
 @Parcelize
-data class OriginalAgent(
+data class OriginalTransaction(
     @SerializedName("status") val status: Int,
 ) : Parcelable
 
