@@ -17,7 +17,8 @@ class SharedPreferenceWrapper(
     var baseUrl: String?
         get() = preferences.getString(KEY_BASE_URL, DEFAULT_BASE_URL)
         set(url) {
-            preferences.edit().putString(KEY_BASE_URL, url + BASE_URL_SUFFIX).apply()
+            val cleanUrl = url?.trimEnd('/') ?: ""
+            preferences.edit().putString(KEY_BASE_URL, "$cleanUrl$BASE_URL_SUFFIX").apply()
         }
 
     var deviceId: String
