@@ -44,6 +44,7 @@ MicroPowerManager (MPM) is a decentralized utility and customer management tool 
 ## 🚀 Features
 
 ### Core Functionality
+
 - **📊 Dashboard**: Real-time business analytics with summary and graph views
 - **👥 Customer Management**: Comprehensive customer database with detailed profiles
 - **💰 Payment Tracking**: Payment collection, history, and revenue analytics
@@ -53,6 +54,7 @@ MicroPowerManager (MPM) is a decentralized utility and customer management tool 
 - **📱 Push Notifications**: Real-time updates via Firebase Cloud Messaging
 
 ### Technical Features
+
 - **Offline Capability**: Works with limited connectivity
 - **Multi-language Support**: Localized interface
 - **Responsive Design**: Optimized for various screen sizes
@@ -63,6 +65,7 @@ MicroPowerManager (MPM) is a decentralized utility and customer management tool 
 This application follows a **multi-module architecture** with clear separation of concerns:
 
 ### Core Modules
+
 - **`core`**: Base utilities, constants, and shared components
 - **`core_ui`**: Common UI components and base classes
 - **`core_network`**: Network layer with Retrofit and RxJava
@@ -71,6 +74,7 @@ This application follows a **multi-module architecture** with clear separation o
 - **`core_localization`**: String resources and localization
 
 ### Feature Modules
+
 - **`feature_login`**: Authentication and user session management
 - **`feature_main`**: Main navigation and drawer functionality
 - **`feature_dashboard`**: Business analytics and reporting
@@ -80,6 +84,7 @@ This application follows a **multi-module architecture** with clear separation o
 - **`feature_ticket`**: Support ticket system
 
 ### Shared Modules
+
 - **`shared_navigation`**: Navigation coordination between features
 - **`shared_agent`**: Agent-specific functionality
 - **`shared_customer`**: Customer data models and utilities
@@ -113,6 +118,7 @@ Before you begin, ensure you have the following installed:
 
 ### 1. Clone the Repository
 
+
 ```bash
 git clone https://github.com/EnAccess/micropowermanager-agent-app.git
 cd micropowermanager-agent-app
@@ -134,6 +140,7 @@ cd micropowermanager-agent-app
    > **Note**: For optimal performance on Mac with M-chips, select `aarch64` architecture.
 
 3. **Environment Setup** (Optional but recommended):
+
    ```bash
    cp .envrc.sample .envrc
    # Edit .envrc and set JAVA_HOME to match your Gradle JDK path
@@ -144,22 +151,26 @@ cd micropowermanager-agent-app
 ### 3. Run the Application
 
 **On Device/Emulator:**
+
 - Minimum requirement: Android 5.0 (API 21)
 - Ensure **Google Play Services** is installed (required for location features)
 - Configure location services for full functionality
 
 **Build Variants:**
+
 - **Debug**: Development build with debugging enabled
 - **Release**: Production build with code optimization and signing
 
 ## 📦 Building
 
 ### Debug Build
+
 ```bash
 ./gradlew assembleDebug
 ```
 
 ### Release Build
+
 ```bash
 ./gradlew assembleRelease
 ```
@@ -169,6 +180,7 @@ The output APK will be located at `app/build/outputs/apk/release/`
 ### Build Configuration
 
 The app uses the following build configuration:
+
 - **Code Optimization**: Enabled for release builds
 - **Resource Shrinking**: Enabled for release builds
 - **ProGuard**: Configured for code obfuscation
@@ -177,11 +189,13 @@ The app uses the following build configuration:
 ## 📱 App Structure
 
 ### Main Activities
+
 - **SplashActivity**: Initial loading screen and navigation logic
 - **LoginActivity**: User authentication
 - **MainActivity**: Main application interface with navigation drawer
 
 ### Key Features
+
 1. **Dashboard**: Business overview with charts and metrics
 2. **Customers**: Customer list and detailed profiles
 3. **Payments**: Payment collection and tracking
@@ -191,12 +205,14 @@ The app uses the following build configuration:
 ## 🔧 Development
 
 ### Code Style
+
 - Follow Kotlin coding conventions
 - Use meaningful variable and function names
 - Add comments for complex logic
 - Follow the existing project structure
 
 ### Adding New Features
+
 1. Create a new feature module following the existing pattern
 2. Implement MVVM architecture with Repository pattern
 3. Add proper dependency injection with Koin
@@ -204,10 +220,13 @@ The app uses the following build configuration:
 5. Update navigation if needed
 
 ### Dependencies
+
 The project uses several key dependencies:
+
 - **Koin**: Dependency injection
 - **Retrofit**: Network requests
 - **RxJava**: Reactive programming
 - **Navigation Component**: Screen navigation
 - **Material Design**: UI components
 - **Firebase**: Push notifications and crash reporting
+
