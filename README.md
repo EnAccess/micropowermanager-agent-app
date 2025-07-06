@@ -118,7 +118,6 @@ Before you begin, ensure you have the following installed:
 
 ### 1. Clone the Repository
 
-
 ```bash
 git clone https://github.com/EnAccess/micropowermanager-agent-app.git
 cd micropowermanager-agent-app
@@ -229,4 +228,3 @@ The project uses several key dependencies:
 - **Navigation Component**: Screen navigation
 - **Material Design**: UI components
 - **Firebase**: Push notifications and crash reporting
-
