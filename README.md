@@ -39,11 +39,12 @@
 
 # MicroPowerManager - Agent App
 
-MicroPowerManager (MPM) is a decentralized utility and customer management tool designed for energy access providers. This Android application enables agents to manage customers, track payments, monitor appliances, and handle support tickets efficiently.
+MicroPowerManager (MPM) is a decentralized utility and customer management tool designed for energy access providers.
+
+This repository contains the source code for the [MicroPowerManager Agent App](https://micropowermanager.io/usage-guide/android-apps.html).
+This Android application enables agents to manage customers, track payments, monitor appliances, and handle support tickets efficiently.
 
 ## 🚀 Features
-
-### Core Functionality
 
 - **📊 Dashboard**: Real-time business analytics with summary and graph views
 - **👥 Customer Management**: Comprehensive customer database with detailed profiles
@@ -53,45 +54,7 @@ MicroPowerManager (MPM) is a decentralized utility and customer management tool 
 - **🔐 Secure Authentication**: Protected login system with session management
 - **📱 Push Notifications**: Real-time updates via Firebase Cloud Messaging
 
-### Technical Features
-
-- **Offline Capability**: Works with limited connectivity
-- **Multi-language Support**: Localized interface
-- **Responsive Design**: Optimized for various screen sizes
-- **Data Synchronization**: Automatic sync when connectivity is restored
-
-## 🏗️ Architecture
-
-This application follows a **multi-module architecture** with clear separation of concerns:
-
-### Core Modules
-
-- **`core`**: Base utilities, constants, and shared components
-- **`core_ui`**: Common UI components and base classes
-- **`core_network`**: Network layer with Retrofit and RxJava
-- **`core_network_auth`**: Authenticated API endpoints
-- **`core_network_no_auth`**: Public API endpoints
-- **`core_localization`**: String resources and localization
-
-### Feature Modules
-
-- **`feature_login`**: Authentication and user session management
-- **`feature_main`**: Main navigation and drawer functionality
-- **`feature_dashboard`**: Business analytics and reporting
-- **`feature_customers`**: Customer management system
-- **`feature_payment`**: Payment processing and tracking
-- **`feature_appliance`**: Appliance inventory management
-- **`feature_ticket`**: Support ticket system
-
-### Shared Modules
-
-- **`shared_navigation`**: Navigation coordination between features
-- **`shared_agent`**: Agent-specific functionality
-- **`shared_customer`**: Customer data models and utilities
-- **`shared_messaging`**: Push notification handling
-- **`shared_success`**: Success state management
-
-## 🛠️ Technology Stack
+## 📚 Technology Stack
 
 - **Language**: Kotlin 1.6.21
 - **Minimum SDK**: API 21 (Android 5.0)
@@ -105,7 +68,9 @@ This application follows a **multi-module architecture** with clear separation o
 - **Push Notifications**: Firebase Cloud Messaging
 - **Crash Reporting**: Firebase Crashlytics
 
-## 📋 Prerequisites
+## 🛠️ Development
+
+### 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -114,29 +79,30 @@ Before you begin, ensure you have the following installed:
 - [Java Development Kit (JDK) 11](https://adoptium.net/) - Eclipse Temurin recommended
 - (Optional) [direnv](https://direnv.net/) for environment management
 
-## 🚀 Getting Started
+### 🤖 Prepare local environment for development
 
-### 1. Clone the Repository
+1. Clone the Repository
 
-```bash
-git clone https://github.com/EnAccess/micropowermanager-agent-app.git
-cd micropowermanager-agent-app
-```
+   ```bash
+   git clone https://github.com/EnAccess/micropowermanager-agent-app.git
+   cd micropowermanager-agent-app
+   ```
 
-### 2. Configure Android Studio
+2. Configure Android Studio
 
-1. **Open the project** in Android Studio
-2. **Configure Gradle JDK**:
-   - Go to **Android Studio > Settings > Build, Execution, Deployment > Build Tools > Gradle**
-   - Set **Gradle JDK** to `temurin-11`
-   - If not installed, select **Download JDK...** and choose:
-     - **Version**: `11`
-     - **Vendor**: `Eclipse Temurin AdoptOpenJDK HotSpot`
-     - **Location**: `<default>`
+   1. **Open the project** in Android Studio
+   2. **Configure Gradle JDK**:
 
-   ![Android Studio Temurin Runtime](docs/images/android-studio-adopt-openjdk-11.png)
+      - Go to **Android Studio > Settings > Build, Execution, Deployment > Build Tools > Gradle**
+      - Set **Gradle JDK** to `temurin-11`
+      - If not installed, select **Download JDK...** and choose:
+        - **Version**: `11`
+        - **Vendor**: `Eclipse Temurin AdoptOpenJDK HotSpot`
+        - **Location**: `<default>`
 
-   > **Note**: For optimal performance on Mac with M-chips, select `aarch64` architecture.
+      ![Android Studio Temurin Runtime](docs/images/android-studio-adopt-openjdk-11.png)
+
+      > **Note**: For optimal performance on Mac with M-chips, select `aarch64` architecture.
 
 3. **Environment Setup** (Optional but recommended):
 
@@ -147,7 +113,7 @@ cd micropowermanager-agent-app
 
 4. **Sync Project**: Click **Sync Project with Gradle files**
 
-### 3. Run the Application
+### 🚀 Build and run the app locally
 
 **On Device/Emulator:**
 
@@ -185,38 +151,42 @@ The app uses the following build configuration:
 - **ProGuard**: Configured for code obfuscation
 - **Signing**: Release builds are signed with a keystore
 
-## 📱 App Structure
+## 🏗️ Architecture
+
+This application follows a **multi-module architecture** with clear separation of concerns:
+
+### Core Modules
+
+- **`core`**: Base utilities, constants, and shared components
+- **`core_ui`**: Common UI components and base classes
+- **`core_network`**: Network layer with Retrofit and RxJava
+- **`core_network_auth`**: Authenticated API endpoints
+- **`core_network_no_auth`**: Public API endpoints
+- **`core_localization`**: String resources and localization
+
+### Feature Modules
+
+- **`feature_login`**: Authentication and user session management
+- **`feature_main`**: Main navigation and drawer functionality
+- **`feature_dashboard`**: Business analytics and reporting
+- **`feature_customers`**: Customer management system
+- **`feature_payment`**: Payment processing and tracking
+- **`feature_appliance`**: Appliance inventory management
+- **`feature_ticket`**: Support ticket system
+
+### Shared Modules
+
+- **`shared_navigation`**: Navigation coordination between features
+- **`shared_agent`**: Agent-specific functionality
+- **`shared_customer`**: Customer data models and utilities
+- **`shared_messaging`**: Push notification handling
+- **`shared_success`**: Success state management
 
 ### Main Activities
 
 - **SplashActivity**: Initial loading screen and navigation logic
 - **LoginActivity**: User authentication
 - **MainActivity**: Main application interface with navigation drawer
-
-### Key Features
-
-1. **Dashboard**: Business overview with charts and metrics
-2. **Customers**: Customer list and detailed profiles
-3. **Payments**: Payment collection and tracking
-4. **Appliances**: Inventory management for sold appliances
-5. **Tickets**: Support ticket creation and management
-
-## 🔧 Development
-
-### Code Style
-
-- Follow Kotlin coding conventions
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Follow the existing project structure
-
-### Adding New Features
-
-1. Create a new feature module following the existing pattern
-2. Implement MVVM architecture with Repository pattern
-3. Add proper dependency injection with Koin
-4. Include unit tests for business logic
-5. Update navigation if needed
 
 ### Dependencies
 
@@ -228,3 +198,13 @@ The project uses several key dependencies:
 - **Navigation Component**: Screen navigation
 - **Material Design**: UI components
 - **Firebase**: Push notifications and crash reporting
+
+## 👥 Contributing
+
+### Adding New Features
+
+1. Create a new feature module following the existing pattern
+2. Implement MVVM architecture with Repository pattern
+3. Add proper dependency injection with Koin
+4. Include unit tests for business logic
+5. Update navigation if needed
